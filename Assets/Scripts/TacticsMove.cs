@@ -20,10 +20,6 @@ public class TacticsMove : MonoBehaviour {
     public bool changingTurn = true; //cannot move if changing turn
     public bool actionPhase = false;
 
-    //aa
-    public Quaternion previousRotation;
-    public Quaternion newRotation;
-
     List<Tile> selectableTiles = new List<Tile>();
     List<Tile> attackableTiles = new List<Tile>();
     GameObject[] tiles;
@@ -43,8 +39,6 @@ public class TacticsMove : MonoBehaviour {
 
         TurnManager.AddUnit(this);
 
-        previousRotation = transform.rotation;
-        newRotation = previousRotation;
     }
 
     public Tile GetTargetTile(GameObject target) {
@@ -76,6 +70,7 @@ public class TacticsMove : MonoBehaviour {
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
         GetCurrentTile();
         Queue<Tile> process = new Queue<Tile>();
+        Queue<Tile> processAttackable = new Queue<Tile>();
         process.Enqueue(currentTile);
         currentTile.visited = true;
 
@@ -91,6 +86,27 @@ public class TacticsMove : MonoBehaviour {
                         tile.visited = true;
                         tile.distance = t.distance + 1;
                         process.Enqueue(tile);
+                        if(tile.distance == movingPoints) {
+                            //tile.visited = false;
+                            processAttackable.Enqueue(tile);
+                        }
+                    }
+                }
+            }
+        }
+
+        while (processAttackable.Count > 0) {
+            Tile t = processAttackable.Dequeue();
+            selectableTiles.Add(t);
+            t.attackable = true;
+
+            if (t.distance < movingPoints+attackRange) {
+                foreach (Tile tile in t.adjacencyList) {
+                    if (!tile.visited) {
+                        tile.parent = t;
+                        tile.visited = true;
+                        tile.distance = t.distance + 1;
+                        processAttackable.Enqueue(tile);
                     }
                 }
             }

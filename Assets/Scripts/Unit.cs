@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour {
 
     //private enum unitType {Warrior, Mage, Archer};
     private float maxHP = 40f;
-    private float currentHP;
+    public float currentHP;
     private int lvl = 1;
     private float xp = 0.0f;
 
@@ -43,6 +43,14 @@ public class Unit : MonoBehaviour {
         HPBarFiller();
     }
 
+    public void attack(Unit opponent) {
+        int opponentDied = opponent.TakeDamage(3 * strength * lvl + Random.Range(wisdom, luck * 5));
+        GainXP(opponent.lvl * 10 + (opponentDied * opponent.lvl * 5));
+        unitTM.actionPhase = false;
+        unitTM.RemoveAttackableTiles();
+        TurnManager.EndTurn();
+    }
+
     public void attackOpponent(Unit opponent) {
         if (opponent != null) {
 
@@ -54,13 +62,10 @@ public class Unit : MonoBehaviour {
                 //get tile underneath opponent
                 if (Physics.Raycast(opponent.transform.position, Vector3.down, out hit, 1)) {
                     Tile tileOpponent = hit.transform.GetComponent<Tile>();
-                    //Debug.Log("isAttackable : " + tileOpponent.attackable);
+                    Debug.Log("isAttackable : " + tileOpponent.attackable);
+
                     if (tileOpponent.attackable) {
-                        int opponentDied = opponent.TakeDamage(3*strength * lvl+Random.Range(wisdom, luck*5));
-                        GainXP(opponent.lvl * 10 + (opponentDied*opponent.lvl*5));
-                        unitTM.actionPhase = false;
-                        unitTM.RemoveAttackableTiles();
-                        TurnManager.EndTurn();
+                        attack(opponent);
                     }
                     else if(gameObject.tag == "NPC") {
                         unitTM.actionPhase = false;

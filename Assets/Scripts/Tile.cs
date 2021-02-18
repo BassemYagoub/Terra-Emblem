@@ -35,11 +35,11 @@ public class Tile : MonoBehaviour {
         else if(target) {
             GetComponent<Renderer>().material.color = Color.green;
         }
-        else if (selectable) {
-            GetComponent<Renderer>().material.color = new Color32(0x58, 0x7B, 0xFF, 0xDF);
-        }
         else if (attackable) {
             GetComponent<Renderer>().material.color = new Color32(0xF1, 0x00, 0x00, 0xDF);
+        }
+        else if (selectable) {
+            GetComponent<Renderer>().material.color = new Color32(0x58, 0x7B, 0xFF, 0xDF);
         }
         else {
             GetComponent<Renderer>().material.color = new Color32(0x8F, 0xFF, 0x83, 0xFF);
@@ -80,9 +80,14 @@ public class Tile : MonoBehaviour {
                     RaycastHit hit;
 
                     //if not something on top of tile
-                    if (!Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1) || (tile == target) ) {
-                        adjacencyList.Add(tile);
+                    if (Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1) || (tile == target) ) {
+                        
+                        //allow to see attackable tiles below opponents while note on actionPhase
+                        if(hit.transform.gameObject.tag != team) {
+                            tile.attackable = true;
+                        }
                     }
+                    adjacencyList.Add(tile);
                 }
             }
             else {
