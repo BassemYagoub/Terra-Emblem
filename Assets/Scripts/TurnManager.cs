@@ -104,11 +104,9 @@ public class TurnManager : MonoBehaviour {
 
         if (!gameEnded) {
             if (turnTeam.Count > 0) {
-                Debug.Log("start turn of other unit");
                 StartTurn();
             }
             else { // changing team turn
-                Debug.Log("change team turn");
                 string team = turnKey.Dequeue();
                 turnKey.Enqueue(team);
                 InitTeamTurnQueue();

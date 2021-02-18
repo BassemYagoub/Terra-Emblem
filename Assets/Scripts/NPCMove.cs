@@ -30,7 +30,6 @@ public class NPCMove : TacticsMove {
         }
         else if (!moving && actionPhase) {
             FindAttackableTiles();
-            Debug.Log("aaa");
             tacticsMoveUnit.attackOpponent(target.gameObject.GetComponent<Unit>());
             //actualTargetTile.target = true;
         }

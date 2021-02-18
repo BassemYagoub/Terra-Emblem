@@ -8,16 +8,19 @@ public class CameraMovement : MonoBehaviour {
     public float movingSpeed = 20.0f;
     
     private GameObject map;
-    private BoxCollider mapColl;
+    private BoxCollider mapColl; //dimensions of the map to not go too far
+    private static List<Unit> units; //every unit in the field
 
     // Start is called before the first frame update
     void Start() {
+        units = new List<Unit>(GameObject.FindObjectsOfType<Unit>());
         map = GameObject.FindGameObjectWithTag("Map");
         mapColl = map.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update() {
+        RotateUnitsHPBar();
 
         //move with middle-click+ mouse direction
         if (Input.GetKey(KeyCode.Mouse2)) {
@@ -73,5 +76,16 @@ public class CameraMovement : MonoBehaviour {
     }
     public void RotateRight() {
         transform.Rotate(Vector3.up, -90, Space.Self);
+    }
+
+
+    private void RotateUnitsHPBar() {
+        foreach (Unit u in units) {
+            u.hpCanvas.transform.rotation = Quaternion.Euler(45, transform.rotation.eulerAngles.y, 0);
+        }
+    }
+
+    public static void removeUnitFromList(Unit u) {
+        units.Remove(u);
     }
 }

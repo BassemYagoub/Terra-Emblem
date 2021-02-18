@@ -20,6 +20,9 @@ public class TacticsMove : MonoBehaviour {
     public bool changingTurn = true; //cannot move if changing turn
     public bool actionPhase = false;
 
+    //aa
+    public Quaternion previousRotation;
+    public Quaternion newRotation;
 
     List<Tile> selectableTiles = new List<Tile>();
     List<Tile> attackableTiles = new List<Tile>();
@@ -39,6 +42,9 @@ public class TacticsMove : MonoBehaviour {
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
         TurnManager.AddUnit(this);
+
+        previousRotation = transform.rotation;
+        newRotation = previousRotation;
     }
 
     public Tile GetTargetTile(GameObject target) {

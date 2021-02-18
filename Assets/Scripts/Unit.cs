@@ -17,32 +17,44 @@ public class Unit : MonoBehaviour {
     private int wisdom = 2;
     private int luck = 3;
 
-    //private string team;
-
+    //UI & Effects
+    public GameObject hpCanvas;
     public Image hpBar;
     public GameObject dyingEffect;
+    private float fillSpeed;
     //Animation anim;
 
 
     // Start is called before the first frame update
     void Start() {
+        hpCanvas = gameObject.transform.Find("HPCanvas").gameObject;
+
+        if (gameObject.tag == "Player") {
+            hpBar.color = new Color32(0x1E, 0x76, 0xDD, 0xDD);
+        }else if (gameObject.tag == "NPC") {
+            hpBar.color = new Color32(0xFF, 0x0B, 0x1E, 0xDD);
+        }
         unitTM = gameObject.GetComponent<TacticsMove>();
         currentHP = maxHP;
         //team = "blue";
     }
 
-    // Update is called once per frame
-    void Update() {
+    private void Update() {
+        HPBarFiller();
 
+        //Check if the HP Bar needs to be rotated
+        /* if (unitTM.turn && !unitTM.actionPhase) {
+            unitTM.newRotation = transform.rotation;
+
+            if (unitTM.previousRotation != unitTM.newRotation) {
+                hpCanvas.transform.rotation = Quaternion.Euler(45, unitTM.newRotation.y, 0);
+            }
+            unitTM.previousRotation = unitTM.newRotation;
+        }*/
     }
 
-    public void attackOpponent(/*Tile t, */Unit opponent) {
-        /*if (opponent == null && t != null) {
-            t.attackUnitOnTile();
-            //Debug.Log("attack on " + t.transform.position);
-        }
-        else */
-        if (opponent != null/* && t == null*/) {
+    public void attackOpponent(Unit opponent) {
+        if (opponent != null) {
 
             //checking if not in the same team
             if(opponent.gameObject.tag != gameObject.tag) {
@@ -54,8 +66,8 @@ public class Unit : MonoBehaviour {
                     Tile tileOpponent = hit.transform.GetComponent<Tile>();
                     //Debug.Log("isAttackable : " + tileOpponent.attackable);
                     if (tileOpponent.attackable) {
-                        opponent.TakeDamage(3*strength * lvl+Random.Range(wisdom, luck*5));
-                        GainXP(opponent.lvl * 10);
+                        int opponentDied = opponent.TakeDamage(3*strength * lvl+Random.Range(wisdom, luck*5));
+                        GainXP(opponent.lvl * 10 + (opponentDied*opponent.lvl*5));
                         unitTM.actionPhase = false;
                         unitTM.RemoveAttackableTiles();
                         TurnManager.EndTurn();
@@ -74,17 +86,26 @@ public class Unit : MonoBehaviour {
 
     }
 
-    void TakeDamage(float dmg) {
+    //possibility to not call the function every frame ?
+    void HPBarFiller() {
+        fillSpeed = 2f * Time.deltaTime;
+        hpBar.fillAmount = Mathf.Lerp(hpBar.fillAmount, currentHP / maxHP, fillSpeed);
+    }
+
+    //returns 1 if Unit died (bool to give an XP bonus to opponent)
+    int TakeDamage(float dmg) {
         currentHP -= dmg;
-        hpBar.fillAmount = currentHP / maxHP;
         if (currentHP <= 0) {
             Die();
+            return 1;
         }
+        return 0;
     }
 
     void Die() {
         GameObject effectInstance  = (GameObject)Instantiate(dyingEffect, transform.position, dyingEffect.transform.rotation);
         Destroy(effectInstance, 2f);
+        CameraMovement.removeUnitFromList(gameObject.GetComponent<Unit>());
         Destroy(gameObject, 1.5f);
         TurnManager.RemoveUnit(gameObject.GetComponent<TacticsMove>());
         TurnManager.checkIfEndGame(gameObject.tag);
@@ -92,32 +113,13 @@ public class Unit : MonoBehaviour {
     }
 
     void GainXP(float xpGained) {
+        //Debug.Log("gained XP");
         xp += xpGained;
         while(xp-100f >= 100) {
             ++lvl;
             xp -= 100;
+            Debug.Log("LVL UP");
         }
-        Debug.Log("gained XP");
     }
 
-    /*void OnMouseDown() {
-        if (!isSelected) {
-            print("blue");
-            GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
-            foreach(GameObject unit in units) {
-                if (unit.GetComponent<Unit>().isSelected) {
-                    unit.GetComponent<Unit>().isSelected = false;
-                    unit.GetComponent<Renderer>().material.color = Color.red;
-                    break;
-                }
-            }
-            isSelected = true;
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;
-        }
-        else {
-            print("red");
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
-            isSelected = false;
-        }
-    }*/
 }

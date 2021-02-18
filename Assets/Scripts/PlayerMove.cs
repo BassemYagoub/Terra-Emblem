@@ -48,13 +48,6 @@ public class PlayerMove : TacticsMove {
                 }
                 //attacking
                 else if (actionPhase) {
-                    /*if (hit.collider.tag == "Tile") {
-                        Tile t = hit.collider.GetComponent<Tile>();
-                        if (t.attackable) {
-                            tacticsMoveUnit.attackOpponent(t, null);
-                        }
-                    }
-                    else */
                     if (hit.collider.tag == "NPC") {
                         Unit touchedUnit = hit.collider.GetComponent<Unit>();//.GetComponent<TacticsMove>();
                         Debug.Log("NPC at " + touchedUnit.transform.position);
