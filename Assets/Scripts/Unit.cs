@@ -41,16 +41,6 @@ public class Unit : MonoBehaviour {
 
     private void Update() {
         HPBarFiller();
-
-        //Check if the HP Bar needs to be rotated
-        /* if (unitTM.turn && !unitTM.actionPhase) {
-            unitTM.newRotation = transform.rotation;
-
-            if (unitTM.previousRotation != unitTM.newRotation) {
-                hpCanvas.transform.rotation = Quaternion.Euler(45, unitTM.newRotation.y, 0);
-            }
-            unitTM.previousRotation = unitTM.newRotation;
-        }*/
     }
 
     public void attackOpponent(Unit opponent) {
@@ -108,7 +98,6 @@ public class Unit : MonoBehaviour {
         CameraMovement.removeUnitFromList(gameObject.GetComponent<Unit>());
         Destroy(gameObject, 1.5f);
         TurnManager.RemoveUnit(gameObject.GetComponent<TacticsMove>());
-        TurnManager.checkIfEndGame(gameObject.tag);
         Debug.Log("Unit died");
     }
 

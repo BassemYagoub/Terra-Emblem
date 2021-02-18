@@ -33,9 +33,6 @@ public class TurnManager : MonoBehaviour {
     static void InitTeamTurnQueue() {
         List<TacticsMove> teamList = units[turnKey.Peek()];
 
-        //Debug.Log(turnKey.Peek() + " will play");
-        //uiManager.TurnHandler();
-
         foreach (TacticsMove unit in teamList) {
             turnTeam.Enqueue(unit);
         }
@@ -65,30 +62,6 @@ public class TurnManager : MonoBehaviour {
         foreach (TacticsMove unit in turnTeam) {
             unit.changingTurn = false;
         }
-    }
-
-    //ends the game if everyone from a team died
-    public static void checkIfEndGame(string teamName) {
-        if (units[teamName].Count == 0) {
-            Debug.Log(teamName + " lost");
-            gameEnded = true;
-            EndGame(teamName);
-        }
-    }
-
-    public static void EndGame(string losingTeam) {
-        if (losingTeam == "Player") {
-            uiManager.panelText.text = "YOU LOST";
-            uiManager.turnPanel.GetComponent<Image>().color = new Color32(0xF1, 0x00, 0x00, 0x55);
-        }
-        else if (losingTeam == "NPC") {
-            uiManager.panelText.text = "LEVEL COMPLETE";
-            uiManager.turnPanel.GetComponent<Image>().color = new Color32(0x00, 0x30, 0xEA, 0x55);
-        }
-        uiManager.turnPanel.SetActive(true);
-        //yield return new WaitForSeconds(changingDuration);
-        //turnPanel.SetActive(false);
-
     }
 
     //new turn for a unit
@@ -133,12 +106,25 @@ public class TurnManager : MonoBehaviour {
 
     }
 
+    //ends the game if everyone from a team died
     public static void RemoveUnit(TacticsMove deadUnit) {
         units[deadUnit.tag].Remove(deadUnit);
         if (units[deadUnit.tag].Count == 0) {
-            Debug.Log("every " + deadUnit.tag + "unit is dead");
+            gameEnded = true;
+            EndGame(deadUnit.tag);
         }
     }
 
+    public static void EndGame(string losingTeam) {
+        if (losingTeam == "Player") {
+            uiManager.panelText.text = "YOU LOST";
+            uiManager.turnPanel.GetComponent<Image>().color = new Color32(0xF1, 0x00, 0x00, 0x55);
+        }
+        else if (losingTeam == "NPC") {
+            uiManager.panelText.text = "LEVEL COMPLETE";
+            uiManager.turnPanel.GetComponent<Image>().color = new Color32(0x00, 0x30, 0xEA, 0x55);
+        }
+        uiManager.turnPanel.SetActive(true);
+    }
 
 }

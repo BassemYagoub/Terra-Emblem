@@ -59,16 +59,16 @@ public class Tile : MonoBehaviour {
         distance = 0;
     }
 
-    public void FindNeighbors(float jumpHeight, Tile target, bool attackPhase = false) {
+    public void FindNeighbors(float jumpHeight, Tile target, string team, bool attackPhase = false) {
         Reset();
 
-        CheckTile(Vector3.forward, jumpHeight, target, attackPhase);
-        CheckTile(Vector3.back, jumpHeight, target, attackPhase);
-        CheckTile(Vector3.right, jumpHeight, target, attackPhase);
-        CheckTile(Vector3.left, jumpHeight, target, attackPhase);
+        CheckTile(Vector3.forward, jumpHeight, target, team, attackPhase);
+        CheckTile(Vector3.back, jumpHeight, target, team, attackPhase);
+        CheckTile(Vector3.right, jumpHeight, target, team, attackPhase);
+        CheckTile(Vector3.left, jumpHeight, target, team, attackPhase);
     }
 
-    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, bool attackPhase=false) {
+    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
 
@@ -96,23 +96,5 @@ public class Tile : MonoBehaviour {
             }
         }
     }
-
-    /*public void attackUnitOnTile() {
-        RaycastHit hit;
-
-        //if something on top of tile
-        if (Physics.Raycast(gameObject.transform.position, Vector3.up, out hit, 1)) {
-            GameObject target = hit.transform.gameObject;//.GetComponent<TacticsMove>();
-
-            if (target != null && target.tag == "NPC") { //cannot attak ally
-                Debug.Log("enemy touched");
-                Destroy(target);
-            }
-        }
-        else {
-            Debug.Log("No enemy on tile");
-        }
-
-    }*/
 
 }

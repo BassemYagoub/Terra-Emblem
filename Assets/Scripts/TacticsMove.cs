@@ -57,12 +57,12 @@ public class TacticsMove : MonoBehaviour {
         return tile;
     }
 
-    public void ComputeAdjacencyLists(float jumpHeight, Tile target, bool attackPhase=false) {
+    public void ComputeAdjacencyLists(float jumpHeight, Tile target, string team, bool attackPhase=false) {
         //tiles = GameObject.FindGameObjectsWithTag("Tile"); //if changing map during game
 
         foreach (GameObject tile in tiles) {
             Tile t = tile.GetComponent<Tile>();
-            t.FindNeighbors(jumpHeight, target, attackPhase);
+            t.FindNeighbors(jumpHeight, target, team, attackPhase);
         }
     }
 
@@ -73,7 +73,7 @@ public class TacticsMove : MonoBehaviour {
 
     //BFS
     public void FindSelectableTiles() {
-        ComputeAdjacencyLists(jumpHeight, null);
+        ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
         GetCurrentTile();
         Queue<Tile> process = new Queue<Tile>();
         process.Enqueue(currentTile);
@@ -94,12 +94,13 @@ public class TacticsMove : MonoBehaviour {
                     }
                 }
             }
-
         }
+
+
     }
 
     public void FindAttackableTiles() {
-        ComputeAdjacencyLists(jumpHeight, null, true);
+        ComputeAdjacencyLists(jumpHeight, null, gameObject.tag, true);
         GetCurrentTile();
         Queue<Tile> process = new Queue<Tile>();
         process.Enqueue(currentTile);
@@ -325,7 +326,7 @@ public class TacticsMove : MonoBehaviour {
     
     //A*
     protected void FindPath(Tile target) {
-        ComputeAdjacencyLists(jumpHeight, target);
+        ComputeAdjacencyLists(jumpHeight, target, gameObject.tag);
         GetCurrentTile();
 
         List<Tile> openList = new List<Tile>();
