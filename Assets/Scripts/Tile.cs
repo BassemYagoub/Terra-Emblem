@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour {
     public bool selectable = false;
     public bool attackable = false;
     public bool walkable = true;
+    public bool enemyOnTop = false;
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -52,6 +53,7 @@ public class Tile : MonoBehaviour {
         target = false;
         attackable = false;
         selectable = false;
+        enemyOnTop = false;
 
 
         visited = false;
@@ -66,9 +68,31 @@ public class Tile : MonoBehaviour {
         CheckTile(Vector3.back, jumpHeight, target, team, attackPhase);
         CheckTile(Vector3.right, jumpHeight, target, team, attackPhase);
         CheckTile(Vector3.left, jumpHeight, target, team, attackPhase);
+        checkIfEnemyOnTop(team);
     }
 
-    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
+    public void checkIfEnemyOnTop(string team) {
+        if (!enemyOnTop) {
+            RaycastHit hit;
+
+            //if something on top of tile
+            bool touchUnit = Physics.Raycast(gameObject.transform.position, Vector3.up, out hit, 1);
+
+            if (touchUnit) {
+                //see attackable tiles within selectable tiles
+                if (hit.transform.gameObject.tag != team) {
+                    enemyOnTop = true;
+
+                    //selectable = false;
+                    //attackable = true;
+                    //adjacencyList.Add(gameObject.GetComponent<Tile>());
+                }
+            }
+        }
+
+    }
+
+    public void CheckTileTest(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
 
@@ -80,14 +104,9 @@ public class Tile : MonoBehaviour {
                     RaycastHit hit;
 
                     //if not something on top of tile
-                    if (Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1) || (tile == target) ) {
-                        
-                        //allow to see attackable tiles below opponents while note on actionPhase
-                        if(hit.transform.gameObject.tag != team) {
-                            tile.attackable = true;
-                        }
+                    if (!Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1) || (tile == target)) {
+                        adjacencyList.Add(tile);
                     }
-                    adjacencyList.Add(tile);
                 }
             }
             else {
@@ -101,5 +120,57 @@ public class Tile : MonoBehaviour {
             }
         }
     }
+
+    //Old Version
+    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
+        Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
+        Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
+
+        foreach(Collider col in colliders) {
+            if (!attackPhase) {
+                Tile tile = col.GetComponent<Tile>();
+
+                if (tile != null && tile.walkable) {
+                    RaycastHit hit;
+
+                    //if something on top of tile
+                    bool touchUnit = Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1);
+
+                    if ((tile == target) || !touchUnit) {
+                        adjacencyList.Add(tile);
+                    }
+                    else if (touchUnit) {
+                        //see attackable tiles within selectable tiles
+                        if (hit.transform.gameObject.tag != team) {
+
+                            tile.selectable = false;
+                            tile.attackable = true;
+
+                            //better way of doing this ? (even though loop of size 4 max)
+                            foreach (Tile adjTile in tile.adjacencyList) {
+                                if (adjTile.selectable) {
+                                    adjacencyList.Add(tile);
+                                    tile.distance = adjTile.distance + 1;
+                                    tile.adjacencyList.Add(gameObject.GetComponent<Tile>());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            else {
+                Tile tile = col.GetComponent<Tile>();
+
+                if (tile != null && tile.walkable) {
+                    //RaycastHit hit;
+                    adjacencyList.Add(tile);
+                }
+
+            }
+        }
+    }
+    
 
 }

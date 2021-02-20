@@ -43,6 +43,7 @@ public class Unit : MonoBehaviour {
         HPBarFiller();
     }
 
+    //rename function
     public void attack(Unit opponent) {
         int opponentDied = opponent.TakeDamage(3 * strength * lvl + Random.Range(wisdom, luck * 5));
         GainXP(opponent.lvl * 10 + (opponentDied * opponent.lvl * 5));

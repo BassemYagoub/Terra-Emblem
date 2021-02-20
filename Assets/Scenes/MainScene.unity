@@ -9158,8 +9158,6 @@ MonoBehaviour:
   turn: 0
   changingTurn: 1
   actionPhase: 0
-  previousRotation: {x: 0, y: 0, z: 0, w: 0}
-  newRotation: {x: 0, y: 0, z: 0, w: 0}
   actualTargetTile: {fileID: 0}
 --- !u!114 &800659627
 MonoBehaviour:
@@ -9173,6 +9171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693d49e0b229f584d99ac90399d5b7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
   hpCanvas: {fileID: 0}
   hpBar: {fileID: 1042479849}
   dyingEffect: {fileID: 9090539241779335982, guid: ea0b043e7b32ef340aca2332c765e82a,
@@ -19798,8 +19797,6 @@ MonoBehaviour:
   turn: 0
   changingTurn: 1
   actionPhase: 0
-  previousRotation: {x: 0, y: 0, z: 0, w: 0}
-  newRotation: {x: 0, y: 0, z: 0, w: 0}
   actualTargetTile: {fileID: 0}
 --- !u!136 &1648549182
 CapsuleCollider:
@@ -19889,6 +19886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693d49e0b229f584d99ac90399d5b7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
   hpCanvas: {fileID: 0}
   hpBar: {fileID: 1248363201}
   dyingEffect: {fileID: 9090539241779335982, guid: ea0b043e7b32ef340aca2332c765e82a,
@@ -20354,6 +20352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693d49e0b229f584d99ac90399d5b7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
   hpCanvas: {fileID: 0}
   hpBar: {fileID: 648097785}
   dyingEffect: {fileID: 9090539241779335982, guid: ea0b043e7b32ef340aca2332c765e82a,
@@ -20458,8 +20457,6 @@ MonoBehaviour:
   turn: 0
   changingTurn: 1
   actionPhase: 0
-  previousRotation: {x: 0, y: 0, z: 0, w: 0}
-  newRotation: {x: 0, y: 0, z: 0, w: 0}
   actualTargetTile: {fileID: 0}
 --- !u!1 &1744150486
 GameObject:
@@ -21937,8 +21934,6 @@ MonoBehaviour:
   turn: 0
   changingTurn: 1
   actionPhase: 0
-  previousRotation: {x: 0, y: 0, z: 0, w: 0}
-  newRotation: {x: 0, y: 0, z: 0, w: 0}
   actualTargetTile: {fileID: 0}
 --- !u!136 &1808034537
 CapsuleCollider:
@@ -22013,6 +22008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693d49e0b229f584d99ac90399d5b7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
   hpCanvas: {fileID: 0}
   hpBar: {fileID: 980876097}
   dyingEffect: {fileID: 9090539241779335982, guid: ea0b043e7b32ef340aca2332c765e82a,

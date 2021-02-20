@@ -69,15 +69,25 @@ public class TacticsMove : MonoBehaviour {
     public void FindSelectableTiles() {
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
         GetCurrentTile();
+
         Queue<Tile> process = new Queue<Tile>();
         Queue<Tile> processAttackable = new Queue<Tile>();
+
         process.Enqueue(currentTile);
         currentTile.visited = true;
 
         while(process.Count > 0) {
             Tile t = process.Dequeue();
             selectableTiles.Add(t);
-            t.selectable = true;
+
+            //if not an enemy on top of tile => selectable
+            if (!t.attackable) {
+                t.selectable = true;
+            }
+
+            if (t.enemyOnTop) {
+                Debug.Log("dist : "+t.distance);
+            }
 
             if (t.distance < movingPoints) {
                 foreach (Tile tile in t.adjacencyList) {
@@ -86,19 +96,18 @@ public class TacticsMove : MonoBehaviour {
                         tile.visited = true;
                         tile.distance = t.distance + 1;
                         process.Enqueue(tile);
-                        if(tile.distance == movingPoints) {
-                            //tile.visited = false;
-                            processAttackable.Enqueue(tile);
-                        }
                     }
                 }
             }
+            if (t.distance == movingPoints) {
+                processAttackable.Enqueue(t);
+            }
         }
 
-        while (processAttackable.Count > 0) {
+
+       while (processAttackable.Count > 0) {
             Tile t = processAttackable.Dequeue();
-            selectableTiles.Add(t);
-            t.attackable = true;
+            attackableTiles.Add(t);
 
             if (t.distance < movingPoints+attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
@@ -106,6 +115,7 @@ public class TacticsMove : MonoBehaviour {
                         tile.parent = t;
                         tile.visited = true;
                         tile.distance = t.distance + 1;
+                        tile.attackable = true;
                         processAttackable.Enqueue(tile);
                     }
                 }

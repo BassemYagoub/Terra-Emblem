@@ -24,8 +24,8 @@ public class PlayerMove : TacticsMove {
 
         if (movingAttacking) {
             Move();
-            if (!moving) { //done moving
-                Debug.Log("aaaaaa");
+            if (!moving) { //attack only if done moving
+                Debug.Log("moveAttack");
                 //actionPhase = true;
                 tacticsMoveUnit.attack(opponentUnit);
                 opponentUnit = null;
@@ -71,7 +71,7 @@ public class PlayerMove : TacticsMove {
                         Tile tileOpponent = hitTileUnderneath.transform.GetComponent<Tile>();
 
                         //accessible opponent (d>0 means reachable)
-                        if (tileOpponent.attackable && tileOpponent.distance > 0) {
+                        if (tileOpponent.attackable &&  tileOpponent.distance > 0) {
                             Debug.Log(tileOpponent.distance + " " + movingPoints +" "+attackRange);
 
                             //choose wich tile player is going to go to

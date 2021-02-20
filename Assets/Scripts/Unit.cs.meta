@@ -3,7 +3,11 @@ guid: 693d49e0b229f584d99ac90399d5b7d3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hpCanvas: {instanceID: 0}
+  - hpBar: {instanceID: 0}
+  - dyingEffect: {fileID: 9090539241779335982, guid: ea0b043e7b32ef340aca2332c765e82a,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
