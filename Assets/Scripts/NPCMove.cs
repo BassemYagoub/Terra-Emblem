@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCMove : TacticsMove {
-
-    private Unit tacticsMoveUnit;
     GameObject target;
 
     // Start is called before the first frame update
@@ -25,7 +23,7 @@ public class NPCMove : TacticsMove {
         if (!moving && !actionPhase) {
             FindNearestTarget();
             CalculatePath();
-            FindSelectableTiles();
+            //FindSelectableTiles();
             actualTargetTile.target = true;
         }
         else if (!moving && actionPhase) {

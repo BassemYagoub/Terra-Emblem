@@ -68,10 +68,24 @@ public class Tile : MonoBehaviour {
         CheckTile(Vector3.back, jumpHeight, target, team, attackPhase);
         CheckTile(Vector3.right, jumpHeight, target, team, attackPhase);
         CheckTile(Vector3.left, jumpHeight, target, team, attackPhase);
-        checkIfEnemyOnTop(team);
+        //checkIfEnemyOnTop(team);
     }
 
-    public void checkIfEnemyOnTop(string team) {
+    public void checkIfAttackable() {
+        foreach (Tile adjTile in adjacencyList) {
+            Debug.Log(adjTile.name);
+            if (adjTile.selectable || adjTile.attackable) {
+                Debug.Log(adjTile.name+" aaaa");
+                selectable = false;
+                attackable = true;
+                adjacencyList.Add(gameObject.GetComponent<Tile>());
+                break;
+            }
+        }
+    }
+
+    
+    public bool checkIfEnemyOnTop(string team) {
         if (!enemyOnTop) {
             RaycastHit hit;
 
@@ -81,18 +95,26 @@ public class Tile : MonoBehaviour {
             if (touchUnit) {
                 //see attackable tiles within selectable tiles
                 if (hit.transform.gameObject.tag != team) {
+                    //Debug.Log("enemyOnTop");
                     enemyOnTop = true;
 
-                    //selectable = false;
+                    selectable = false;
                     //attackable = true;
                     //adjacencyList.Add(gameObject.GetComponent<Tile>());
+
+                    return true;
                 }
             }
+            return false;
+        }
+        else {
+            return true;
         }
 
     }
 
-    public void CheckTileTest(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
+
+    public void CheckTilem(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
 
@@ -121,7 +143,6 @@ public class Tile : MonoBehaviour {
         }
     }
 
-    //Old Version
     public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
@@ -136,22 +157,26 @@ public class Tile : MonoBehaviour {
                     //if something on top of tile
                     bool touchUnit = Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1);
 
+                    //1st condition for A*
                     if ((tile == target) || !touchUnit) {
+                        /*if((tile == target))
+                            Debug.Log("tileeeeee");*/
                         adjacencyList.Add(tile);
                     }
                     else if (touchUnit) {
                         //see attackable tiles within selectable tiles
                         if (hit.transform.gameObject.tag != team) {
-
-                            tile.selectable = false;
-                            tile.attackable = true;
+                            //Debug.Log("tile touch unit");
 
                             //better way of doing this ? (even though loop of size 4 max)
                             foreach (Tile adjTile in tile.adjacencyList) {
-                                if (adjTile.selectable) {
+                                if (adjTile.selectable || adjTile.attackable) {
+                                    tile.selectable = false;
+                                    tile.attackable = true;
                                     adjacencyList.Add(tile);
-                                    tile.distance = adjTile.distance + 1;
-                                    tile.adjacencyList.Add(gameObject.GetComponent<Tile>());
+
+                                    //tile.distance = adjTile.distance + 1;
+                                    //tile.adjacencyList.Add(gameObject.GetComponent<Tile>());
                                     break;
                                 }
                             }

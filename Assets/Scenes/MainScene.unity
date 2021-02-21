@@ -172,6 +172,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -290,6 +291,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -408,6 +410,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -526,6 +529,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -644,6 +648,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -762,6 +767,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -880,6 +886,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -998,6 +1005,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1116,6 +1124,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1278,6 +1287,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1440,6 +1450,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1558,6 +1569,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1676,6 +1688,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1910,6 +1923,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2028,6 +2042,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2146,6 +2161,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2264,6 +2280,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2382,6 +2399,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2500,6 +2518,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2618,6 +2637,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2736,6 +2756,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2898,6 +2919,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3016,6 +3038,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3200,6 +3223,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3318,6 +3342,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3480,6 +3505,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3598,6 +3624,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3716,6 +3743,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3834,6 +3862,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3952,6 +3981,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4070,6 +4100,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4188,6 +4219,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4306,6 +4338,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4424,6 +4457,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4542,6 +4576,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4660,6 +4695,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4778,6 +4814,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4896,6 +4933,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5058,6 +5096,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5176,6 +5215,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5368,6 +5408,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5486,6 +5527,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5648,6 +5690,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5766,6 +5809,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5884,6 +5928,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6048,6 +6093,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6210,6 +6256,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6328,6 +6375,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6446,6 +6494,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6564,6 +6613,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6682,6 +6732,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6844,6 +6895,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6962,6 +7014,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7080,6 +7133,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7344,6 +7398,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7462,6 +7517,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7580,6 +7636,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7698,6 +7755,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7816,6 +7874,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7934,6 +7993,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8052,6 +8112,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8170,6 +8231,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8288,6 +8350,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8498,6 +8561,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8616,6 +8680,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8734,6 +8799,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8852,6 +8918,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8970,6 +9037,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9227,6 +9295,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9345,6 +9414,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9463,6 +9533,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9581,6 +9652,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9699,6 +9771,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9817,6 +9890,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9935,6 +10009,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10053,6 +10128,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10171,6 +10247,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10289,6 +10366,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10407,6 +10485,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10525,6 +10604,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10804,6 +10884,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11029,6 +11110,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11147,6 +11229,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11265,6 +11348,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11383,6 +11467,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11501,6 +11586,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11631,6 +11717,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11749,6 +11836,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11867,6 +11955,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11985,6 +12074,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12103,6 +12193,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12221,6 +12312,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12339,6 +12431,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12457,6 +12550,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12575,6 +12669,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12823,6 +12918,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12941,6 +13037,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13059,6 +13156,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13327,6 +13425,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13489,6 +13588,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13607,6 +13707,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13725,6 +13826,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13921,6 +14023,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14039,6 +14142,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14157,6 +14261,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14275,6 +14380,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14393,6 +14499,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14653,6 +14760,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14771,6 +14879,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14889,6 +14998,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15007,6 +15117,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15125,6 +15236,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15243,6 +15355,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15361,6 +15474,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15479,6 +15593,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15597,6 +15712,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15715,6 +15831,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15877,6 +15994,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16039,6 +16157,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16157,6 +16276,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16405,6 +16525,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16523,6 +16644,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16641,6 +16763,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16791,6 +16914,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16941,6 +17065,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17131,6 +17256,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17249,6 +17375,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17367,6 +17494,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17485,6 +17613,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17603,6 +17732,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17721,6 +17851,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17839,6 +17970,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17957,6 +18089,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18075,6 +18208,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18193,6 +18327,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18311,6 +18446,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18429,6 +18565,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18547,6 +18684,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18709,6 +18847,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18977,6 +19116,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19095,6 +19235,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19213,6 +19354,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19331,6 +19473,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19449,6 +19592,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19567,6 +19711,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19685,6 +19830,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19786,7 +19932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingPoints: 5
-  attackRange: 2
+  attackRange: 3
   jumpHeight: 1
   moveSpeed: 6
   jumpVelocity: 4.5
@@ -19942,6 +20088,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20134,6 +20281,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20252,6 +20400,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20426,7 +20575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722251676}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.29, y: -2.0390468, z: 2.07}
+  m_LocalPosition: {x: -0.29, y: -2.0390468, z: -2.93}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 1913199056}
@@ -20509,6 +20658,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20627,6 +20777,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20745,6 +20896,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20863,6 +21015,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20981,6 +21134,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21099,6 +21253,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21217,6 +21372,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21335,6 +21491,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21453,6 +21610,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21571,6 +21729,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21689,6 +21848,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21807,6 +21967,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21903,7 +22064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808034534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.71, y: -2.0390468, z: 10.072359}
+  m_LocalPosition: {x: -0.29, y: -2.0390468, z: 2.07}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 1120507501}
@@ -22064,6 +22225,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22182,6 +22344,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22430,6 +22593,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22548,6 +22712,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22666,6 +22831,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22784,6 +22950,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22902,6 +23069,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23020,6 +23188,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23138,6 +23307,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23256,6 +23426,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23380,6 +23551,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23498,6 +23670,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23616,6 +23789,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23734,6 +23908,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23852,6 +24027,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23970,6 +24146,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24088,6 +24265,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24206,6 +24384,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24324,6 +24503,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24442,6 +24622,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24560,6 +24741,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24678,6 +24860,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24796,6 +24979,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24914,6 +25098,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25032,6 +25217,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25150,6 +25336,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25268,6 +25455,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25430,6 +25618,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25548,6 +25737,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25666,6 +25856,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25784,6 +25975,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25902,6 +26094,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26064,6 +26257,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26182,6 +26376,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26300,6 +26495,7 @@ MonoBehaviour:
   selectable: 0
   attackable: 0
   walkable: 1
+  enemyOnTop: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}

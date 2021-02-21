@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : TacticsMove {
-    private Unit tacticsMoveUnit;
     private bool movingAttacking = false; //moving then attacking with 1 click
     private Unit opponentUnit = null;
+    private Tile targetTile = null;
 
     // Start is called before the first frame update
     void Start() {
@@ -25,11 +25,15 @@ public class PlayerMove : TacticsMove {
         if (movingAttacking) {
             Move();
             if (!moving) { //attack only if done moving
-                Debug.Log("moveAttack");
+                Debug.Log("moveAttack "+targetTile.name);
                 //actionPhase = true;
-                tacticsMoveUnit.attack(opponentUnit);
+                //tacticsMoveUnit.InflictDamage(opponentUnit);
+                //targetTile.checkIfAttackable();
+                targetTile.attackable = true;
+                tacticsMoveUnit.attackOpponent(opponentUnit);
                 opponentUnit = null;
-                movingAttacking = false;
+                movingAttacking = false; 
+                targetTile = null;
             }
         }
         else if (!moving && !actionPhase) {
@@ -57,6 +61,11 @@ public class PlayerMove : TacticsMove {
                     Tile t = hit.collider.GetComponent<Tile>();
                     if (t.selectable) {
                         MoveToTile(t);
+
+                        /* //A* Ver.
+                        targetTile = t;
+                        FindPath(targetTile);
+                        actualTargetTile.target = true;*/
                     }
                 }
 
@@ -64,12 +73,50 @@ public class PlayerMove : TacticsMove {
                 else if(!actionPhase && hit.collider.tag == "NPC") {
                     Unit opponent = hit.collider.GetComponent<Unit>();
 
+                    targetTile = GetTargetTile(opponent.gameObject);
+                    opponentUnit = opponent;
+
+                    if (targetTile.attackable) {
+                        //MoveToTile(targetTile);
+                        if(attackRange == 1) { // + move only if dist > 1 ??
+                            Debug.Log("TargetTile attackable");
+                            FindPath(targetTile);
+                        }
+                        else {
+                            Debug.Log("TargetTile range attackable");
+                            int range = 1;
+                            int dist = 1000;
+                            Tile nearTargetTile = targetTile;
+
+                            while(range < attackRange-1) {
+                                //get an optimal tile
+                                foreach(Tile adjTile in nearTargetTile.adjacencyList) {
+
+                                    if (dist > adjTile.distance) {
+                                        nearTargetTile = adjTile;
+                                        //Debug.Log(nearTargetTile + " chosen");
+                                        dist = adjTile.distance;
+                                    }
+                                }
+                                ++range;
+                                //Debug.Log("range=" + range);
+                            }
+                            FindPath(nearTargetTile);
+                        }
+                        movingAttacking = true;
+                        actualTargetTile.target = true;
+                    }
+
+                    /*
                     RaycastHit hitTileUnderneath;
 
                     //get tile underneath opponent
                     if (Physics.Raycast(opponent.transform.position, Vector3.down, out hitTileUnderneath, 1)) {
                         Tile tileOpponent = hitTileUnderneath.transform.GetComponent<Tile>();
 
+
+
+                        
                         //accessible opponent (d>0 means reachable)
                         if (tileOpponent.attackable &&  tileOpponent.distance > 0) {
                             Debug.Log(tileOpponent.distance + " " + movingPoints +" "+attackRange);
@@ -86,6 +133,7 @@ public class PlayerMove : TacticsMove {
                             opponentUnit = opponent;
                         }
                     }
+                    */
                 }
 
                 //attacking after moving

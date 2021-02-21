@@ -44,7 +44,7 @@ public class Unit : MonoBehaviour {
     }
 
     //rename function
-    public void attack(Unit opponent) {
+    public void InflictDamage(Unit opponent) {
         int opponentDied = opponent.TakeDamage(3 * strength * lvl + Random.Range(wisdom, luck * 5));
         GainXP(opponent.lvl * 10 + (opponentDied * opponent.lvl * 5));
         unitTM.actionPhase = false;
@@ -66,7 +66,7 @@ public class Unit : MonoBehaviour {
                     Debug.Log("isAttackable : " + tileOpponent.attackable);
 
                     if (tileOpponent.attackable) {
-                        attack(opponent);
+                        InflictDamage(opponent);
                     }
                     else if(gameObject.tag == "NPC") {
                         unitTM.actionPhase = false;
@@ -102,7 +102,7 @@ public class Unit : MonoBehaviour {
         GameObject effectInstance  = (GameObject)Instantiate(dyingEffect, transform.position, dyingEffect.transform.rotation);
         Destroy(effectInstance, 2f);
         CameraMovement.removeUnitFromList(gameObject.GetComponent<Unit>());
-        Destroy(gameObject, 1.5f);
+        Destroy(gameObject);//, 1.5f);
         TurnManager.RemoveUnit(gameObject.GetComponent<TacticsMove>());
         Debug.Log("Unit died");
     }

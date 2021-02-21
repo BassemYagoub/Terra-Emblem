@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TacticsMove : MonoBehaviour {
+    protected Unit tacticsMoveUnit;
 
     //stats
     public int movingPoints = 5;
@@ -22,6 +23,7 @@ public class TacticsMove : MonoBehaviour {
 
     List<Tile> selectableTiles = new List<Tile>();
     List<Tile> attackableTiles = new List<Tile>();
+    List<Tile> tilesWithEnemies = new List<Tile>();
     GameObject[] tiles;
     Stack<Tile> path = new Stack<Tile>();
     Tile currentTile;
@@ -57,6 +59,10 @@ public class TacticsMove : MonoBehaviour {
         foreach (GameObject tile in tiles) {
             Tile t = tile.GetComponent<Tile>();
             t.FindNeighbors(jumpHeight, target, team, attackPhase);
+
+            if (t.checkIfEnemyOnTop(gameObject.tag)) {
+                tilesWithEnemies.Add(t);
+            }
         }
     }
 
@@ -85,10 +91,6 @@ public class TacticsMove : MonoBehaviour {
                 t.selectable = true;
             }
 
-            if (t.enemyOnTop) {
-                Debug.Log("dist : "+t.distance);
-            }
-
             if (t.distance < movingPoints) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
@@ -99,13 +101,47 @@ public class TacticsMove : MonoBehaviour {
                     }
                 }
             }
+            //gather border of selectable tiles
             if (t.distance == movingPoints) {
                 processAttackable.Enqueue(t);
             }
         }
 
 
-       while (processAttackable.Count > 0) {
+        //List<Tile> toRemoveFromAdj = new List<Tile>();
+
+        //checking if enemies on top of tiles are reachable
+        foreach (Tile t in tilesWithEnemies) {
+
+            bool isAttackable = false;
+            //print(t.name+"  "+t.adjacencyList.Count);
+
+            foreach(Tile adjTile in t.adjacencyList) {
+                //neighbour selectable <=> t attackable + not in any path
+                if (adjTile.selectable || adjTile.current) {
+                    //print(t.name + "  " + adjTile.name);
+                    adjTile.adjacencyList.Remove(t);
+                    //toRemoveFromAdj.Add(adjTile);
+                    isAttackable = true; //potential useless calls
+                }
+            }
+
+            /*foreach (Tile removable in toRemoveFromAdj) {
+                t.adjacencyList.Remove(removable);
+            }
+            toRemoveFromAdj.Clear();*/
+
+            if (isAttackable) {
+                t.attackable = true;
+            }
+        }
+
+        
+
+        tilesWithEnemies.Clear();
+
+        //border of selectable tiles <=> attackable
+        while (processAttackable.Count > 0) {
             Tile t = processAttackable.Dequeue();
             attackableTiles.Add(t);
 
@@ -151,8 +187,13 @@ public class TacticsMove : MonoBehaviour {
                     }
                 }
             }
-
         }
+
+        foreach (Tile t in tilesWithEnemies) {
+            if (!t.visited)
+                t.attackable = false;
+        }
+
     }
 
     public void MoveToTile(Tile tile) {
@@ -338,12 +379,12 @@ public class TacticsMove : MonoBehaviour {
             next = next.parent;
         }
 
-        if (tempPath.Count <= movingPoints) {
+        if (tempPath.Count <= movingPoints/* - attackRange*/) {
             return t.parent;
         }
 
         Tile endTile = null;
-        for (int i = 0; i <= movingPoints; i++) {
+        for (int i = 0; i <= movingPoints/* - attackRange*/; i++) {
             endTile = tempPath.Pop();
         }
 
