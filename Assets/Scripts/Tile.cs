@@ -113,14 +113,11 @@ public class Tile : MonoBehaviour {
 
                     //1st condition for A*
                     if ((tile == target) || !touchUnit) {
-                        /*if((tile == target))
-                            Debug.Log("tileeeeee");*/
                         adjacencyList.Add(tile);
                     }
                     else if (touchUnit) {
                         //see attackable tiles within selectable tiles
                         if (hit.transform.gameObject.tag != team) {
-                            //Debug.Log("tile touch unit");
 
                             //better way of doing this ? (even though loop of size 4 max)
                             foreach (Tile adjTile in tile.adjacencyList) {
@@ -128,9 +125,6 @@ public class Tile : MonoBehaviour {
                                     tile.selectable = false;
                                     tile.attackable = true;
                                     adjacencyList.Add(tile);
-
-                                    //tile.distance = adjTile.distance + 1;
-                                    //tile.adjacencyList.Add(gameObject.GetComponent<Tile>());
                                     break;
                                 }
                             }

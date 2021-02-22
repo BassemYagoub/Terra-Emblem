@@ -20,8 +20,8 @@ public class Unit : MonoBehaviour {
     //UI & Effects
     public GameObject hpCanvas;
     public Image hpBar;
-    public GameObject dyingEffect;
     private float fillSpeed;
+    public GameObject dyingEffect;
     //Animation anim;
 
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : TacticsMove {
     private bool movingAttacking = false; //moving then attacking with 1 click
+    private bool foundTiles = false; //to not call FindSelectableTiles every frame
     public Unit opponentUnit = null;
     private Tile targetTile = null;
 
@@ -25,9 +26,7 @@ public class PlayerMove : TacticsMove {
         else if (movingAttacking) {
             Move();
             if (!moving) { //attack only if done moving
-                Debug.Log("moveAttack "+targetTile.name);
-                //actionPhase = true;
-                targetTile.attackable = true;
+                //Debug.Log("moveAttack "+targetTile.name);
                 tacticsMoveUnit.InflictDamage(opponentUnit);
                 opponentUnit = null;
                 movingAttacking = false; 
@@ -35,7 +34,10 @@ public class PlayerMove : TacticsMove {
             }
         }
         else if (!moving && !actionPhase) {
-            FindSelectableTiles();
+            if (!foundTiles) {
+                FindSelectableTiles();
+                foundTiles = true;
+            }
             checkMouse();
         }
         else if (!moving && actionPhase) {
@@ -44,6 +46,38 @@ public class PlayerMove : TacticsMove {
         }
         else {
             Move();
+        }
+    }
+
+
+    void FindPathThenAttack(Unit opponent) {
+        targetTile = GetTargetTile(opponent.gameObject);
+        opponentUnit = opponent;
+
+        if (targetTile.attackable) {
+            if (attackRange == 1) { // + move only if dist > 1 ??
+                FindPath(targetTile);
+            }
+            else {
+                int range = 1;
+                int dist = 1000;
+                Tile nearTargetTile = targetTile;
+
+                while (range < attackRange) {
+                    //get an optimal tile
+                    foreach (Tile adjTile in nearTargetTile.adjacencyList) {
+
+                        if (dist > adjTile.distance) {
+                            nearTargetTile = adjTile;
+                            dist = adjTile.distance;
+                        }
+                    }
+                    ++range;
+                }
+                FindPath(nearTargetTile);
+            }
+            movingAttacking = true;
+            actualTargetTile.target = true;
         }
     }
 
@@ -59,53 +93,13 @@ public class PlayerMove : TacticsMove {
                     Tile t = hit.collider.GetComponent<Tile>();
                     if (t.selectable) {
                         MoveToTile(t);
-
-                        //A* Ver.
-                        /*targetTile = t;
-                        actualTargetTile = targetTile;
-                        FindPath(targetTile);
-                        actualTargetTile.target = true;*/
                     }
                 }
 
                 //moving and attacking in one click
                 else if(!actionPhase && hit.collider.tag == "NPC") {
                     Unit opponent = hit.collider.GetComponent<Unit>();
-
-                    targetTile = GetTargetTile(opponent.gameObject);
-                    opponentUnit = opponent;
-
-                    if (targetTile.attackable) {
-                        //MoveToTile(targetTile);
-                        if(attackRange == 1) { // + move only if dist > 1 ??
-                            Debug.Log("TargetTile attackable");
-                            FindPath(targetTile);
-                        }
-                        else {
-                            Debug.Log("TargetTile range attackable");
-                            int range = 1;
-                            int dist = 1000;
-                            Tile nearTargetTile = targetTile;
-
-                            while(range < attackRange) {
-                                //get an optimal tile
-                                foreach(Tile adjTile in nearTargetTile.adjacencyList) {
-
-                                    if (dist > adjTile.distance) {
-                                        nearTargetTile = adjTile;
-                                        //Debug.Log(nearTargetTile + " chosen");
-                                        dist = adjTile.distance;
-                                    }
-                                }
-                                ++range;
-                                //Debug.Log("range=" + range);
-                            }
-                            FindPath(nearTargetTile);
-                        }
-                        movingAttacking = true;
-                        actualTargetTile.target = true;
-                    }
-
+                    FindPathThenAttack(opponent);
                 }
 
                 //attacking after moving
@@ -119,6 +113,8 @@ public class PlayerMove : TacticsMove {
                         Debug.Log("touched nothing");
                     }
                 }
+
+                foundTiles = false;
             }
         }
 
@@ -126,7 +122,8 @@ public class PlayerMove : TacticsMove {
         else if (actionPhase && Input.GetKeyUp(KeyCode.Mouse1)) {
             RemoveAttackableTiles();
             actionPhase = false;
-            TurnManager.EndTurn();
+            foundTiles = false;
+            StartCoroutine(TurnManager.EndTurn());
         }
     }
 

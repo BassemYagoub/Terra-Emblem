@@ -72,19 +72,15 @@ public class TurnManager : MonoBehaviour {
     public static IEnumerator EndTurn() {
         TacticsMove unit = turnTeam.Dequeue();
         unit.EndTurn();
-        Debug.Log("turnTeam1 "+turnTeam.Count);
 
         TacticsMove.changingTurn = true;
 
         if (!gameEnded) {
             if (turnTeam.Count > 0) {
                 yield return new WaitForSeconds(0.2f);
-                Debug.Log("turnTeam2 " + turnTeam.Count);
-                Debug.Log("no change");
                 StartTurn();
             }
             else { // changing team turn
-                Debug.Log("change");
                 string team = turnKey.Dequeue();
                 turnKey.Enqueue(team);
                 InitTeamTurnQueue();

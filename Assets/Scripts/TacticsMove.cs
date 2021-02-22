@@ -33,7 +33,7 @@ public class TacticsMove : MonoBehaviour {
     Vector3 jumpTarget;
     float halfHeight = 0; //height of character (often used)
 
-    public Tile actualTargetTile;
+    protected Tile actualTargetTile;
 
     protected void Init() {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
@@ -107,19 +107,25 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
-        //checking if enemies on top of tiles are reachable
+        FindReachableEnemies(tilesWithEnemies);
+
+        FindAttackableBorder(processAttackable);
+    }
+
+    //checking if enemies on top of tiles are reachable
+    public void FindReachableEnemies(List<Tile> tilesWithEnemies) {
         foreach (Tile t in tilesWithEnemies) {
 
             bool isAttackable = false;
-            //print(t.name+"  "+t.adjacencyList.Count);
 
-            foreach(Tile adjTile in t.adjacencyList) {
+            foreach (Tile adjTile in t.adjacencyList) {
+
                 //neighbour selectable <=> t attackable + not in any path
                 if (adjTile.selectable || adjTile == currentTile) {
-                    //print(t.name + "  " + adjTile.name);
+
                     adjTile.adjacencyList.Remove(t);
-                    //toRemoveFromAdj.Add(adjTile);
-                    isAttackable = true; //potential useless calls
+                    isAttackable = true; //potential useless loops
+
                     if (adjTile.parent == t) {
                         if (adjTile.adjacencyList.Count > 0) {
                             adjTile.parent = adjTile.adjacencyList[0];
@@ -132,7 +138,6 @@ public class TacticsMove : MonoBehaviour {
                 t.attackable = true;
             }
         }
-        //currentTile.adjacencyList.RemoveAll(currentTile.checkIfEnemyOnTop);
 
         List<Tile> toRemoveFromAdj = new List<Tile>();
         foreach (Tile adjTile in currentTile.adjacencyList) {
@@ -145,10 +150,7 @@ public class TacticsMove : MonoBehaviour {
             currentTile.adjacencyList.Remove(removable);
         }
 
-        toRemoveFromAdj.Clear();
         tilesWithEnemies.Clear();
-
-        FindAttackableBorder(processAttackable);
     }
 
     //border of selectable tiles <=> attackable
@@ -199,11 +201,6 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
-        /*foreach (Tile t in tilesWithEnemies) {
-            if (!t.visited)
-                t.attackable = false;
-        }*/
-
     }
 
     public void MoveToTile(Tile tile) {
@@ -213,7 +210,7 @@ public class TacticsMove : MonoBehaviour {
 
         Tile next = tile;
         while (next != null) {
-            Debug.Log("next=" + next);
+            //Debug.Log("next=" + next);
             path.Push(next);
             next = next.parent;
         }
