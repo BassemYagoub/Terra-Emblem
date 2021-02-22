@@ -44,9 +44,6 @@ public class TurnManager : MonoBehaviour {
 
     //coroutine for changing turn animation
     public IEnumerator ChangeTeamTurn(string team) {
-        foreach (TacticsMove unit in turnTeam) {
-            unit.changingTurn = true;
-        }
         if (team == "Player") {
             panelText.text = "PLAYER PHASE";
             turnPanel.GetComponent<Image>().color = new Color32(0x00, 0x30, 0xEA, 0x55);
@@ -58,25 +55,31 @@ public class TurnManager : MonoBehaviour {
         turnPanel.SetActive(true);
         yield return new WaitForSeconds(changingDuration);
         turnPanel.SetActive(false);
+    }
 
-        foreach (TacticsMove unit in turnTeam) {
-            unit.changingTurn = false;
-        }
+    public IEnumerator WaitFor(float sec) {
+        yield return new WaitForSeconds(sec);
     }
 
     //new turn for a unit
     public static void StartTurn() {
         if (turnTeam.Count > 0) {
+            TacticsMove.changingTurn = false;
             turnTeam.Peek().BeginTurn();
         }
     }
 
-    public static void EndTurn() {
+    public static IEnumerator EndTurn() {
         TacticsMove unit = turnTeam.Dequeue();
         unit.EndTurn();
+        Debug.Log("turnTeam1 "+turnTeam.Count);
+
+        TacticsMove.changingTurn = true;
 
         if (!gameEnded) {
             if (turnTeam.Count > 0) {
+                yield return new WaitForSeconds(0.2f);
+                Debug.Log("turnTeam2 " + turnTeam.Count);
                 Debug.Log("no change");
                 StartTurn();
             }

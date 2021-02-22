@@ -7,7 +7,6 @@ public class NPCMove : TacticsMove {
 
     // Start is called before the first frame update
     void Start() {
-        tacticsMoveUnit = gameObject.GetComponent<Unit>();
         Init();
     }
 

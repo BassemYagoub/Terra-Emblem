@@ -36,7 +36,6 @@ public class Unit : MonoBehaviour {
         }
         unitTM = gameObject.GetComponent<TacticsMove>();
         currentHP = maxHP;
-        //team = "blue";
     }
 
     private void Update() {
@@ -49,7 +48,7 @@ public class Unit : MonoBehaviour {
         GainXP(opponent.lvl * 10 + (opponentDied * opponent.lvl * 5));
         unitTM.actionPhase = false;
         unitTM.RemoveAttackableTiles();
-        TurnManager.EndTurn();
+        StartCoroutine(TurnManager.EndTurn());
     }
 
     public void attackOpponent(Unit opponent) {
@@ -71,7 +70,7 @@ public class Unit : MonoBehaviour {
                     else if(gameObject.tag == "NPC") {
                         unitTM.actionPhase = false;
                         unitTM.RemoveAttackableTiles();
-                        TurnManager.EndTurn();
+                       StartCoroutine(TurnManager.EndTurn());
                     }
                 }
                 else {
@@ -108,12 +107,11 @@ public class Unit : MonoBehaviour {
     }
 
     void GainXP(float xpGained) {
-        //Debug.Log("gained XP");
         xp += xpGained;
         while(xp-100f >= 100) {
             ++lvl;
             xp -= 100;
-            Debug.Log("LVL UP");
+            Debug.Log(name+" LVL UP : "+lvl);
         }
     }
 

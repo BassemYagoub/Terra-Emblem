@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerMove : TacticsMove {
     private bool movingAttacking = false; //moving then attacking with 1 click
-    private Unit opponentUnit = null;
+    public Unit opponentUnit = null;
     private Tile targetTile = null;
 
     // Start is called before the first frame update
     void Start() {
-        tacticsMoveUnit = gameObject.GetComponent<Unit>();
         Init();
     }
 
@@ -19,18 +18,17 @@ public class PlayerMove : TacticsMove {
         Debug.DrawRay(transform.position, transform.forward);
 
         if (!turn || changingTurn) {
+            //Debug.Log(name);
             return;
         }
 
-        if (movingAttacking) {
+        else if (movingAttacking) {
             Move();
             if (!moving) { //attack only if done moving
                 Debug.Log("moveAttack "+targetTile.name);
                 //actionPhase = true;
-                //tacticsMoveUnit.InflictDamage(opponentUnit);
-                //targetTile.checkIfAttackable();
                 targetTile.attackable = true;
-                tacticsMoveUnit.attackOpponent(opponentUnit);
+                tacticsMoveUnit.InflictDamage(opponentUnit);
                 opponentUnit = null;
                 movingAttacking = false; 
                 targetTile = null;
@@ -62,8 +60,9 @@ public class PlayerMove : TacticsMove {
                     if (t.selectable) {
                         MoveToTile(t);
 
-                        /* //A* Ver.
-                        targetTile = t;
+                        //A* Ver.
+                        /*targetTile = t;
+                        actualTargetTile = targetTile;
                         FindPath(targetTile);
                         actualTargetTile.target = true;*/
                     }
@@ -88,7 +87,7 @@ public class PlayerMove : TacticsMove {
                             int dist = 1000;
                             Tile nearTargetTile = targetTile;
 
-                            while(range < attackRange-1) {
+                            while(range < attackRange) {
                                 //get an optimal tile
                                 foreach(Tile adjTile in nearTargetTile.adjacencyList) {
 
@@ -107,33 +106,6 @@ public class PlayerMove : TacticsMove {
                         actualTargetTile.target = true;
                     }
 
-                    /*
-                    RaycastHit hitTileUnderneath;
-
-                    //get tile underneath opponent
-                    if (Physics.Raycast(opponent.transform.position, Vector3.down, out hitTileUnderneath, 1)) {
-                        Tile tileOpponent = hitTileUnderneath.transform.GetComponent<Tile>();
-
-
-
-                        
-                        //accessible opponent (d>0 means reachable)
-                        if (tileOpponent.attackable &&  tileOpponent.distance > 0) {
-                            Debug.Log(tileOpponent.distance + " " + movingPoints +" "+attackRange);
-
-                            //choose wich tile player is going to go to
-                            foreach (Tile t in tileOpponent.adjacencyList) {
-                                if (t.selectable) {
-                                    MoveToTile(t);
-                                    break;
-                                }
-                            }
-
-                            movingAttacking = true;
-                            opponentUnit = opponent;
-                        }
-                    }
-                    */
                 }
 
                 //attacking after moving
@@ -142,7 +114,6 @@ public class PlayerMove : TacticsMove {
                         Unit touchedUnit = hit.collider.GetComponent<Unit>();
                         Debug.Log("NPC at " + touchedUnit.transform.position);
                         tacticsMoveUnit.attackOpponent(touchedUnit);
-
                     }
                     else {
                         Debug.Log("touched nothing");
@@ -151,7 +122,7 @@ public class PlayerMove : TacticsMove {
             }
         }
 
-        //pass acionPhase
+        //pass acionPhase with right click
         else if (actionPhase && Input.GetKeyUp(KeyCode.Mouse1)) {
             RemoveAttackableTiles();
             actionPhase = false;

@@ -18,8 +18,8 @@ public class TacticsMove : MonoBehaviour {
     public bool falling = false;
     public bool movingEdge = false;
     public bool turn = false;
-    public bool changingTurn = true; //cannot move if changing turn
     public bool actionPhase = false;
+    public static bool changingTurn = true; //cannot move if changing turn
 
     List<Tile> selectableTiles = new List<Tile>();
     List<Tile> attackableTiles = new List<Tile>();
@@ -38,7 +38,7 @@ public class TacticsMove : MonoBehaviour {
     protected void Init() {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
         halfHeight = GetComponent<Collider>().bounds.extents.y;
-
+        tacticsMoveUnit = gameObject.GetComponent<Unit>();
         TurnManager.AddUnit(this);
 
     }
@@ -107,9 +107,6 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
-
-        //List<Tile> toRemoveFromAdj = new List<Tile>();
-
         //checking if enemies on top of tiles are reachable
         foreach (Tile t in tilesWithEnemies) {
 
@@ -118,34 +115,49 @@ public class TacticsMove : MonoBehaviour {
 
             foreach(Tile adjTile in t.adjacencyList) {
                 //neighbour selectable <=> t attackable + not in any path
-                if (adjTile.selectable || adjTile.current) {
+                if (adjTile.selectable || adjTile == currentTile) {
                     //print(t.name + "  " + adjTile.name);
                     adjTile.adjacencyList.Remove(t);
                     //toRemoveFromAdj.Add(adjTile);
                     isAttackable = true; //potential useless calls
+                    if (adjTile.parent == t) {
+                        if (adjTile.adjacencyList.Count > 0) {
+                            adjTile.parent = adjTile.adjacencyList[0];
+                        }
+                    }
                 }
             }
-
-            /*foreach (Tile removable in toRemoveFromAdj) {
-                t.adjacencyList.Remove(removable);
-            }
-            toRemoveFromAdj.Clear();*/
 
             if (isAttackable) {
                 t.attackable = true;
             }
         }
+        //currentTile.adjacencyList.RemoveAll(currentTile.checkIfEnemyOnTop);
 
-        
+        List<Tile> toRemoveFromAdj = new List<Tile>();
+        foreach (Tile adjTile in currentTile.adjacencyList) {
+            //Debug.Log("adj: " + adjTile.name);
+            if (adjTile.enemyOnTop) {
+                toRemoveFromAdj.Add(adjTile);
+            }
+        }
+        foreach (Tile removable in toRemoveFromAdj) {
+            currentTile.adjacencyList.Remove(removable);
+        }
 
+        toRemoveFromAdj.Clear();
         tilesWithEnemies.Clear();
 
-        //border of selectable tiles <=> attackable
+        FindAttackableBorder(processAttackable);
+    }
+
+    //border of selectable tiles <=> attackable
+    public void FindAttackableBorder(Queue<Tile> processAttackable) {
         while (processAttackable.Count > 0) {
             Tile t = processAttackable.Dequeue();
             attackableTiles.Add(t);
 
-            if (t.distance < movingPoints+attackRange) {
+            if (t.distance < movingPoints + attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
                         tile.parent = t;
@@ -157,8 +169,6 @@ public class TacticsMove : MonoBehaviour {
                 }
             }
         }
-
-
     }
 
     public void FindAttackableTiles() {
@@ -189,10 +199,10 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
-        foreach (Tile t in tilesWithEnemies) {
+        /*foreach (Tile t in tilesWithEnemies) {
             if (!t.visited)
                 t.attackable = false;
-        }
+        }*/
 
     }
 
@@ -203,6 +213,7 @@ public class TacticsMove : MonoBehaviour {
 
         Tile next = tile;
         while (next != null) {
+            Debug.Log("next=" + next);
             path.Push(next);
             next = next.parent;
         }
@@ -447,10 +458,12 @@ public class TacticsMove : MonoBehaviour {
 
     //turn to play for this unit
     public void BeginTurn() {
+        Debug.Log(name + " begin");
         turn = true;
     }
 
     public void EndTurn() {
+        Debug.Log(name + " end");
         turn = false;
     }
 
