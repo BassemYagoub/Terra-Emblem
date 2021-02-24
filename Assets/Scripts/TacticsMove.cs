@@ -457,11 +457,19 @@ public class TacticsMove : MonoBehaviour {
     public void BeginTurn() {
         Debug.Log(name + " begin");
         turn = true;
+        if(gameObject.tag == "Player") {
+            UIManager.ChangePlayer(gameObject.GetComponent<PlayerMove>());
+        }
     }
 
     public void EndTurn() {
+        UIManager.Reset();
         Debug.Log(name + " end");
         turn = false;
     }
 
+
+    public virtual void PassTurn() {
+        Debug.Log("pass turn");
+    }
 }

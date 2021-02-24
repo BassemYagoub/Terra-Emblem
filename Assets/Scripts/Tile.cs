@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour {
     public bool attackable = false;
     public bool walkable = true;
     public bool enemyOnTop = false;
+    public bool mouseOver = false;
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -33,18 +34,37 @@ public class Tile : MonoBehaviour {
         if (current) {
             GetComponent<Renderer>().material.color = Color.cyan;
         }
-        else if(target) {
+        else if (target) {
             GetComponent<Renderer>().material.color = Color.green;
         }
         else if (attackable) {
-            GetComponent<Renderer>().material.color = new Color32(0xF1, 0x00, 0x00, 0xDF);
+            if(!mouseOver)
+                GetComponent<Renderer>().material.color = new Color32(0xF1, 0x00, 0x00, 0xDF);
+            else if(mouseOver && enemyOnTop)
+                GetComponent<Renderer>().material.color = new Color32(0xA9, 0x00, 0x08, 0xDF);
         }
         else if (selectable) {
-            GetComponent<Renderer>().material.color = new Color32(0x58, 0x7B, 0xFF, 0xDF);
+            if (!mouseOver)
+                GetComponent<Renderer>().material.color = new Color32(0x58, 0x7B, 0xFF, 0xDF);
+            else {
+                GetComponent<Renderer>().material.color = new Color32(0x00, 0x35, 0xFF, 0xDF);
+            }
         }
         else {
             GetComponent<Renderer>().material.color = new Color32(0x8F, 0xFF, 0x83, 0xFF);
         }
+    }
+
+    void OnMouseOver() {
+        mouseOver = true;
+        if (selectable) {
+            UIManager.ChangeCursor("hand");
+        }
+    }
+
+    void OnMouseExit() {
+        mouseOver = false;
+        UIManager.ChangeCursor("arrow");
     }
 
     public void Reset() {

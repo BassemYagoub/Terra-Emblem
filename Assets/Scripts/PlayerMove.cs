@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : TacticsMove {
     private bool movingAttacking = false; //moving then attacking with 1 click
     private bool foundTiles = false; //to not call FindSelectableTiles every frame
-    public Unit opponentUnit = null;
+    private Unit opponentUnit = null;
     private Tile targetTile = null;
 
     // Start is called before the first frame update
@@ -41,7 +41,10 @@ public class PlayerMove : TacticsMove {
             checkMouse();
         }
         else if (!moving && actionPhase) {
-            FindAttackableTiles();
+            if (!foundTiles) {
+                FindAttackableTiles();
+                foundTiles = true;
+            }
             checkMouse();
         }
         else {
@@ -50,7 +53,7 @@ public class PlayerMove : TacticsMove {
     }
 
 
-    void FindPathThenAttack(Unit opponent) {
+    public void FindPathThenAttack(Unit opponent) {
         targetTile = GetTargetTile(opponent.gameObject);
         opponentUnit = opponent;
 
@@ -81,12 +84,27 @@ public class PlayerMove : TacticsMove {
         }
     }
 
+    public override void PassTurn() {
+        RemoveSelectedTiles();
+        RemoveAttackableTiles();
+        actionPhase = false;
+        foundTiles = false;
+        StartCoroutine(TurnManager.EndTurn());
+    }
+
     void checkMouse() {
         if (Input.GetMouseButtonUp(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit)) {
+
+                if (hit.collider.tag == "Player") {
+                    if(gameObject == hit.collider.gameObject) {
+                        UIManager.ShowPlayerActions();
+                    }
+                }
+
 
                 //moving
                 if (!actionPhase && hit.collider.tag == "Tile") {
@@ -99,7 +117,8 @@ public class PlayerMove : TacticsMove {
                 //moving and attacking in one click
                 else if(!actionPhase && hit.collider.tag == "NPC") {
                     Unit opponent = hit.collider.GetComponent<Unit>();
-                    FindPathThenAttack(opponent);
+                    UIManager.ShowOnEnemyActions(opponent.GetComponent<TacticsMove>());
+                    //FindPathThenAttack(opponent);
                 }
 
                 //attacking after moving
@@ -120,10 +139,7 @@ public class PlayerMove : TacticsMove {
 
         //pass acionPhase with right click
         else if (actionPhase && Input.GetKeyUp(KeyCode.Mouse1)) {
-            RemoveAttackableTiles();
-            actionPhase = false;
-            foundTiles = false;
-            StartCoroutine(TurnManager.EndTurn());
+            PassTurn();
         }
     }
 

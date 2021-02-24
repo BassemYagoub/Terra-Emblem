@@ -9,6 +9,7 @@ TagManager:
   - Tile
   - NPC
   - TurnPanel
+  - ActionPanel
   layers:
   - Default
   - TransparentFX

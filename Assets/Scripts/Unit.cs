@@ -42,6 +42,13 @@ public class Unit : MonoBehaviour {
         HPBarFiller();
     }
 
+    void OnMouseOver() {
+        UIManager.ChangeCursor("hand");
+    }
+    void OnMouseExit() {
+        UIManager.ChangeCursor("arrow");
+    }
+
     //rename function
     public void InflictDamage(Unit opponent) {
         int opponentDied = opponent.TakeDamage(3 * strength * lvl + Random.Range(wisdom, luck * 5));
