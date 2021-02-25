@@ -31,6 +31,7 @@ public class PlayerMove : TacticsMove {
                 opponentUnit = null;
                 movingAttacking = false; 
                 targetTile = null;
+                foundTiles = false;
             }
         }
         else if (!moving && !actionPhase) {
@@ -52,6 +53,9 @@ public class PlayerMove : TacticsMove {
         }
     }
 
+    public void ResetFoundTiles() {
+        foundTiles = false;
+    }
 
     public void FindPathThenAttack(Unit opponent) {
         targetTile = GetTargetTile(opponent.gameObject);
@@ -111,6 +115,7 @@ public class PlayerMove : TacticsMove {
                     Tile t = hit.collider.GetComponent<Tile>();
                     if (t.selectable) {
                         MoveToTile(t);
+                        foundTiles = false;
                     }
                 }
 
@@ -127,18 +132,19 @@ public class PlayerMove : TacticsMove {
                         Unit touchedUnit = hit.collider.GetComponent<Unit>();
                         Debug.Log("NPC at " + touchedUnit.transform.position);
                         tacticsMoveUnit.attackOpponent(touchedUnit);
+                        foundTiles = false;
                     }
                     else {
                         Debug.Log("touched nothing");
                     }
                 }
 
-                foundTiles = false;
             }
         }
 
         //pass acionPhase with right click
         else if (actionPhase && Input.GetKeyUp(KeyCode.Mouse1)) {
+            foundTiles = false;
             PassTurn();
         }
     }

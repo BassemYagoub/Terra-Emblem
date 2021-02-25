@@ -107,50 +107,9 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
+        FindAttackableBorder(processAttackable);
         FindReachableEnemies(tilesWithEnemies);
 
-        FindAttackableBorder(processAttackable);
-    }
-
-    //checking if enemies on top of tiles are reachable
-    public void FindReachableEnemies(List<Tile> tilesWithEnemies) {
-        foreach (Tile t in tilesWithEnemies) {
-
-            bool isAttackable = false;
-
-            foreach (Tile adjTile in t.adjacencyList) {
-
-                //neighbour selectable <=> t attackable + not in any path
-                if (adjTile.selectable || adjTile == currentTile) {
-
-                    adjTile.adjacencyList.Remove(t);
-                    isAttackable = true; //potential useless loops
-
-                    if (adjTile.parent == t) {
-                        if (adjTile.adjacencyList.Count > 0) {
-                            adjTile.parent = adjTile.adjacencyList[0];
-                        }
-                    }
-                }
-            }
-
-            if (isAttackable) {
-                t.attackable = true;
-            }
-        }
-
-        List<Tile> toRemoveFromAdj = new List<Tile>();
-        foreach (Tile adjTile in currentTile.adjacencyList) {
-            //Debug.Log("adj: " + adjTile.name);
-            if (adjTile.enemyOnTop) {
-                toRemoveFromAdj.Add(adjTile);
-            }
-        }
-        foreach (Tile removable in toRemoveFromAdj) {
-            currentTile.adjacencyList.Remove(removable);
-        }
-
-        tilesWithEnemies.Clear();
     }
 
     //border of selectable tiles <=> attackable
@@ -173,6 +132,92 @@ public class TacticsMove : MonoBehaviour {
         }
     }
 
+    //checking if enemies on top of tiles are reachable
+    public void FindReachableEnemies(List<Tile> tilesWithEnemies) {
+        Queue<Tile> reprocess = new Queue<Tile>();
+
+        foreach (Tile t in tilesWithEnemies) {
+            //Debug.Log(t.name);
+            bool isAttackable = false;
+
+
+            foreach (Tile adjTile in t.adjacencyList) {
+
+                //neighbour selectable <=> t attackable + not in any path
+                if (adjTile.selectable) {
+                    adjTile.adjacencyList.Remove(t);
+                    isAttackable = true; //potential useless loops
+
+                    if (adjTile.parent == t) {
+                        if (adjTile.adjacencyList.Count > 0) {
+                            adjTile.parent = adjTile.adjacencyList[0];
+                            adjTile.distance = adjTile.parent.distance + 1;
+                        }
+                    }
+                }
+
+                //enemies in attack border
+                else if (adjTile.attackable) {
+                    Tile parentTile = adjTile.parent;
+                    int enemyBorderDist = 1; //dist of enemy counting from the attack border
+
+                    while(enemyBorderDist < attackRange) {
+                        if (parentTile.selectable) {
+                            adjTile.adjacencyList.Remove(t);
+                            isAttackable = true;
+                            break;
+                        }
+                        parentTile = parentTile.parent;
+                        ++enemyBorderDist;
+                    }
+
+                }
+            }
+
+            if (isAttackable) {
+                t.attackable = true;
+            }
+        }
+
+        List<Tile> toRemoveFromAdj = new List<Tile>();
+        foreach (Tile adjTile in currentTile.adjacencyList) {
+            //Debug.Log("adj: " + adjTile.name);
+            if (adjTile.enemyOnTop) {
+                toRemoveFromAdj.Add(adjTile);
+            }
+        }
+        foreach (Tile removable in toRemoveFromAdj) {
+            currentTile.adjacencyList.Remove(removable);
+        }
+
+        tilesWithEnemies.Clear();
+
+        //recalculate dists
+        /*while (reprocess.Count > 0) {
+            Tile t = reprocess.Dequeue();
+            Debug.Log("reprocess: " + t.name);
+
+            if (t.selectable) {
+                foreach (Tile tile in t.adjacencyList) {
+                    if (tile.parent == t) {
+                        Debug.Log("dist: " + tile.distance);
+                        tile.distance = t.distance + 1;
+                        Debug.Log("new dist: " + tile.distance);
+                        reprocess.Enqueue(tile);
+                    }
+                }
+            }
+            if(t.distance > movingPoints) {
+                t.selectable = false;
+                if(t.distance < movingPoints + attackRange) {
+                    t.attackable = true;
+                }
+            }
+        }*/
+
+    }
+
+    //attackable tiles in actionPhase
     public void FindAttackableTiles() {
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag, true);
         GetCurrentTile();
@@ -192,7 +237,6 @@ public class TacticsMove : MonoBehaviour {
             if (t.distance < attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
-                        tile.parent = t;
                         tile.visited = true;
                         tile.distance = t.distance + 1; //dist = parent's dist+1
                         process.Enqueue(tile);
@@ -420,6 +464,7 @@ public class TacticsMove : MonoBehaviour {
             if (t == target) {
                 actualTargetTile = FindEndTile(t);
                 MoveToTile(actualTargetTile);
+                tilesWithEnemies.Clear();
                 return;
             }
 

@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour {
     void Start() {
         manager = this;
         actionPanel = GameObject.Find("ActionPanel");
-        Debug.Log(actionPanel.name);
+        //Debug.Log(actionPanel.name);
         actionPanel.SetActive(false);
         actionPanel.transform.Find("WaitButton").gameObject.SetActive(false);
     }
@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour {
 
     public static void ChangePlayer(PlayerMove p) {
         currentUnit = p;
+        currentUnit.ResetFoundTiles();
     }
 
     public static void ShowPlayerActions() {

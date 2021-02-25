@@ -57,14 +57,14 @@ public class Tile : MonoBehaviour {
 
     void OnMouseOver() {
         mouseOver = true;
-        if (selectable) {
+        /*if (selectable) {
             UIManager.ChangeCursor("hand");
-        }
+        }*/
     }
 
     void OnMouseExit() {
         mouseOver = false;
-        UIManager.ChangeCursor("arrow");
+        //UIManager.ChangeCursor("arrow");
     }
 
     public void Reset() {
@@ -117,12 +117,12 @@ public class Tile : MonoBehaviour {
 
     }
 
-    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool attackPhase=false) {
+    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool actionPhase=false) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
 
         foreach(Collider col in colliders) {
-            if (!attackPhase) {
+            if (!actionPhase) {
                 Tile tile = col.GetComponent<Tile>();
 
                 if (tile != null && tile.walkable) {
@@ -134,21 +134,21 @@ public class Tile : MonoBehaviour {
                     //1st condition for A*
                     if ((tile == target) || !touchUnit) {
                         adjacencyList.Add(tile);
-                    }
-                    else if (touchUnit) {
-                        //see attackable tiles within selectable tiles
-                        if (hit.transform.gameObject.tag != team) {
+                    }                        
+                    
+                    //see attackable tiles within selectable tiles
+                    else if (touchUnit && hit.transform.gameObject.tag != team) {
 
-                            //better way of doing this ? (even though loop of size 4 max)
-                            foreach (Tile adjTile in tile.adjacencyList) {
-                                if (adjTile.selectable || adjTile.attackable) {
-                                    tile.selectable = false;
-                                    tile.attackable = true;
-                                    adjacencyList.Add(tile);
-                                    break;
-                                }
+                        //better way of doing this ? (even though loop of size 4 max)
+                        foreach (Tile adjTile in tile.adjacencyList) {
+                            if (adjTile.selectable || adjTile.attackable) {
+                                tile.selectable = false;
+                                tile.attackable = true;
+                                adjacencyList.Add(tile);
+                                break;
                             }
                         }
+                        
                     }
                     
                 }
