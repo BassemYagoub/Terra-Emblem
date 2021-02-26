@@ -53,9 +53,13 @@ public class UIManager : MonoBehaviour {
         currentUnit = p;
         currentUnit.ResetFoundTiles();
     }
+    public static void ChangeSelectedUnit(TacticsMove unit) {
+        selectedUnit = unit;
+    }
 
     public static void ShowUnitInfoPanel() {
-        if(selectedUnit.tag == "NPC") {
+
+        if (selectedUnit.tag == "NPC") {
             unitInfoPanel.transform.Find("UnitNamePanel").GetComponent<Image>().color = new Color32(0x9A, 0x00, 0x0A, 0xFF);
         }
         else {
@@ -66,15 +70,17 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel.transform.Find("UnitHPInfo").GetComponent<Text>().text = selectedUnit.getHP();
         unitInfoPanel.transform.Find("UnitLvlInfo").GetComponent<Text>().text = selectedUnit.getLvl();
 
+        unitInfoPanel.SetActive(true); //if wanting to show unitInfoPanel but not actionPanel
     }
 
     public static void ShowPlayerActions() {
-        selectedUnit = currentUnit; //to change
+        //if(selectedUnit == null) { //to change
+            selectedUnit = currentUnit;
+        //}
         manager.HidePanels();
         manager.ShowPanels();
         actionPanel.transform.Find("AttackButton").gameObject.SetActive(false);
         actionPanel.transform.Find("WaitButton").gameObject.SetActive(true);
-        ShowUnitInfoPanel();
     }
 
     public static void ShowOnEnemyActions(TacticsMove enemy) {

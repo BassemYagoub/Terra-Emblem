@@ -88,6 +88,27 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    //exchange turns between units of the same team
+    public static bool ExchangeTurn(TacticsMove playedUnit, TacticsMove unitToPlay) {
+        if (turnTeam.Contains(unitToPlay)) {
+            
+            //if exchange : need to be first in queue (or change data structure/ use bools)
+            TacticsMove[] tmpArray = turnTeam.ToArray();
+            turnTeam.Clear();
+
+            turnTeam.Enqueue(unitToPlay);
+            for (int i=0; i<tmpArray.Length; ++i) {
+                if(tmpArray[i] != unitToPlay) {
+                    turnTeam.Enqueue(tmpArray[i]);
+                }
+            }
+
+            unitToPlay.BeginTurn();
+            return true;
+        }
+        return false;
+    }
+
     public static void AddUnit(TacticsMove unit) {
         List<TacticsMove> list;
 

@@ -112,6 +112,16 @@ public class PlayerMove : TacticsMove {
                     if(gameObject == hit.collider.gameObject) {
                         UIManager.ShowPlayerActions();
                     }
+                    else { //if other unit player can play : change turn
+                        TacticsMove unitToPlay = hit.collider.GetComponent<TacticsMove>();
+                        turn = !(TurnManager.ExchangeTurn(gameObject.GetComponent<TacticsMove>(), unitToPlay));
+                        
+                        if (turn) { // <=> unitToPlay already played
+                            Debug.Log("turn alreay ended"); 
+                            UIManager.ChangeSelectedUnit(unitToPlay);
+                        }
+                        UIManager.ShowUnitInfoPanel();
+                    }
                 }
 
                 else if(hit.collider.tag == "NPC") {
