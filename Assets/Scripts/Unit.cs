@@ -8,9 +8,9 @@ public class Unit : MonoBehaviour {
     private TacticsMove unitTM;
 
     //private enum unitType {Warrior, Mage, Archer};
-    private float maxHP = 40f;
+    public float maxHP = 40f;
     public float currentHP;
-    private int lvl = 1;
+    public int lvl = 1;
     private float xp = 0.0f;
 
     private int strength = 5;
@@ -43,7 +43,10 @@ public class Unit : MonoBehaviour {
     }
 
     void OnMouseOver() {
-        UIManager.ChangeCursor("hand");
+        if(gameObject.tag == "NPC")
+            UIManager.ChangeCursor("sword");
+        else
+            UIManager.ChangeCursor("hand");
     }
     void OnMouseExit() {
         UIManager.ChangeCursor("arrow");

@@ -26,7 +26,6 @@ public class PlayerMove : TacticsMove {
         else if (movingAttacking) {
             Move();
             if (!moving) { //attack only if done moving
-                //Debug.Log("moveAttack "+targetTile.name);
                 tacticsMoveUnit.InflictDamage(opponentUnit);
                 opponentUnit = null;
                 movingAttacking = false; 
@@ -57,6 +56,12 @@ public class PlayerMove : TacticsMove {
         foundTiles = false;
     }
 
+    public void AttackOpponent(Unit opponent) {
+        tacticsMoveUnit.attackOpponent(opponent);
+        foundTiles = false;
+    }
+
+    //moving and attacking in one click
     public void FindPathThenAttack(Unit opponent) {
         targetTile = GetTargetTile(opponent.gameObject);
         opponentUnit = opponent;
@@ -109,33 +114,17 @@ public class PlayerMove : TacticsMove {
                     }
                 }
 
+                else if(hit.collider.tag == "NPC") {
+                    Unit opponent = hit.collider.GetComponent<Unit>();
+                    UIManager.ShowOnEnemyActions(opponent.GetComponent<TacticsMove>());
+                }
 
                 //moving
-                if (!actionPhase && hit.collider.tag == "Tile") {
+                else if (!actionPhase && hit.collider.tag == "Tile") {
                     Tile t = hit.collider.GetComponent<Tile>();
                     if (t.selectable) {
                         MoveToTile(t);
                         foundTiles = false;
-                    }
-                }
-
-                //moving and attacking in one click
-                else if(!actionPhase && hit.collider.tag == "NPC") {
-                    Unit opponent = hit.collider.GetComponent<Unit>();
-                    UIManager.ShowOnEnemyActions(opponent.GetComponent<TacticsMove>());
-                    //FindPathThenAttack(opponent);
-                }
-
-                //attacking after moving
-                else if (actionPhase) {
-                    if (hit.collider.tag == "NPC") {
-                        Unit touchedUnit = hit.collider.GetComponent<Unit>();
-                        Debug.Log("NPC at " + touchedUnit.transform.position);
-                        tacticsMoveUnit.attackOpponent(touchedUnit);
-                        foundTiles = false;
-                    }
-                    else {
-                        Debug.Log("touched nothing");
                     }
                 }
 
@@ -144,7 +133,6 @@ public class PlayerMove : TacticsMove {
 
         //pass acionPhase with right click
         else if (actionPhase && Input.GetKeyUp(KeyCode.Mouse1)) {
-            foundTiles = false;
             PassTurn();
         }
     }

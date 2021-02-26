@@ -57,14 +57,14 @@ public class Tile : MonoBehaviour {
 
     void OnMouseOver() {
         mouseOver = true;
-        /*if (selectable) {
-            UIManager.ChangeCursor("hand");
-        }*/
+        if (selectable) {
+            UIManager.ChangeCursor("feet");
+        }
     }
 
     void OnMouseExit() {
         mouseOver = false;
-        //UIManager.ChangeCursor("arrow");
+        UIManager.ChangeCursor("arrow");
     }
 
     public void Reset() {

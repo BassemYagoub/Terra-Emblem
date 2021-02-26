@@ -192,29 +192,6 @@ public class TacticsMove : MonoBehaviour {
 
         tilesWithEnemies.Clear();
 
-        //recalculate dists
-        /*while (reprocess.Count > 0) {
-            Tile t = reprocess.Dequeue();
-            Debug.Log("reprocess: " + t.name);
-
-            if (t.selectable) {
-                foreach (Tile tile in t.adjacencyList) {
-                    if (tile.parent == t) {
-                        Debug.Log("dist: " + tile.distance);
-                        tile.distance = t.distance + 1;
-                        Debug.Log("new dist: " + tile.distance);
-                        reprocess.Enqueue(tile);
-                    }
-                }
-            }
-            if(t.distance > movingPoints) {
-                t.selectable = false;
-                if(t.distance < movingPoints + attackRange) {
-                    t.attackable = true;
-                }
-            }
-        }*/
-
     }
 
     //attackable tiles in actionPhase
@@ -245,6 +222,7 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
+        tilesWithEnemies.Clear();
     }
 
     public void MoveToTile(Tile tile) {
@@ -516,5 +494,13 @@ public class TacticsMove : MonoBehaviour {
 
     public virtual void PassTurn() {
         Debug.Log("pass turn");
+    }
+
+    public string getHP() {
+        return tacticsMoveUnit.currentHP + "/" + tacticsMoveUnit.maxHP;
+    }
+
+    public string getLvl() {
+        return ""+tacticsMoveUnit.lvl;
     }
 }
