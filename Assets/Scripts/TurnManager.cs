@@ -88,7 +88,7 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
-    //exchange turns between units of the same team
+    //exchange turns between units of the same team if unitToPlay still playable
     public static bool ExchangeTurn(TacticsMove playedUnit, TacticsMove unitToPlay) {
         if (turnTeam.Contains(unitToPlay)) {
             

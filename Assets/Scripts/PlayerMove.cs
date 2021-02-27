@@ -109,19 +109,20 @@ public class PlayerMove : TacticsMove {
             if (Physics.Raycast(ray, out hit)) {
 
                 if (hit.collider.tag == "Player") {
-                    if(gameObject == hit.collider.gameObject) {
-                        UIManager.ShowPlayerActions();
-                    }
-                    else { //if other unit player can play : change turn
+
+                    //if other unit player can play : change turn
+                    if (!(gameObject == hit.collider.gameObject)) {
                         TacticsMove unitToPlay = hit.collider.GetComponent<TacticsMove>();
                         turn = !(TurnManager.ExchangeTurn(gameObject.GetComponent<TacticsMove>(), unitToPlay));
                         
                         if (turn) { // <=> unitToPlay already played
-                            Debug.Log("turn alreay ended"); 
+                            Debug.Log("turn alreay ended");
                             UIManager.ChangeSelectedUnit(unitToPlay);
+                            UIManager.ShowUnitInfoPanel();
+                            return;
                         }
-                        UIManager.ShowUnitInfoPanel();
-                    }
+                    } //if self or other unit going to play
+                    UIManager.ShowPlayerActions();
                 }
 
                 else if(hit.collider.tag == "NPC") {

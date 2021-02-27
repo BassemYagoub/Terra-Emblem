@@ -41,23 +41,20 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    //used by Unity buttons
-    public void ChangeCursorToHand() {
-        Cursor.SetCursor(manager.cursorTextures[0], new Vector2(10, 0), CursorMode.ForceSoftware);
-    }
-    public void ChangeCursorToArrow() {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-    }
-
     public static void ChangePlayer(PlayerMove p) {
         currentUnit = p;
+        if (selectedUnit == null) {
+            selectedUnit = currentUnit;
+        }
         currentUnit.ResetFoundTiles();
     }
+
     public static void ChangeSelectedUnit(TacticsMove unit) {
         selectedUnit = unit;
     }
 
     public static void ShowUnitInfoPanel() {
+        unitInfoPanel.SetActive(false); //to trigger animation
 
         if (selectedUnit.tag == "NPC") {
             unitInfoPanel.transform.Find("UnitNamePanel").GetComponent<Image>().color = new Color32(0x9A, 0x00, 0x0A, 0xFF);
@@ -89,6 +86,16 @@ public class UIManager : MonoBehaviour {
         manager.ShowPanels();
         actionPanel.transform.Find("AttackButton").gameObject.SetActive(true);
         actionPanel.transform.Find("WaitButton").gameObject.SetActive(false);
+    }
+
+
+    //used by Unity buttons
+    public void ChangeCursorToHand() {
+        Cursor.SetCursor(manager.cursorTextures[0], new Vector2(10, 0), CursorMode.ForceSoftware);
+    }
+
+    public void ChangeCursorToArrow() {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     public void WaitNextTurn() {
