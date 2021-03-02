@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour {
 
     //private enum unitType {Warrior, Mage, Archer};
     public float maxHP = 40f;
-    public float currentHP;
+    public float currentHP = 40f;
     public int lvl = 1;
     private float xp = 0.0f;
 
@@ -19,23 +19,26 @@ public class Unit : MonoBehaviour {
 
     //UI & Effects
     public GameObject hpCanvas;
-    public Image hpBar;
+    private Image hpBar;
     private float fillSpeed;
     public GameObject dyingEffect;
-    //Animation anim;
-
 
     // Start is called before the first frame update
     void Start() {
         hpCanvas = gameObject.transform.Find("HPCanvas").gameObject;
+
+        //not pretty but practical when changing hpbar prefab
+        hpBar = hpCanvas.gameObject.transform.Find("HPBG").gameObject.transform.Find("HPBar").GetComponent<Image>();
 
         if (gameObject.tag == "Player") {
             hpBar.color = new Color32(0x1E, 0x76, 0xDD, 0xDD);
         }else if (gameObject.tag == "NPC") {
             hpBar.color = new Color32(0xFF, 0x0B, 0x1E, 0xDD);
         }
-        unitTM = gameObject.GetComponent<TacticsMove>();
         currentHP = maxHP;
+
+        unitTM = gameObject.GetComponent<TacticsMove>();
+
     }
 
     private void Update() {
@@ -54,11 +57,20 @@ public class Unit : MonoBehaviour {
 
     //rename function
     public void InflictDamage(Unit opponent) {
+        gameObject.transform.LookAt(opponent.transform);
+        if (unitTM.attackRange == 1) {
+            gameObject.GetComponent<Animator>().SetTrigger("Punch");
+        }
+        else {
+            gameObject.transform.rotation *= Quaternion.Euler(0, 90, 0);
+            gameObject.GetComponent<Animator>().SetTrigger("Shoot");
+        }
+
         int opponentDied = opponent.TakeDamage(3 * strength * lvl + Random.Range(wisdom, luck * 5));
         GainXP(opponent.lvl * 10 + (opponentDied * opponent.lvl * 5));
         unitTM.actionPhase = false;
         unitTM.RemoveAttackableTiles();
-        StartCoroutine(TurnManager.EndTurn());
+        TurnManager.EndTurn();
     }
 
     public void attackOpponent(Unit opponent) {
@@ -80,7 +92,7 @@ public class Unit : MonoBehaviour {
                     else if(gameObject.tag == "NPC") {
                         unitTM.actionPhase = false;
                         unitTM.RemoveAttackableTiles();
-                       StartCoroutine(TurnManager.EndTurn());
+                        TurnManager.EndTurn();
                     }
                 }
                 else {
@@ -99,21 +111,34 @@ public class Unit : MonoBehaviour {
 
     //returns 1 if Unit died (bool to give an XP bonus to opponent)
     int TakeDamage(float dmg) {
+        Invoke("ReactAnimation", 1f);
         currentHP -= dmg;
         if (currentHP <= 0) {
             Die();
+            Invoke("DieAnimation", 1f);
+            Debug.Log("aaaa");
+
             return 1;
         }
         return 0;
     }
 
+    void ReactAnimation() {
+        gameObject.GetComponent<Animator>().SetTrigger("React");
+    }
+
     void Die() {
-        GameObject effectInstance  = (GameObject)Instantiate(dyingEffect, transform.position, dyingEffect.transform.rotation);
-        Destroy(effectInstance, 2f);
         CameraMovement.removeUnitFromList(gameObject.GetComponent<Unit>());
-        Destroy(gameObject);//, 1.5f);
         TurnManager.RemoveUnit(gameObject.GetComponent<TacticsMove>());
         Debug.Log("Unit died");
+    }
+
+    void DieAnimation() {
+        hpCanvas.SetActive(false);
+        gameObject.GetComponent<Animator>().SetBool("isDying", true);
+        //GameObject effectInstance  = (GameObject)Instantiate(dyingEffect, transform.position, dyingEffect.transform.rotation);
+        //Destroy(effectInstance, 2f);
+        Destroy(gameObject, 2f);
     }
 
     void GainXP(float xpGained) {

@@ -19,6 +19,8 @@ public class PlayerMove : TacticsMove {
         Debug.DrawRay(transform.position, transform.forward);
 
         if (!turn || changingTurn) {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", false);
             //Debug.Log(name);
             return;
         }
@@ -98,7 +100,7 @@ public class PlayerMove : TacticsMove {
         RemoveAttackableTiles();
         actionPhase = false;
         foundTiles = false;
-        StartCoroutine(TurnManager.EndTurn());
+        TurnManager.EndTurn();
     }
 
     void checkMouse() {

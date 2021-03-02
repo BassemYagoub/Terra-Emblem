@@ -9,7 +9,7 @@ public class TurnManager : MonoBehaviour {
     static Dictionary<string, List<TacticsMove>> units = new Dictionary<string, List<TacticsMove>>();
     static Queue<string> turnKey = new Queue<string>(); //whose turn
     static Queue<TacticsMove> turnTeam = new Queue<TacticsMove>(); //turn for each unit of playing team
-    static TurnManager uiManager;
+    static TurnManager turnManager;
     public GameObject turnPanel; //panel
     private Text panelText; //text inside panel indicating the team
     float changingDuration = 1.5f;
@@ -17,7 +17,7 @@ public class TurnManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        uiManager = this;
+        turnManager = this;
         panelText = turnPanel.GetComponentInChildren<Text>();
         turnPanel.SetActive(false); //should already be false;
     }
@@ -37,13 +37,13 @@ public class TurnManager : MonoBehaviour {
             turnTeam.Enqueue(unit);
         }
 
-        uiManager.StartCoroutine(uiManager.ChangeTeamTurn(turnKey.Peek()));
-
-        StartTurn();
+        turnManager.StartCoroutine(turnManager.ChangeTeamTurn(turnKey.Peek()));
+        turnManager.Invoke("StartTurn", turnManager.changingDuration);
     }
 
     //coroutine for changing turn animation
     public IEnumerator ChangeTeamTurn(string team) {
+        yield return new WaitForSeconds(0.5f);
         if (team == "Player") {
             panelText.text = "PLAYER PHASE";
             turnPanel.GetComponent<Image>().color = new Color32(0x00, 0x30, 0xEA, 0x55);
@@ -52,24 +52,24 @@ public class TurnManager : MonoBehaviour {
             panelText.text = "ENEMY PHASE";
             turnPanel.GetComponent<Image>().color = new Color32(0xF1, 0x00, 0x00, 0x55);
         }
+
         turnPanel.SetActive(true);
+        TacticsMove.changingTurn = true;
+
         yield return new WaitForSeconds(changingDuration);
         turnPanel.SetActive(false);
-    }
-
-    public IEnumerator WaitFor(float sec) {
-        yield return new WaitForSeconds(sec);
+        TacticsMove.changingTurn = false;
     }
 
     //new turn for a unit
-    public static void StartTurn() {
+    public void StartTurn() {
         if (turnTeam.Count > 0) {
             TacticsMove.changingTurn = false;
             turnTeam.Peek().BeginTurn();
         }
     }
 
-    public static IEnumerator EndTurn() {
+    public static void EndTurn() {
         TacticsMove unit = turnTeam.Dequeue();
         unit.EndTurn();
 
@@ -77,8 +77,8 @@ public class TurnManager : MonoBehaviour {
 
         if (!gameEnded) {
             if (turnTeam.Count > 0) {
-                yield return new WaitForSeconds(0.2f);
-                StartTurn();
+                //yield return new WaitForSeconds(0.2f);
+                turnManager.Invoke("StartTurn", 0.5f);
             }
             else { // changing team turn
                 string team = turnKey.Dequeue();
@@ -133,20 +133,22 @@ public class TurnManager : MonoBehaviour {
         units[deadUnit.tag].Remove(deadUnit);
         if (units[deadUnit.tag].Count == 0) {
             gameEnded = true;
-            EndGame(deadUnit.tag);
+            turnManager.StartCoroutine(turnManager.EndGame(deadUnit.tag));
         }
     }
 
-    public static void EndGame(string losingTeam) {
+    public IEnumerator EndGame(string losingTeam) {
+        yield return new WaitForSeconds(changingDuration);
+
         if (losingTeam == "Player") {
-            uiManager.panelText.text = "YOU LOST";
-            uiManager.turnPanel.GetComponent<Image>().color = new Color32(0xF1, 0x00, 0x00, 0x55);
+            turnManager.panelText.text = "YOU LOST";
+            turnManager.turnPanel.GetComponent<Image>().color = new Color32(0xF1, 0x00, 0x00, 0x55);
         }
         else if (losingTeam == "NPC") {
-            uiManager.panelText.text = "LEVEL COMPLETE";
-            uiManager.turnPanel.GetComponent<Image>().color = new Color32(0x00, 0x30, 0xEA, 0x55);
+            turnManager.panelText.text = "LEVEL COMPLETE";
+            turnManager.turnPanel.GetComponent<Image>().color = new Color32(0x00, 0x30, 0xEA, 0x55);
         }
-        uiManager.turnPanel.SetActive(true);
+        turnManager.turnPanel.SetActive(true);
     }
 
 }

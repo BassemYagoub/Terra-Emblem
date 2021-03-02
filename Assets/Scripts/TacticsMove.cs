@@ -34,6 +34,7 @@ public class TacticsMove : MonoBehaviour {
     float halfHeight = 0; //height of character (often used)
 
     protected Tile actualTargetTile;
+    protected Animator animator;
 
     protected void Init() {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
@@ -41,6 +42,7 @@ public class TacticsMove : MonoBehaviour {
         tacticsMoveUnit = gameObject.GetComponent<Unit>();
         TurnManager.AddUnit(this);
 
+        animator = gameObject.GetComponent<Animator>();
     }
 
     public Tile GetTargetTile(GameObject target) {
@@ -236,6 +238,16 @@ public class TacticsMove : MonoBehaviour {
             path.Push(next);
             next = next.parent;
         }
+
+        //animation
+        if(tile != currentTile) {
+            if(path.Count > 3) {
+                animator.SetBool("isRunning", true);
+            }
+            else {
+                animator.SetBool("isWalking", true);
+            }
+        }
     }
 
     protected void RemoveSelectedTiles() {
@@ -339,6 +351,7 @@ public class TacticsMove : MonoBehaviour {
             FallDownward(target);
         }
         else if (jumping) {
+            //gameObject.GetComponent<Animator>().SetTrigger("Jump");
             JumpUpward(target);
         }
         else if (movingEdge) {
@@ -383,6 +396,8 @@ public class TacticsMove : MonoBehaviour {
             RemoveSelectedTiles();
             moving = false;
             actionPhase = true;
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", false);
         }
     }
 
