@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour {
     public Texture2D[] cursorTextures;
     static string currentCursor = "arrow";
-    static UIManager manager; //to have only 1 cursorTexture
+    static UIManager manager; //singleton
 
     static PlayerMove currentUnit;
     static TacticsMove selectedUnit;
@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour {
     static GameObject[] map;
 
     static bool canSeeEnemiesRange = false;
-    static GameObject[] enemies;
+    static List<GameObject> enemies;
 
     void Start() {
         manager = this;
@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel = GameObject.Find("UnitInfoPanel");
         enemiesRangeButton = GameObject.Find("EnemiesRangeButton");
         map = GameObject.FindGameObjectsWithTag("Tile");
-        enemies = GameObject.FindGameObjectsWithTag("NPC");
+        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
 
         actionPanel.SetActive(false);
         unitInfoPanel.SetActive(false);
@@ -54,9 +54,9 @@ public class UIManager : MonoBehaviour {
 
     public static void ChangeCurrentUnit(PlayerMove p) {
         currentUnit = p;
-        if (selectedUnit == null) {
+        //if (selectedUnit == null) {
             selectedUnit = currentUnit;
-        }
+        //}
         currentUnit.ResetFoundTiles();
     }
 
@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour {
         selectedUnit = unit;
     }
 
-    public static void ShowUnitInfoPanel() {
+    public static void ShowUnitInfoPanel(bool canPlay = true) {
         unitInfoPanel.SetActive(false); //to trigger animation
 
         if (selectedUnit.tag == "NPC") {
@@ -77,6 +77,16 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel.transform.Find("UnitNamePanel").transform.Find("UnitName").GetComponent<Text>().text = selectedUnit.name;
         unitInfoPanel.transform.Find("UnitHPInfo").GetComponent<Text>().text = selectedUnit.getHP();
         unitInfoPanel.transform.Find("UnitLvlInfo").GetComponent<Text>().text = selectedUnit.getLvl();
+        unitInfoPanel.transform.Find("UnitMoveRangeInfo").GetComponent<Text>().text = selectedUnit.getMovingRange();
+        unitInfoPanel.transform.Find("UnitAttackRangeInfo").GetComponent<Text>().text = selectedUnit.getAttackRange();
+
+        GameObject unitTurnInfo = unitInfoPanel.transform.Find("UnitNamePanel").transform.Find("UnitTurnInfo").gameObject;
+        if (!canPlay) {
+            unitTurnInfo.SetActive(true);
+        }
+        else {
+            unitTurnInfo.SetActive(false);
+        }
 
         unitInfoPanel.SetActive(true); //if wanting to show unitInfoPanel but not actionPanel
     }
@@ -125,14 +135,31 @@ public class UIManager : MonoBehaviour {
     }
 
     //resets the tile reachableByEnemy property when changing selection
-    public static void ResetReachableByEnemyTiles() {
+    public static void ResetReachableByEnemyTiles(bool reload = false) {
+        bool tmpCanSee = canSeeEnemiesRange;
         canSeeEnemiesRange = false;
         for (int i = 0; i < map.Length; ++i) {
             map[i].GetComponent<Tile>().reachableByEnemy = false;
         }
+
+        if(tmpCanSee && reload) { //if player wants to see enemies' range, reload updated map
+            manager.ShowEnemiesRange();
+        }
     }
 
-    /*--- NON STATIC METHODS ---*/
+    public static void RemoveEnemy(GameObject enemy) {
+        enemies.Remove(enemy);
+    }
+
+    //to hide panels when changing turns
+    public static void HidePanelsBetweenTurns() {
+        manager.ChangeCursorToArrow();
+        actionPanel.SetActive(false);
+        unitInfoPanel.SetActive(false);
+    }
+
+
+    /*----------- NON STATIC METHODS -----------*/
 
 
     //used by Unity buttons
@@ -183,25 +210,28 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel.SetActive(false);
     }
 
+    //Enemy range button : shows/unshows the sum of enemies' range
     public void ShowEnemiesRange() {
-        Text buttonText = enemiesRangeButton.transform.Find("Text").GetComponent<Text>();
-        if (!canSeeEnemiesRange) {
-            for (int i = 0; i < enemies.Length; ++i) {
-                enemies[i].GetComponent<TacticsMove>().FindReachableByEnemyTiles();
+        if (currentUnit != null) {
+            Text buttonText = enemiesRangeButton.transform.Find("Text").GetComponent<Text>();
+            if (!canSeeEnemiesRange) {
+                foreach (GameObject enemy in enemies) {
+                    enemy.GetComponent<TacticsMove>().FindReachableByEnemyTiles();
+                }
+                canSeeEnemiesRange = true;
+                buttonText.text = "Enemy Range : ON (E)";
             }
-            canSeeEnemiesRange = true;
-            buttonText.text = "Enemy Range : ON (E)";
-        }
-        else {
-            ResetReachableByEnemyTiles();
-            buttonText.text = "Enemy Range : OFF (E)";
-        }
+            else {
+                ResetReachableByEnemyTiles();
+                buttonText.text = "Enemy Range : OFF (E)";
+            }
 
-        if (!currentUnit.actionPhase) {
-            currentUnit.FindSelectableTiles();
-        }
-        else {
-            currentUnit.FindAttackableTiles();
+            if (!currentUnit.actionPhase) {
+                currentUnit.FindSelectableTiles();
+            }
+            else {
+                currentUnit.FindAttackableTiles();
+            }
         }
     }
 }

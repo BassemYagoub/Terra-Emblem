@@ -6,7 +6,7 @@ public class TacticsMove : MonoBehaviour {
     protected Unit tacticsMoveUnit;
 
     //stats
-    public int movingPoints = 5;
+    public int movingRange = 5;
     public int attackRange = 1;
     public float jumpHeight = 1;
     public float moveSpeed = 6;
@@ -94,7 +94,7 @@ public class TacticsMove : MonoBehaviour {
                 t.selectable = true;
             }
 
-            if (t.distance < movingPoints) {
+            if (t.distance < movingRange) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
                         tile.parent = t;
@@ -105,7 +105,7 @@ public class TacticsMove : MonoBehaviour {
                 }
             }
             //gather border of selectable tiles
-            if (t.distance == movingPoints) {
+            if (t.distance == movingRange) {
                 processAttackable.Enqueue(t);
             }
         }
@@ -121,7 +121,7 @@ public class TacticsMove : MonoBehaviour {
             Tile t = processAttackable.Dequeue();
             attackableTiles.Add(t);
 
-            if (t.distance < movingPoints + attackRange) {
+            if (t.distance < movingRange + attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
                         tile.parent = t;
@@ -240,7 +240,7 @@ public class TacticsMove : MonoBehaviour {
                 t.reachableByEnemy = true;
             }
 
-            if (t.distance < movingPoints+attackRange) {
+            if (t.distance < movingRange+attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
                         tile.parent = t;
@@ -450,12 +450,12 @@ public class TacticsMove : MonoBehaviour {
             next = next.parent;
         }
 
-        if (tempPath.Count <= movingPoints/* - attackRange*/) {
+        if (tempPath.Count <= movingRange/* - attackRange*/) {
             return t.parent;
         }
 
         Tile endTile = null;
-        for (int i = 0; i <= movingPoints/* - attackRange*/; i++) {
+        for (int i = 0; i <= movingRange/* - attackRange*/; i++) {
             endTile = tempPath.Pop();
         }
 
@@ -543,5 +543,13 @@ public class TacticsMove : MonoBehaviour {
 
     public string getLvl() {
         return ""+tacticsMoveUnit.lvl;
+    }
+
+    public string getMovingRange() {
+        return ""+movingRange;
+    }
+
+    public string getAttackRange() {
+        return ""+attackRange;
     }
 }

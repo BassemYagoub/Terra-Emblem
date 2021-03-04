@@ -119,7 +119,7 @@ public class PlayerMove : TacticsMove {
                         if (turn) { // <=> unitToPlay already played
                             Debug.Log("turn alreay ended");
                             UIManager.ChangeSelectedUnit(unitToPlay);
-                            UIManager.ShowUnitInfoPanel();
+                            UIManager.ShowUnitInfoPanel(false); //false => show unit turn ended in UI
                             return;
                         }
                     } //if self or other unit going to play

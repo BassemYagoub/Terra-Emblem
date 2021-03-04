@@ -20,10 +20,6 @@ public class NPCMove : TacticsMove {
         }
 
         if (!moving && !actionPhase) {
-            /*if (!foundTiles) {
-                FindReachableByEnemyTiles();
-                foundTiles = true;
-            }*/
             FindNearestTarget();
             CalculatePath();
             //FindSelectableTiles();

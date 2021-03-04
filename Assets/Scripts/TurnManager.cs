@@ -74,6 +74,7 @@ public class TurnManager : MonoBehaviour {
         unit.EndTurn();
 
         TacticsMove.changingTurn = true;
+        UIManager.HidePanelsBetweenTurns();
 
         if (!gameEnded) {
             if (turnTeam.Count > 0) {
@@ -84,6 +85,9 @@ public class TurnManager : MonoBehaviour {
                 string team = turnKey.Dequeue();
                 turnKey.Enqueue(team);
                 InitTeamTurnQueue();
+                if (turnKey.Peek() == "Player") {
+                    UIManager.ResetReachableByEnemyTiles(true);
+                }
             }
         }
     }

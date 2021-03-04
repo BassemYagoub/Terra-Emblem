@@ -146,6 +146,10 @@ public class Unit : MonoBehaviour {
     void Die() {
         CameraMovement.removeUnitFromList(gameObject.GetComponent<Unit>());
         TurnManager.RemoveUnit(gameObject.GetComponent<TacticsMove>());
+        if(gameObject.tag == "NPC") {
+            UIManager.RemoveEnemy(gameObject);
+            UIManager.ResetReachableByEnemyTiles(true);
+        }
         Debug.Log("Unit died");
     }
 
