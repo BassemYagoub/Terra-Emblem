@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : TacticsMove {
     private bool movingAttacking = false; //moving then attacking with 1 click
-    private bool foundTiles = false; //to not call FindSelectableTiles every frame
     private Unit opponentUnit = null;
     private Tile targetTile = null;
 

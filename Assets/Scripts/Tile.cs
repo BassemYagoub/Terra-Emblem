@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour {
     public bool walkable = true;
     public bool enemyOnTop = false;
     public bool mouseOver = false;
+    public bool reachableByEnemy = false;
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -32,23 +33,33 @@ public class Tile : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (current) {
-            GetComponent<Renderer>().material.color = Color.cyan;
+            if (!reachableByEnemy)
+                GetComponent<Renderer>().material.color = Color.cyan;
+            else
+                GetComponent<Renderer>().material.color = new Color32(0xE6, 0x00, 0xFF, 0xFF);
         }
         else if (target) {
             GetComponent<Renderer>().material.color = Color.green;
         }
         else if (attackable) {
-            if(!mouseOver)
-                GetComponent<Renderer>().material.color = new Color32(0xF1, 0x00, 0x00, 0xDF);
-            else if(mouseOver && enemyOnTop)
-                GetComponent<Renderer>().material.color = new Color32(0xA9, 0x00, 0x08, 0xDF);
+            if (!reachableByEnemy)
+                GetComponent<Renderer>().material.color = new Color32(0xF1, 0x00, 0x00, 0xFF);
+            else
+                GetComponent<Renderer>().material.color = new Color32(0xA9, 0x00, 0x08, 0xFF);
         }
         else if (selectable) {
-            if (!mouseOver)
-                GetComponent<Renderer>().material.color = new Color32(0x58, 0x7B, 0xFF, 0xDF);
-            else {
-                GetComponent<Renderer>().material.color = new Color32(0x00, 0x35, 0xFF, 0xDF);
+            if (!mouseOver) {
+                if(!reachableByEnemy)
+                    GetComponent<Renderer>().material.color = new Color32(0x58, 0x7B, 0xFF, 0xFF);
+                else
+                    GetComponent<Renderer>().material.color = new Color32(0x94, 0x7B, 0xFF, 0xFF);
             }
+            else {
+                GetComponent<Renderer>().material.color = new Color32(0x00, 0x35, 0xFF, 0xFF);
+            }
+        }
+        else if (reachableByEnemy) {
+            GetComponent<Renderer>().material.color = new Color32(0xA4, 0x00, 0x69, 0xFF);
         }
         else {
             GetComponent<Renderer>().material.color = new Color32(0x8F, 0xFF, 0x83, 0xFF);
@@ -74,9 +85,10 @@ public class Tile : MonoBehaviour {
         attackable = false;
         selectable = false;
         enemyOnTop = false;
+        //reachableByEnemy = false;
 
 
-        visited = false;
+         visited = false;
         parent = null;
         distance = 0;
     }

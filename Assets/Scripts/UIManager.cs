@@ -12,17 +12,28 @@ public class UIManager : MonoBehaviour {
     static TacticsMove selectedUnit;
     static GameObject actionPanel;
     static GameObject unitInfoPanel;
+    static GameObject enemiesRangeButton;
+    static GameObject[] map;
+
+    static bool canSeeEnemiesRange = false;
+    static GameObject[] enemies;
 
     void Start() {
         manager = this;
         actionPanel = GameObject.Find("ActionPanel"); 
         unitInfoPanel = GameObject.Find("UnitInfoPanel");
-        //Debug.Log(actionPanel.name);
+        enemiesRangeButton = GameObject.Find("EnemiesRangeButton");
+        map = GameObject.FindGameObjectsWithTag("Tile");
+        enemies = GameObject.FindGameObjectsWithTag("NPC");
+
         actionPanel.SetActive(false);
         unitInfoPanel.SetActive(false);
     }
 
-    void Update() { 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            ShowEnemiesRange();
+        }
     }
 
     //used by other classes
@@ -41,7 +52,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    public static void ChangePlayer(PlayerMove p) {
+    public static void ChangeCurrentUnit(PlayerMove p) {
         currentUnit = p;
         if (selectedUnit == null) {
             selectedUnit = currentUnit;
@@ -71,9 +82,11 @@ public class UIManager : MonoBehaviour {
     }
 
     public static void ShowPlayerActions() {
-        //if(selectedUnit == null) { //to change
-            selectedUnit = currentUnit;
-        //}
+        selectedUnit = currentUnit;
+
+        if (!canSeeEnemiesRange) {
+            ResetReachableByEnemyTiles();
+        }
         manager.HidePanels();
         manager.ShowPanels();
         actionPanel.transform.Find("AttackButton").gameObject.SetActive(false);
@@ -81,12 +94,45 @@ public class UIManager : MonoBehaviour {
     }
 
     public static void ShowOnEnemyActions(TacticsMove enemy) {
-        selectedUnit = enemy;
-        manager.HidePanels();
-        manager.ShowPanels();
-        actionPanel.transform.Find("AttackButton").gameObject.SetActive(true);
-        actionPanel.transform.Find("WaitButton").gameObject.SetActive(false);
+        if(selectedUnit != enemy) { 
+            selectedUnit = enemy;
+            if (!canSeeEnemiesRange) {
+                ResetReachableByEnemyTiles();
+            }
+            enemy.FindReachableByEnemyTiles(); 
+        
+            if (!currentUnit.actionPhase) {
+                currentUnit.FindSelectableTiles();
+            }
+            else {
+                currentUnit.FindAttackableTiles();
+            }
+
+            manager.HidePanels();
+            manager.ShowPanels();
+            actionPanel.transform.Find("AttackButton").gameObject.SetActive(true);
+            actionPanel.transform.Find("WaitButton").gameObject.SetActive(false);
+        }
+        else {
+            manager.CancelAction();
+            selectedUnit = currentUnit;
+        }
     }
+
+
+    public static void ResetPanel() {
+        actionPanel.SetActive(false);
+    }
+
+    //resets the tile reachableByEnemy property when changing selection
+    public static void ResetReachableByEnemyTiles() {
+        canSeeEnemiesRange = false;
+        for (int i = 0; i < map.Length; ++i) {
+            map[i].GetComponent<Tile>().reachableByEnemy = false;
+        }
+    }
+
+    /*--- NON STATIC METHODS ---*/
 
 
     //used by Unity buttons
@@ -118,6 +164,9 @@ public class UIManager : MonoBehaviour {
 
     public void CancelAction() {
         Debug.Log("cancel action");
+        if (!canSeeEnemiesRange) {
+            ResetReachableByEnemyTiles();
+        }
         HidePanels();
     }
 
@@ -134,7 +183,25 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel.SetActive(false);
     }
 
-    public static void Reset() {
-        actionPanel.SetActive(false);
+    public void ShowEnemiesRange() {
+        Text buttonText = enemiesRangeButton.transform.Find("Text").GetComponent<Text>();
+        if (!canSeeEnemiesRange) {
+            for (int i = 0; i < enemies.Length; ++i) {
+                enemies[i].GetComponent<TacticsMove>().FindReachableByEnemyTiles();
+            }
+            canSeeEnemiesRange = true;
+            buttonText.text = "Enemy Range : ON (E)";
+        }
+        else {
+            ResetReachableByEnemyTiles();
+            buttonText.text = "Enemy Range : OFF (E)";
+        }
+
+        if (!currentUnit.actionPhase) {
+            currentUnit.FindSelectableTiles();
+        }
+        else {
+            currentUnit.FindAttackableTiles();
+        }
     }
 }

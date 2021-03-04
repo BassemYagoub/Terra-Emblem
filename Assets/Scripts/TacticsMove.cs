@@ -35,6 +35,7 @@ public class TacticsMove : MonoBehaviour {
 
     protected Tile actualTargetTile;
     protected Animator animator;
+    protected bool foundTiles = false; //to not call FindTiles functions every frame
 
     protected void Init() {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
@@ -159,7 +160,7 @@ public class TacticsMove : MonoBehaviour {
                 }
 
                 //enemies in attack border
-                else if (adjTile.attackable) {
+                else if (adjTile.attackable /*&& !adjTile.enemyOnTop*/) {
                     Tile parentTile = adjTile.parent;
                     int enemyBorderDist = 1; //dist of enemy counting from the attack border
 
@@ -172,25 +173,18 @@ public class TacticsMove : MonoBehaviour {
                         parentTile = parentTile.parent;
                         ++enemyBorderDist;
                     }
-
                 }
             }
 
             if (isAttackable) {
                 t.attackable = true;
             }
-        }
-
-        List<Tile> toRemoveFromAdj = new List<Tile>();
-        foreach (Tile adjTile in currentTile.adjacencyList) {
-            //Debug.Log("adj: " + adjTile.name);
-            if (adjTile.enemyOnTop) {
-                toRemoveFromAdj.Add(adjTile);
+            else {
+                t.attackable = false;
             }
         }
-        foreach (Tile removable in toRemoveFromAdj) {
-            currentTile.adjacencyList.Remove(removable);
-        }
+
+        currentTile.adjacencyList.RemoveAll(item => item.enemyOnTop);
 
         tilesWithEnemies.Clear();
 
@@ -225,6 +219,38 @@ public class TacticsMove : MonoBehaviour {
         }
 
         tilesWithEnemies.Clear();
+    }
+
+    //tiles attackable by an enemy
+    public void FindReachableByEnemyTiles() {
+        ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
+        GetCurrentTile();
+
+        Queue<Tile> process = new Queue<Tile>();
+
+        process.Enqueue(currentTile);
+        currentTile.visited = true;
+
+        while (process.Count > 0) {
+            Tile t = process.Dequeue();
+            selectableTiles.Add(t);
+
+            //if not an enemy on top of tile => selectable
+            if (!t.attackable) {
+                t.reachableByEnemy = true;
+            }
+
+            if (t.distance < movingPoints+attackRange) {
+                foreach (Tile tile in t.adjacencyList) {
+                    if (!tile.visited) {
+                        tile.parent = t;
+                        tile.reachableByEnemy = true;
+                        tile.distance = t.distance + 1;
+                        process.Enqueue(tile);
+                    }
+                }
+            }
+        }
     }
 
     public void MoveToTile(Tile tile) {
@@ -496,12 +522,12 @@ public class TacticsMove : MonoBehaviour {
         Debug.Log(name + " begin");
         turn = true;
         if(gameObject.tag == "Player") {
-            UIManager.ChangePlayer(gameObject.GetComponent<PlayerMove>());
+            UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());
         }
     }
 
     public void EndTurn() {
-        UIManager.Reset();
+        UIManager.ResetPanel();
         Debug.Log(name + " end");
         turn = false;
     }

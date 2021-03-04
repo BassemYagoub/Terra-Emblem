@@ -20,12 +20,14 @@ public class Unit : MonoBehaviour {
     //UI & Effects
     public GameObject hpCanvas;
     private Image hpBar;
+    private GameObject eventText;
     private float fillSpeed;
     public GameObject dyingEffect;
 
     // Start is called before the first frame update
     void Start() {
         hpCanvas = gameObject.transform.Find("HPCanvas").gameObject;
+        eventText = hpCanvas.gameObject.transform.Find("EventText").gameObject;
 
         //not pretty but practical when changing hpbar prefab
         hpBar = hpCanvas.gameObject.transform.Find("HPBG").gameObject.transform.Find("HPBar").GetComponent<Image>();
@@ -66,11 +68,25 @@ public class Unit : MonoBehaviour {
             gameObject.GetComponent<Animator>().SetTrigger("Shoot");
         }
 
-        int opponentDied = opponent.TakeDamage(3 * strength * lvl + Random.Range(wisdom, luck * 5));
-        GainXP(opponent.lvl * 10 + (opponentDied * opponent.lvl * 5));
+        float dmg = 3 * strength * lvl + Random.Range(wisdom, luck * 5);
+        int opponentDied = opponent.TakeDamage(dmg);
+        float xpReceived = opponent.lvl * 10 + (opponentDied * opponent.lvl * 5);
+        GainXP(xpReceived);
+        ShowBattleResults(opponent, dmg, xpReceived);
+
         unitTM.actionPhase = false;
         unitTM.RemoveAttackableTiles();
         TurnManager.EndTurn();
+    }
+    void ShowBattleResults(Unit opponent, float dmg, float xpReceived) {
+        eventText.GetComponent<Text>().color = Color.blue;
+        eventText.GetComponent<Text>().text = "+ " + xpReceived + " XP";
+
+        opponent.eventText.GetComponent<Text>().color = Color.red;
+        opponent.eventText.GetComponent<Text>().text = "- "+dmg+" HP";
+
+        eventText.GetComponent<Animator>().SetTrigger("newEvent");
+        opponent.eventText.GetComponent<Animator>().SetTrigger("newEvent");
     }
 
     public void attackOpponent(Unit opponent) {

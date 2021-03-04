@@ -20,6 +20,10 @@ public class NPCMove : TacticsMove {
         }
 
         if (!moving && !actionPhase) {
+            /*if (!foundTiles) {
+                FindReachableByEnemyTiles();
+                foundTiles = true;
+            }*/
             FindNearestTarget();
             CalculatePath();
             //FindSelectableTiles();
@@ -28,9 +32,13 @@ public class NPCMove : TacticsMove {
         else if (!moving && actionPhase) {
             FindAttackableTiles();
             tacticsMoveUnit.attackOpponent(target.gameObject.GetComponent<Unit>());
+            foundTiles = false;
         }
         else {
             Move();
+            if (!moving) {
+                foundTiles = false;
+            }
         }
     }
 
