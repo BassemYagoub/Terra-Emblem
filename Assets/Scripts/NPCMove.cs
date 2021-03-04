@@ -27,7 +27,7 @@ public class NPCMove : TacticsMove {
         }
         else if (!moving && actionPhase) {
             FindAttackableTiles();
-            tacticsMoveUnit.attackOpponent(target.gameObject.GetComponent<Unit>());
+            tacticsMoveUnit.AttackOpponent(target.gameObject.GetComponent<Unit>());
             foundTiles = false;
         }
         else {

@@ -39,14 +39,14 @@ public class PlayerMove : TacticsMove {
                 FindSelectableTiles();
                 foundTiles = true;
             }
-            checkMouse();
+            CheckMouse();
         }
         else if (!moving && actionPhase) {
             if (!foundTiles) {
                 FindAttackableTiles();
                 foundTiles = true;
             }
-            checkMouse();
+            CheckMouse();
         }
         else {
             Move();
@@ -58,7 +58,7 @@ public class PlayerMove : TacticsMove {
     }
 
     public void AttackOpponent(Unit opponent) {
-        tacticsMoveUnit.attackOpponent(opponent);
+        tacticsMoveUnit.AttackOpponent(opponent);
         foundTiles = false;
     }
 
@@ -102,7 +102,7 @@ public class PlayerMove : TacticsMove {
         TurnManager.EndTurn();
     }
 
-    void checkMouse() {
+    void CheckMouse() {
         if (Input.GetMouseButtonUp(0) && CameraMovement.IsDoneMoving()) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

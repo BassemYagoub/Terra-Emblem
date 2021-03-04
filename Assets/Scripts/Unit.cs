@@ -89,7 +89,7 @@ public class Unit : MonoBehaviour {
         opponent.eventText.GetComponent<Animator>().SetTrigger("newEvent");
     }
 
-    public void attackOpponent(Unit opponent) {
+    public void AttackOpponent(Unit opponent) {
         if (opponent != null) {
 
             //checking if not in the same team

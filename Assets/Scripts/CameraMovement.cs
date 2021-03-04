@@ -30,6 +30,9 @@ public class CameraMovement : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         RotateUnitsHPBar();
+        if (followingUnits) {
+            FollowUnit(followedUnit);
+        }
 
         //move with middle-click+ mouse direction
         if (Input.GetKey(KeyCode.Mouse2)) {
@@ -120,21 +123,25 @@ public class CameraMovement : MonoBehaviour {
 
     public static void FollowUnit(GameObject unit) {
         if (unit != null && camera.followingUnits) {
-            camera.doneMoving = false;
-            float distFromUnit = 5f;
-            camera.followedUnit = unit;
 
-            float yPos = camera.transform.rotation.eulerAngles.y;
-            if (yPos == 0)
-                camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z + distFromUnit);
-            else if (yPos == 90)
-                camera.transform.position = new Vector3(unit.transform.position.x + distFromUnit, camera.transform.position.y, unit.transform.position.z);
-            else if (yPos == 180)
-                camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z - distFromUnit);
-            else if (yPos == 270)
-                camera.transform.position = new Vector3(unit.transform.position.x - distFromUnit, camera.transform.position.y, unit.transform.position.z);
+            //check condition to not change postion every frame when not needed
+            if (unit.GetComponent<TacticsMove>().turn) {
+                camera.doneMoving = false;
+                float distFromUnit = 5f;
+                camera.followedUnit = unit;
 
-            camera.doneMoving = true;
+                float yPos = camera.transform.rotation.eulerAngles.y;
+                if (yPos == 0)
+                    camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z + distFromUnit);
+                else if (yPos == 90)
+                    camera.transform.position = new Vector3(unit.transform.position.x + distFromUnit, camera.transform.position.y, unit.transform.position.z);
+                else if (yPos == 180)
+                    camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z - distFromUnit);
+                else if (yPos == 270)
+                    camera.transform.position = new Vector3(unit.transform.position.x - distFromUnit, camera.transform.position.y, unit.transform.position.z);
+
+                camera.doneMoving = true;
+            }
         }
     }
 

@@ -422,6 +422,7 @@ public class TacticsMove : MonoBehaviour {
             RemoveSelectedTiles();
             moving = false;
             actionPhase = true;
+            UIManager.ShowPlayerActions();
             animator.SetBool("isRunning", false);
             animator.SetBool("isWalking", false);
         }
@@ -523,8 +524,8 @@ public class TacticsMove : MonoBehaviour {
         turn = true;
         if(gameObject.tag == "Player") {
             UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());
-            CameraMovement.FollowUnit(gameObject);
         }
+        CameraMovement.FollowUnit(gameObject);
     }
 
     public void EndTurn() {
