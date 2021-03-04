@@ -103,7 +103,7 @@ public class PlayerMove : TacticsMove {
     }
 
     void checkMouse() {
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonUp(0) && CameraMovement.IsDoneMoving()) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

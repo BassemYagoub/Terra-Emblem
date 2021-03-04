@@ -144,7 +144,7 @@ public class Unit : MonoBehaviour {
     }
 
     void Die() {
-        CameraMovement.removeUnitFromList(gameObject.GetComponent<Unit>());
+        CameraMovement.RemoveUnitFromList(gameObject.GetComponent<Unit>());
         TurnManager.RemoveUnit(gameObject.GetComponent<TacticsMove>());
         if(gameObject.tag == "NPC") {
             UIManager.RemoveEnemy(gameObject);

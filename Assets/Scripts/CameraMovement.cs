@@ -11,11 +11,20 @@ public class CameraMovement : MonoBehaviour {
     private BoxCollider mapColl; //dimensions of the map to not go too far
     private static List<Unit> units; //every unit in the field
 
+    //to follow units
+    static CameraMovement camera;
+    private GameObject followedUnit;
+    private bool followingUnits = true;
+    private Text followUnitsText;
+    private bool doneMoving = true;
+
     // Start is called before the first frame update
     void Start() {
+        camera = this;
         units = new List<Unit>(GameObject.FindObjectsOfType<Unit>());
         map = GameObject.FindGameObjectWithTag("Map");
         mapColl = map.GetComponent<BoxCollider>();
+        followUnitsText = GameObject.Find("FollowUnitButton").transform.Find("Text").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -63,19 +72,29 @@ public class CameraMovement : MonoBehaviour {
             RotateRight();
         }
 
+
+        if (Input.GetKeyDown(KeyCode.E)) {
+            UpdateFollowUnit();
+        }
+
     }
 
 
     public void ResetCameraPos() {
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = new Quaternion(0, 0, 0, 0);
+        CameraMovement.FollowUnit(followedUnit);
     }
 
     public void RotateLeft() {
+        transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, 90, Space.Self);
+        CameraMovement.FollowUnit(followedUnit);
     }
     public void RotateRight() {
+        transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, -90, Space.Self);
+        CameraMovement.FollowUnit(followedUnit);
     }
 
 
@@ -85,7 +104,41 @@ public class CameraMovement : MonoBehaviour {
         }
     }
 
-    public static void removeUnitFromList(Unit u) {
+
+    public void UpdateFollowUnit() {
+        followingUnits = !followingUnits;
+        if (followingUnits) {
+            followUnitsText.text = "Follow Units : ON (F)";
+        }
+        else {
+            followUnitsText.text = "Follow Units : OFF (F)";
+        }
+    }
+    public static void RemoveUnitFromList(Unit u) {
         units.Remove(u);
+    }
+
+    public static void FollowUnit(GameObject unit) {
+        if (unit != null && camera.followingUnits) {
+            camera.doneMoving = false;
+            float distFromUnit = 5f;
+            camera.followedUnit = unit;
+
+            float yPos = camera.transform.rotation.eulerAngles.y;
+            if (yPos == 0)
+                camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z + distFromUnit);
+            else if (yPos == 90)
+                camera.transform.position = new Vector3(unit.transform.position.x + distFromUnit, camera.transform.position.y, unit.transform.position.z);
+            else if (yPos == 180)
+                camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z - distFromUnit);
+            else if (yPos == 270)
+                camera.transform.position = new Vector3(unit.transform.position.x - distFromUnit, camera.transform.position.y, unit.transform.position.z);
+
+            camera.doneMoving = true;
+        }
+    }
+
+    public static bool IsDoneMoving() {
+        return camera.doneMoving;
     }
 }
