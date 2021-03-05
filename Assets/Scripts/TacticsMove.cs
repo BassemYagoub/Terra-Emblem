@@ -525,7 +525,7 @@ public class TacticsMove : MonoBehaviour {
         if(gameObject.tag == "Player") {
             UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());
         }
-        CameraMovement.FollowUnit(gameObject);
+        StartCoroutine(CameraMovement.FollowUnit(gameObject, 0.1f));
     }
 
     public void EndTurn() {

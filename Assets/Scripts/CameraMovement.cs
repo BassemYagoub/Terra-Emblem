@@ -31,35 +31,36 @@ public class CameraMovement : MonoBehaviour {
     void Update() {
         RotateUnitsHPBar();
         if (followingUnits) {
-            FollowUnit(followedUnit);
+            StartCoroutine(FollowUnit(followedUnit));
         }
+        else {
+            //move with middle-click+ mouse direction
+            if (Input.GetKey(KeyCode.Mouse2)) {
 
-        //move with middle-click+ mouse direction
-        if (Input.GetKey(KeyCode.Mouse2)) {
+                if (Input.GetAxis("Mouse X") > 0 && transform.position.x >= (map.transform.position.x - mapColl.size.x)) {
+                    transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
+                }
+                else if (Input.GetAxis("Mouse X") < 0 && transform.position.x < (map.transform.position.x + mapColl.size.x)) {
+                    transform.Translate(Vector3.right * movingSpeed * Time.deltaTime);
+                }
 
-            if (Input.GetAxis("Mouse X") > 0 && transform.position.x >= (map.transform.position.x - mapColl.size.x)) {
-                transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
+                //(Y Axis of the mouse and not the one of the game)
+                if (Input.GetAxis("Mouse Y") > 0 && transform.position.z >= (map.transform.position.z - mapColl.size.z)) {
+                    transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
+                }
+                else if (Input.GetAxis("Mouse Y") < 0 && transform.position.z < (map.transform.position.z + mapColl.size.z)) {
+                    transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
+                }
             }
-            else if (Input.GetAxis("Mouse X") < 0 && transform.position.x < (map.transform.position.x + mapColl.size.x)) {
-                transform.Translate(Vector3.right * movingSpeed * Time.deltaTime);
-            }
-
-            //(Y Axis of the mouse and not the one of the game)
-            if (Input.GetAxis("Mouse Y") > 0 && transform.position.z >= (map.transform.position.z - mapColl.size.z)) {
-                transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
-            }
-            else if (Input.GetAxis("Mouse Y") < 0 && transform.position.z < (map.transform.position.z + mapColl.size.z)) {
-                transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
-            }
-        }
 
 
-        //zoom-in & zoom-out while scrolling
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y >= -1) {
-            transform.Translate(Vector3.down * movingSpeed * Time.deltaTime);
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < map.transform.position.y+maxHeight) {
-            transform.Translate(Vector3.up * movingSpeed * Time.deltaTime);
+            //zoom-in & zoom-out while scrolling
+            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y >= -1) {
+                transform.Translate(Vector3.down * movingSpeed * Time.deltaTime);
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < map.transform.position.y + maxHeight) {
+                transform.Translate(Vector3.up * movingSpeed * Time.deltaTime);
+            }
         }
 
         //camera reset to starting pos
@@ -86,27 +87,26 @@ public class CameraMovement : MonoBehaviour {
     public void ResetCameraPos() {
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = new Quaternion(0, 0, 0, 0);
-        CameraMovement.FollowUnit(followedUnit);
+        StartCoroutine(CameraMovement.FollowUnit(followedUnit));
     }
 
     public void RotateLeft() {
         transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, 90, Space.Self);
-        CameraMovement.FollowUnit(followedUnit);
+        StartCoroutine(CameraMovement.FollowUnit(followedUnit));
     }
+
     public void RotateRight() {
         transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, -90, Space.Self);
-        CameraMovement.FollowUnit(followedUnit);
+        StartCoroutine(CameraMovement.FollowUnit(followedUnit));
     }
-
 
     private void RotateUnitsHPBar() {
         foreach (Unit u in units) {
             u.hpCanvas.transform.rotation = Quaternion.Euler(45, transform.rotation.eulerAngles.y, 0);
         }
     }
-
 
     public void UpdateFollowUnit() {
         followingUnits = !followingUnits;
@@ -117,11 +117,14 @@ public class CameraMovement : MonoBehaviour {
             followUnitsText.text = "Follow Units : OFF (F)";
         }
     }
+
     public static void RemoveUnitFromList(Unit u) {
         units.Remove(u);
     }
 
-    public static void FollowUnit(GameObject unit) {
+    public static IEnumerator FollowUnit(GameObject unit, float waitingTime = 0f) {
+        yield return new WaitForSeconds(waitingTime);
+
         if (unit != null && camera.followingUnits) {
 
             //check condition to not change postion every frame when not needed
@@ -143,6 +146,7 @@ public class CameraMovement : MonoBehaviour {
                 camera.doneMoving = true;
             }
         }
+
     }
 
     public static bool IsDoneMoving() {
