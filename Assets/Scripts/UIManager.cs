@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour {
         if (!canSeeEnemiesRange) {
             ResetReachableByEnemyTiles();
         }
-        manager.HidePanels();
+        //manager.HidePanels();
         manager.ShowPanels();
         actionPanel.transform.Find("AttackButton").gameObject.SetActive(false);
         actionPanel.transform.Find("WaitButton").gameObject.SetActive(true);
@@ -118,12 +118,22 @@ public class UIManager : MonoBehaviour {
                 currentUnit.FindAttackableTiles();
             }
 
-            manager.HidePanels();
+            //reboot to show panelanimation
+            //manager.HidePanels();
             manager.ShowPanels();
-            actionPanel.transform.Find("AttackButton").gameObject.SetActive(true);
+
+            RaycastHit hit;
+            if (Physics.Raycast(enemy.gameObject.transform.position, Vector3.down, out hit, 1)) {
+                if (hit.transform.GetComponent<Tile>().attackable) {
+                    actionPanel.transform.Find("AttackButton").gameObject.SetActive(true);
+                }
+                else {
+                    actionPanel.transform.Find("AttackButton").gameObject.SetActive(false);
+                }
+            }
             actionPanel.transform.Find("WaitButton").gameObject.SetActive(false);
         }
-        else {
+        else { //clicking on previously clicked enemy cancels its view
             manager.CancelAction();
             selectedUnit = currentUnit;
         }
@@ -205,7 +215,12 @@ public class UIManager : MonoBehaviour {
 
     public void HidePanels() {
         ChangeCursorToArrow();
-        //actionPanel.GetComponent<Animator>().speed = -1;
+        actionPanel.GetComponent<Animator>().SetTrigger("CancelPanel");
+        StartCoroutine(DelayHiding(0.5f));
+    }
+
+    public IEnumerator DelayHiding(float duration) {
+        yield return new WaitForSeconds(duration);
         actionPanel.SetActive(false);
         unitInfoPanel.SetActive(false);
     }
