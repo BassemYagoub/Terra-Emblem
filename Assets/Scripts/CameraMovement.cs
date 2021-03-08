@@ -12,7 +12,7 @@ public class CameraMovement : MonoBehaviour {
     private static List<Unit> units; //every unit in the field
 
     //to follow units
-    static CameraMovement camera;
+    static CameraMovement manager;
     private GameObject followedUnit;
     private bool followingUnits = true;
     private Text followUnitsText;
@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        camera = this;
+        manager = this;
         units = new List<Unit>(GameObject.FindObjectsOfType<Unit>());
         map = GameObject.FindGameObjectWithTag("Map");
         mapColl = map.GetComponent<BoxCollider>();
@@ -125,31 +125,36 @@ public class CameraMovement : MonoBehaviour {
     public static IEnumerator FollowUnit(GameObject unit, float waitingTime = 0f) {
         yield return new WaitForSeconds(waitingTime);
 
-        if (unit != null && camera.followingUnits) {
+        if (unit != null && manager.followingUnits) {
 
             //check condition to not change postion every frame when not needed
             if (unit.GetComponent<TacticsMove>().turn) {
-                camera.doneMoving = false;
+                manager.doneMoving = false;
                 float distFromUnit = 5f;
-                camera.followedUnit = unit;
+                manager.followedUnit = unit;
 
-                float yPos = camera.transform.rotation.eulerAngles.y;
+                float yPos = manager.transform.rotation.eulerAngles.y;
                 if (yPos == 0)
-                    camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z + distFromUnit);
+                    manager.transform.position = new Vector3(unit.transform.position.x, manager.transform.position.y, unit.transform.position.z + distFromUnit);
                 else if (yPos == 90)
-                    camera.transform.position = new Vector3(unit.transform.position.x + distFromUnit, camera.transform.position.y, unit.transform.position.z);
+                    manager.transform.position = new Vector3(unit.transform.position.x + distFromUnit, manager.transform.position.y, unit.transform.position.z);
                 else if (yPos == 180)
-                    camera.transform.position = new Vector3(unit.transform.position.x, camera.transform.position.y, unit.transform.position.z - distFromUnit);
+                    manager.transform.position = new Vector3(unit.transform.position.x, manager.transform.position.y, unit.transform.position.z - distFromUnit);
                 else if (yPos == 270)
-                    camera.transform.position = new Vector3(unit.transform.position.x - distFromUnit, camera.transform.position.y, unit.transform.position.z);
+                    manager.transform.position = new Vector3(unit.transform.position.x - distFromUnit, manager.transform.position.y, unit.transform.position.z);
 
-                camera.doneMoving = true;
+                manager.doneMoving = true;
             }
         }
 
     }
 
     public static bool IsDoneMoving() {
-        return camera.doneMoving;
+        return manager.doneMoving;
+    }
+
+    //dumb way to not click on any object when game ends but it works
+    public static void MoveCameraAway() {
+        manager.transform.position = new Vector3(5000, 5000, 5000);
     }
 }

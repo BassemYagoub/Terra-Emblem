@@ -422,7 +422,10 @@ public class TacticsMove : MonoBehaviour {
             RemoveSelectedTiles();
             moving = false;
             actionPhase = true;
-            UIManager.ShowPlayerActions();
+            
+            if(transform.tag == "Player")
+                UIManager.ShowPlayerActions();
+
             animator.SetBool("isRunning", false);
             animator.SetBool("isWalking", false);
         }
