@@ -235,11 +235,6 @@ public class TacticsMove : MonoBehaviour {
             Tile t = process.Dequeue();
             selectableTiles.Add(t);
 
-            //if not an enemy on top of tile => selectable
-            if (!t.attackable) {
-                t.reachableByEnemy = true;
-            }
-
             if (t.distance < movingRange+attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
                     if (!tile.visited) {
@@ -523,7 +518,7 @@ public class TacticsMove : MonoBehaviour {
 
     //turn to play for this unit
     public void BeginTurn() {
-        Debug.Log(name + " begin");
+        //Debug.Log(name + " begin");
         turn = true;
         if(gameObject.tag == "Player") {
             UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());

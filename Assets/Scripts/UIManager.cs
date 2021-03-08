@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIManager : MonoBehaviour {
     public Texture2D[] cursorTextures;
@@ -19,20 +21,28 @@ public class UIManager : MonoBehaviour {
     static List<GameObject> enemies;
 
     void Start() {
-        manager = this;
-        actionPanel = GameObject.Find("ActionPanel"); 
-        unitInfoPanel = GameObject.Find("UnitInfoPanel");
-        enemiesRangeButton = GameObject.Find("EnemiesRangeButton");
-        map = GameObject.FindGameObjectsWithTag("Tile");
-        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
+        if (SceneManager.GetActiveScene().name == "MainScene") {
+            manager = this;
+            actionPanel = GameObject.Find("ActionPanel");
+            unitInfoPanel = GameObject.Find("UnitInfoPanel");
+            enemiesRangeButton = GameObject.Find("EnemiesRangeButton");
+            map = GameObject.FindGameObjectsWithTag("Tile");
+            enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
 
-        actionPanel.SetActive(false);
-        unitInfoPanel.SetActive(false);
+            actionPanel.SetActive(false);
+            unitInfoPanel.SetActive(false);
+        }
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            ShowEnemiesRange();
+        if (SceneManager.GetActiveScene().name == "MainScene") {
+            if (Input.GetKeyDown(KeyCode.P)) {//pause game when needed
+                Debug.Break();
+            }
+
+            if (Input.GetKeyDown(KeyCode.E)) {
+                ShowEnemiesRange();
+            }
         }
     }
 
@@ -123,7 +133,7 @@ public class UIManager : MonoBehaviour {
             manager.ShowPanels();
 
             RaycastHit hit;
-            if (Physics.Raycast(enemy.gameObject.transform.position, Vector3.down, out hit, 1)) {
+            if (Physics.Raycast(enemy.transform.position, Vector3.down, out hit, 1)) {
                 if (hit.transform.GetComponent<Tile>().attackable) {
                     actionPanel.transform.Find("AttackButton").gameObject.SetActive(true);
                 }
@@ -250,4 +260,14 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void ChangeScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void PlayButtonGreyHover() {
+        GameObject.Find("PlayButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xAA, 0xAA, 0xAA, 0xFF);
+    }
+    public void PlayButtonWhiteHover() {
+        GameObject.Find("PlayButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
+    }
 }
