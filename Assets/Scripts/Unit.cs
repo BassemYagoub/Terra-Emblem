@@ -78,6 +78,7 @@ public class Unit : MonoBehaviour {
         unitTM.RemoveAttackableTiles();
         TurnManager.EndTurn();
     }
+
     void ShowBattleResults(Unit opponent, float dmg, float xpReceived) {
         eventText.GetComponent<Text>().color = Color.blue;
         eventText.GetComponent<Text>().text = "+ " + xpReceived + " XP";
