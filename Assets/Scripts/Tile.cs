@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour {
     public bool enemyOnTop = false;
     public bool mouseOver = false;
     public bool reachableByEnemy = false;
+    public bool inTheWay = false;
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -37,6 +38,9 @@ public class Tile : MonoBehaviour {
                 GetComponent<Renderer>().material.color = Color.cyan;
             else
                 GetComponent<Renderer>().material.color = new Color32(0xE6, 0x00, 0xFF, 0xFF);
+        }
+        else if (inTheWay) {
+            GetComponent<Renderer>().material.color = Color.yellow;
         }
         else if (target) {
             GetComponent<Renderer>().material.color = Color.green;
@@ -85,10 +89,11 @@ public class Tile : MonoBehaviour {
         attackable = false;
         selectable = false;
         enemyOnTop = false;
+        inTheWay = false;
         //reachableByEnemy = false;
 
 
-         visited = false;
+        visited = false;
         parent = null;
         distance = 0;
     }
@@ -146,21 +151,10 @@ public class Tile : MonoBehaviour {
                     //1st condition for A*
                     if ((tile == target) || !touchUnit) {
                         adjacencyList.Add(tile);
-                    }                        
-                    
-                    //see attackable tiles within selectable tiles
-                    else if (touchUnit && hit.transform.gameObject.tag != team) {
-
-                        //better way of doing this ? (even though loop of size 4 max)
-                        foreach (Tile adjTile in tile.adjacencyList) {
-                            if (adjTile.selectable || adjTile.attackable) {
-                                tile.selectable = false;
-                                tile.attackable = true;
-                                adjacencyList.Add(tile);
-                                break;
-                            }
-                        }
-                        
+                    }
+                    else if(touchUnit && current) {
+                        Debug.Log(tile.name);
+                        tile.adjacencyList.Add(this);
                     }
                     
                 }
@@ -169,7 +163,6 @@ public class Tile : MonoBehaviour {
                 Tile tile = col.GetComponent<Tile>();
 
                 if (tile != null && tile.walkable) {
-                    //RaycastHit hit;
                     adjacencyList.Add(tile);
                 }
 
@@ -177,5 +170,25 @@ public class Tile : MonoBehaviour {
         }
     }
     
+
+    //check if tile with enemy is next to current tile
+    public bool IsNeighborCurrent(float jumpHeight, string team) {
+        Vector3 halfExtents = new Vector3(0.25f, (1 + jumpHeight) / 2.0f, 0.25f);
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right};
+
+        foreach (Vector3 dir in directions) {
+            Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
+
+            foreach (Collider col in colliders) {
+                Tile tile = col.GetComponent<Tile>();
+
+                if (tile != null && tile.current) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 }

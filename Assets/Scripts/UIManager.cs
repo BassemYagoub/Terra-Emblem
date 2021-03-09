@@ -143,7 +143,7 @@ public class UIManager : MonoBehaviour {
             }
             actionPanel.transform.Find("WaitButton").gameObject.SetActive(false);
         }
-        else { //clicking on previously clicked enemy cancels its view
+        else { //clicking on previously clicked enemy cancels its panels
             manager.CancelAction();
             selectedUnit = currentUnit;
         }
@@ -163,7 +163,7 @@ public class UIManager : MonoBehaviour {
         }
 
         if(tmpCanSee && reload) { //if player wants to see enemies' range, reload updated map
-            manager.ShowEnemiesRange();
+            manager.Invoke("ShowEnemiesRange", 1f);
         }
     }
 

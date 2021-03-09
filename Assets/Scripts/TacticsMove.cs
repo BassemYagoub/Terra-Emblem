@@ -25,7 +25,7 @@ public class TacticsMove : MonoBehaviour {
     List<Tile> attackableTiles = new List<Tile>();
     List<Tile> tilesWithEnemies = new List<Tile>();
     GameObject[] tiles;
-    Stack<Tile> path = new Stack<Tile>();
+    protected Stack<Tile> path = new Stack<Tile>();
     Tile currentTile;
 
     Vector3 velocity = new Vector3();
@@ -148,6 +148,9 @@ public class TacticsMove : MonoBehaviour {
 
                 //neighbour selectable <=> t attackable + not in any path
                 if (adjTile.selectable) {
+                    if (adjTile.current) {
+                        Debug.Log(adjTile.name);
+                    }
                     adjTile.adjacencyList.Remove(t);
                     isAttackable = true; //potential useless loops
 
@@ -180,7 +183,12 @@ public class TacticsMove : MonoBehaviour {
                 t.attackable = true;
             }
             else {
-                t.attackable = false;
+                if (t.IsNeighborCurrent(jumpHeight, tag)) {
+                    t.attackable = true;
+                }
+                else {
+                    t.attackable = false;
+                }
             }
         }
 
@@ -233,7 +241,6 @@ public class TacticsMove : MonoBehaviour {
 
         while (process.Count > 0) {
             Tile t = process.Dequeue();
-            selectableTiles.Add(t);
 
             if (t.distance < movingRange+attackRange) {
                 foreach (Tile tile in t.adjacencyList) {
@@ -257,6 +264,7 @@ public class TacticsMove : MonoBehaviour {
         while (next != null) {
             //Debug.Log("next=" + next);
             path.Push(next);
+            next.inTheWay = true;
             next = next.parent;
         }
 
@@ -518,7 +526,7 @@ public class TacticsMove : MonoBehaviour {
 
     //turn to play for this unit
     public void BeginTurn() {
-        //Debug.Log(name + " begin");
+        Debug.Log(name + " begin");
         turn = true;
         if(gameObject.tag == "Player") {
             UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());

@@ -133,7 +133,6 @@ public class Unit : MonoBehaviour {
         if (currentHP <= 0) {
             Die();
             Invoke("DieAnimation", 1f);
-            Debug.Log("aaaa");
 
             return 1;
         }

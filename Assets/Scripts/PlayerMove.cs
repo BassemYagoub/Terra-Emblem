@@ -63,7 +63,7 @@ public class PlayerMove : TacticsMove {
     }
 
     //moving and attacking in one click
-    public void FindPathThenAttack(Unit opponent) {
+    public void FindPathThenAttack(Unit opponent, bool attack=true) {
         targetTile = GetTargetTile(opponent.gameObject);
         opponentUnit = opponent;
 
@@ -80,7 +80,7 @@ public class PlayerMove : TacticsMove {
                     //get an optimal tile
                     foreach (Tile adjTile in nearTargetTile.adjacencyList) {
 
-                        if (dist > adjTile.distance) {
+                        if (dist > adjTile.distance && adjTile.distance > 0) {
                             nearTargetTile = adjTile;
                             dist = adjTile.distance;
                         }
@@ -89,7 +89,10 @@ public class PlayerMove : TacticsMove {
                 }
                 FindPath(nearTargetTile);
             }
-            movingAttacking = true;
+
+            if (attack) {
+                movingAttacking = true;
+            }
             actualTargetTile.target = true;
         }
     }
@@ -136,6 +139,7 @@ public class PlayerMove : TacticsMove {
                     Tile t = hit.collider.GetComponent<Tile>();
                     if (t.selectable) {
                         MoveToTile(t);
+
                         foundTiles = false;
                     }
                 }

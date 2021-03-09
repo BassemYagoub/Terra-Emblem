@@ -175,6 +175,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -296,6 +297,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -417,6 +419,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -538,6 +541,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -730,6 +734,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -851,6 +856,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -972,6 +978,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1093,6 +1100,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1214,6 +1222,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1455,6 +1464,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1620,6 +1630,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1741,6 +1752,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -1940,6 +1952,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2364,6 +2377,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2485,6 +2499,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2606,6 +2621,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2727,6 +2743,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2848,6 +2865,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -2969,6 +2987,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3168,6 +3187,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3289,6 +3309,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3454,6 +3475,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3575,6 +3597,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3762,6 +3785,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -3883,6 +3907,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4126,6 +4151,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4247,6 +4273,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4368,6 +4395,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4489,6 +4517,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4610,6 +4639,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4731,6 +4761,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4852,6 +4883,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -4973,6 +5005,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5094,6 +5127,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5215,6 +5249,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5336,6 +5371,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5457,6 +5493,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5578,6 +5615,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5821,6 +5859,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -5942,6 +5981,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6137,6 +6177,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6432,6 +6473,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6597,6 +6639,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6718,6 +6761,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -6839,6 +6883,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7006,6 +7051,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7446,6 +7492,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7567,6 +7614,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7688,6 +7736,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -7887,6 +7936,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8008,6 +8058,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8173,6 +8224,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8321,7 +8373,7 @@ GameObject:
   - component: {fileID: 622320529}
   - component: {fileID: 622320528}
   m_Layer: 0
-  m_Name: Tile (8)
+  m_Name: Tileaa (8)
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8361,6 +8413,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8482,6 +8535,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8603,6 +8657,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8724,6 +8779,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -8845,6 +8901,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9033,6 +9090,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9154,6 +9212,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9275,6 +9334,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9396,6 +9456,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9517,6 +9578,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9638,6 +9700,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -9890,7 +9953,7 @@ PrefabInstance:
     - target: {fileID: 724161569196285105, guid: 9342e78f4850070488bb798f3bbf8840,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724161569196285105, guid: 9342e78f4850070488bb798f3bbf8840,
         type: 3}
@@ -9958,6 +10021,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10079,6 +10143,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10278,6 +10343,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10475,6 +10541,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10596,6 +10663,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10795,6 +10863,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -10916,6 +10985,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11133,6 +11203,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11332,6 +11403,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11453,6 +11525,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11574,6 +11647,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11695,6 +11769,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11816,6 +11891,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -11937,6 +12013,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12058,6 +12135,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12179,6 +12257,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12300,6 +12379,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12444,7 +12524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 6.94, z: -10.43}
+  m_LocalPosition: {x: 0, y: 6.94, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 505804747}
@@ -12701,6 +12781,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -12896,7 +12977,7 @@ PrefabInstance:
     - target: {fileID: 2802912235971919007, guid: 61fed6d44d2bf67488e3e6659914c382,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.07
+      value: -1.93
       objectReference: {fileID: 0}
     - target: {fileID: 2802912235971919007, guid: 61fed6d44d2bf67488e3e6659914c382,
         type: 3}
@@ -13071,7 +13152,7 @@ PrefabInstance:
     - target: {fileID: 5397658735191408768, guid: 4746c779d712f6c489ec95435d4640b9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.07
+      value: -2.93
       objectReference: {fileID: 0}
     - target: {fileID: 5397658735191408768, guid: 4746c779d712f6c489ec95435d4640b9,
         type: 3}
@@ -13164,6 +13245,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13285,6 +13367,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13498,6 +13581,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13620,6 +13704,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13853,6 +13938,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -13974,6 +14060,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14095,6 +14182,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14310,6 +14398,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14431,6 +14520,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14552,6 +14642,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14673,6 +14764,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14794,6 +14886,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -14915,6 +15008,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15036,6 +15130,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15358,6 +15453,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15479,6 +15575,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15600,6 +15697,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15721,6 +15819,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -15886,6 +15985,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16007,6 +16107,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16128,6 +16229,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16327,6 +16429,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16448,6 +16551,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16743,6 +16847,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -16942,6 +17047,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17141,6 +17247,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17262,6 +17369,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17450,6 +17558,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17571,6 +17680,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17692,6 +17802,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17813,6 +17924,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -17934,6 +18046,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18055,6 +18168,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18176,6 +18290,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18297,6 +18412,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18418,6 +18534,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18583,6 +18700,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18748,6 +18866,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -18869,6 +18988,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19120,6 +19240,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19241,6 +19362,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19362,6 +19484,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19516,6 +19639,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19670,6 +19794,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -19881,6 +20006,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20002,6 +20128,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20123,6 +20250,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20244,6 +20372,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20365,6 +20494,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20486,6 +20616,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20804,6 +20935,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -20925,6 +21057,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21117,6 +21250,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21238,6 +21372,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21533,6 +21668,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21654,6 +21790,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21775,6 +21912,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -21940,6 +22078,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22061,6 +22200,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22182,6 +22322,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22422,6 +22563,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22543,6 +22685,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22664,6 +22807,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -22785,6 +22929,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23030,6 +23175,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23151,6 +23297,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23346,6 +23493,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23573,6 +23721,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23824,6 +23973,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -23945,6 +24095,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24066,6 +24217,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24187,6 +24339,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24308,6 +24461,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24429,6 +24583,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24510,7 +24665,7 @@ GameObject:
   - component: {fileID: 1784089233}
   - component: {fileID: 1784089232}
   m_Layer: 0
-  m_Name: Tile (8)
+  m_Name: Tilea (8)
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24550,6 +24705,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24671,6 +24827,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24792,6 +24949,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -24913,6 +25071,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25034,6 +25193,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25233,6 +25393,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25354,6 +25515,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25475,6 +25637,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25726,6 +25889,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25847,6 +26011,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -25968,6 +26133,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26089,6 +26255,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26210,6 +26377,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26331,6 +26499,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26452,6 +26621,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26573,6 +26743,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26772,6 +26943,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -26893,6 +27065,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27014,6 +27187,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27135,6 +27309,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27256,6 +27431,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27377,6 +27553,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27498,6 +27675,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27619,6 +27797,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27740,6 +27919,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -27861,6 +28041,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28060,6 +28241,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28181,6 +28363,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28380,6 +28563,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28501,6 +28685,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28622,6 +28807,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28743,6 +28929,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -28864,6 +29051,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -29121,6 +29309,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -29242,6 +29431,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -29560,6 +29750,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -29681,6 +29872,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -29802,6 +29994,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -29967,6 +30160,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -30088,6 +30282,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
@@ -30209,6 +30404,7 @@ MonoBehaviour:
   enemyOnTop: 0
   mouseOver: 0
   reachableByEnemy: 0
+  inTheWay: 0
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
