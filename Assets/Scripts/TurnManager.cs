@@ -156,8 +156,8 @@ public class TurnManager : MonoBehaviour {
         }
         else if (losingTeam == "NPC") {
             endPanelText.text = "LEVEL COMPLETE";
-            endPanelText.color = new Color32(0x00, 0x30, 0xEA, 0x55);
-            endButtonText.text = "> Reload level";
+            //endPanelText.color = new Color32(0x00, 0x30, 0xEA, 0x55);
+            endButtonText.text = "Reload level";
         }
 
         turnManager.backgroundPanel.SetActive(true);

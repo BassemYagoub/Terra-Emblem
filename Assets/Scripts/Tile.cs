@@ -62,7 +62,7 @@ public class Tile : MonoBehaviour {
             GetComponent<Renderer>().material.color = new Color32(0xA4, 0x00, 0x69, 0xFF);
         }
         else {
-            GetComponent<Renderer>().material.color = new Color32(0x8F, 0xFF, 0x83, 0xFF);
+            GetComponent<Renderer>().material.color = Color.white;//new Color32(0x8F, 0xFF, 0x83, 0xFF);
         }
     }
 
