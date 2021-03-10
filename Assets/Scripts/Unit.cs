@@ -22,7 +22,7 @@ public class Unit : MonoBehaviour {
     private Image hpBar;
     private GameObject eventText;
     private float fillSpeed;
-    public GameObject dyingEffect;
+    public GameObject gunParticle;
 
     // Start is called before the first frame update
     void Start() {
@@ -64,8 +64,9 @@ public class Unit : MonoBehaviour {
             gameObject.GetComponent<Animator>().SetTrigger("Punch");
         }
         else {
-            gameObject.transform.rotation *= Quaternion.Euler(0, 90, 0);
+            gameObject.transform.rotation *= Quaternion.Euler(0, 70, 0);
             gameObject.GetComponent<Animator>().SetTrigger("Shoot");
+            StartCoroutine(ShootAnimation());
         }
 
         float dmg = 3 * strength * lvl + Random.Range(wisdom, luck * 5);
@@ -77,6 +78,14 @@ public class Unit : MonoBehaviour {
         unitTM.actionPhase = false;
         unitTM.RemoveAttackableTiles();
         TurnManager.EndTurn();
+    }
+
+    public IEnumerator ShootAnimation() {
+        yield return new WaitForSeconds(0.8f);
+        //ParticleSystem ps = gunParticle.GetComponent<ParticleSystem>();
+        //ps.main.duration *= unitTM.attackRange;
+        GameObject effectInstance = (GameObject)Instantiate(gunParticle, transform);
+        Destroy(effectInstance, 0.5f);
     }
 
     void ShowBattleResults(Unit opponent, float dmg, float xpReceived) {

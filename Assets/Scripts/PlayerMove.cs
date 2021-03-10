@@ -62,7 +62,7 @@ public class PlayerMove : TacticsMove {
         foundTiles = false;
     }
 
-    //moving and attacking in one click
+    //moving and attacking in one click (if attack = true)
     public void FindPathThenAttack(Unit opponent, bool attack=true) {
         targetTile = GetTargetTile(opponent.gameObject);
         opponentUnit = opponent;
