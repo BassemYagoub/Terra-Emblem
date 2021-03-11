@@ -133,7 +133,6 @@ public class CameraMovement : MonoBehaviour {
                 manager.doneMoving = false;
                 float distFromUnit = 5f;
                 manager.followedUnit = unit;
-                Debug.Log(manager.followedUnit);
 
                 float yPos = manager.transform.rotation.eulerAngles.y;
                 if (yPos == 0)

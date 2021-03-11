@@ -69,6 +69,9 @@ public class TurnManager : MonoBehaviour {
         if (turnTeam.Count > 0) {
             TacticsMove.changingTurn = false;
             turnTeam.Peek().BeginTurn();
+            if(turnTeam.Peek().tag == "Player") {
+                UIManager.ShowPlayerActions();
+            }
         }
     }
 
@@ -138,8 +141,6 @@ public class TurnManager : MonoBehaviour {
                 unitId = unitToPlayId;
 
             } while (!ExchangeTurn(playedUnit, units[team][unitToPlayId]));
-
-            UIManager.ShowPlayerActions();
         }
     }
 

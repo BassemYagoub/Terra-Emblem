@@ -98,13 +98,13 @@ public class Tile : MonoBehaviour {
         distance = 0;
     }
 
-    public void FindNeighbors(float jumpHeight, Tile target, string team, bool attackPhase = false) {
+    public void FindNeighbors(float jumpHeight, Tile target, string team, bool attackPhase = false, bool checkEnemyReachable = false) {
         Reset();
 
-        CheckTile(Vector3.forward, jumpHeight, target, team, attackPhase);
-        CheckTile(Vector3.back, jumpHeight, target, team, attackPhase);
-        CheckTile(Vector3.right, jumpHeight, target, team, attackPhase);
-        CheckTile(Vector3.left, jumpHeight, target, team, attackPhase);
+        CheckTile(Vector3.forward, jumpHeight, target, team, attackPhase, checkEnemyReachable);
+        CheckTile(Vector3.back, jumpHeight, target, team, attackPhase, checkEnemyReachable);
+        CheckTile(Vector3.right, jumpHeight, target, team, attackPhase, checkEnemyReachable);
+        CheckTile(Vector3.left, jumpHeight, target, team, attackPhase, checkEnemyReachable);
     }
 
 
@@ -134,7 +134,7 @@ public class Tile : MonoBehaviour {
 
     }
 
-    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool actionPhase=false) {
+    public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool actionPhase, bool checkEnemyReachable) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
 
@@ -152,9 +152,18 @@ public class Tile : MonoBehaviour {
                     if ((tile == target) || !touchUnit) {
                         adjacencyList.Add(tile);
                     }
-                    else if(touchUnit && current) {
-                        Debug.Log(tile.name);
-                        tile.adjacencyList.Add(this);
+                    else if(touchUnit) {
+                        Debug.Log("touch unit "+tile.name);
+                        if (current) {
+                            Debug.Log(tile.name);
+                            tile.adjacencyList.Add(this);
+                        }
+
+                        //check if enemy can attack player
+                        if (hit.transform.gameObject.tag != team && checkEnemyReachable) {
+                            Debug.Log(hit.transform.gameObject.tag);
+                            this.adjacencyList.Add(tile);
+                        }
                     }
                     
                 }

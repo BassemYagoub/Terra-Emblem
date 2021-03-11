@@ -11,6 +11,7 @@ TagManager:
   - TurnPanel
   - ActionPanel
   - UnitInfoPanel
+  - Decor
   layers:
   - Default
   - TransparentFX

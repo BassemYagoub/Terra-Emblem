@@ -56,12 +56,12 @@ public class TacticsMove : MonoBehaviour {
         return tile;
     }
 
-    public void ComputeAdjacencyLists(float jumpHeight, Tile target, string team, bool attackPhase=false) {
+    public void ComputeAdjacencyLists(float jumpHeight, Tile target, string team, bool attackPhase=false, bool checkEnemyReachable = false) {
         //tiles = GameObject.FindGameObjectsWithTag("Tile"); //if changing map during game
 
         foreach (GameObject tile in tiles) {
             Tile t = tile.GetComponent<Tile>();
-            t.FindNeighbors(jumpHeight, target, team, attackPhase);
+            t.FindNeighbors(jumpHeight, target, team, attackPhase, checkEnemyReachable);
 
             if (t.checkIfEnemyOnTop(gameObject.tag)) {
                 tilesWithEnemies.Add(t);
@@ -231,7 +231,8 @@ public class TacticsMove : MonoBehaviour {
 
     //tiles attackable by an enemy
     public void FindReachableByEnemyTiles() {
-        ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
+        Debug.Log(gameObject.tag);
+        ComputeAdjacencyLists(jumpHeight, null, gameObject.tag, false, true);
         GetCurrentTile();
 
         Queue<Tile> process = new Queue<Tile>();
