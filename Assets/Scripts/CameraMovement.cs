@@ -35,32 +35,7 @@ public class CameraMovement : MonoBehaviour {
         }
         else {
             //move with middle-click+ mouse direction
-            if (Input.GetKey(KeyCode.Mouse2)) {
-
-                if (Input.GetAxis("Mouse X") > 0 && transform.position.x >= (map.transform.position.x - mapColl.size.x)) {
-                    transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
-                }
-                else if (Input.GetAxis("Mouse X") < 0 && transform.position.x < (map.transform.position.x + mapColl.size.x)) {
-                    transform.Translate(Vector3.right * movingSpeed * Time.deltaTime);
-                }
-
-                //(Y Axis of the mouse and not the one of the game)
-                if (Input.GetAxis("Mouse Y") > 0 && transform.position.z >= (map.transform.position.z - mapColl.size.z)) {
-                    transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
-                }
-                else if (Input.GetAxis("Mouse Y") < 0 && transform.position.z < (map.transform.position.z + mapColl.size.z)) {
-                    transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
-                }
-            }
-
-
-            //zoom-in & zoom-out while scrolling
-            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y >= -1) {
-                transform.Translate(Vector3.down * movingSpeed * Time.deltaTime);
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < map.transform.position.y + maxHeight) {
-                transform.Translate(Vector3.up * movingSpeed * Time.deltaTime);
-            }
+            MoveCamera();
         }
 
         //camera reset to starting pos
@@ -78,28 +53,54 @@ public class CameraMovement : MonoBehaviour {
 
 
         if (Input.GetKeyDown(KeyCode.F)) {
-            UpdateFollowUnit();
+            UpdateFollowMode();
         }
 
+    }
+
+    void MoveCamera() {
+        if (Input.GetKey(KeyCode.Mouse2)) {
+
+            if (Input.GetAxis("Mouse X") > 0 && transform.position.x >= (map.transform.position.x - mapColl.size.x)) {
+                transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
+            }
+            else if (Input.GetAxis("Mouse X") < 0 && transform.position.x < (map.transform.position.x + mapColl.size.x)) {
+                transform.Translate(Vector3.right * movingSpeed * Time.deltaTime);
+            }
+
+            //(Y Axis of the mouse and not the one of the game)
+            if (Input.GetAxis("Mouse Y") > 0 && transform.position.z >= (map.transform.position.z - mapColl.size.z)) {
+                transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
+            }
+            else if (Input.GetAxis("Mouse Y") < 0 && transform.position.z < (map.transform.position.z + mapColl.size.z)) {
+                transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
+            }
+        }
+
+
+        //zoom-in & zoom-out while scrolling
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y >= -1) {
+            transform.Translate(Vector3.down * movingSpeed * Time.deltaTime);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < map.transform.position.y + maxHeight) {
+            transform.Translate(Vector3.up * movingSpeed * Time.deltaTime);
+        }
     }
 
 
     public void ResetCameraPos() {
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = new Quaternion(0, 0, 0, 0);
-        StartCoroutine(CameraMovement.FollowUnit(followedUnit));
     }
 
     public void RotateLeft() {
         transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, 90, Space.Self);
-        StartCoroutine(CameraMovement.FollowUnit(followedUnit));
     }
 
     public void RotateRight() {
         transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, -90, Space.Self);
-        StartCoroutine(CameraMovement.FollowUnit(followedUnit));
     }
 
     private void RotateUnitsHPBar() {
@@ -108,7 +109,7 @@ public class CameraMovement : MonoBehaviour {
         }
     }
 
-    public void UpdateFollowUnit() {
+    public void UpdateFollowMode() {
         followingUnits = !followingUnits;
         if (followingUnits) {
             followUnitsText.text = "Follow Units : ON (F)";
@@ -132,6 +133,7 @@ public class CameraMovement : MonoBehaviour {
                 manager.doneMoving = false;
                 float distFromUnit = 5f;
                 manager.followedUnit = unit;
+                Debug.Log(manager.followedUnit);
 
                 float yPos = manager.transform.rotation.eulerAngles.y;
                 if (yPos == 0)

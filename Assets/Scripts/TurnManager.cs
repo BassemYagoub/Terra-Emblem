@@ -109,11 +109,38 @@ public class TurnManager : MonoBehaviour {
                     turnTeam.Enqueue(tmpArray[i]);
                 }
             }
-
+            playedUnit.turn = false;
             unitToPlay.BeginTurn();
             return true;
         }
         return false;
+    }
+
+    //exchange turns between a unit and its relative prev/next one
+    public static void ExchangeTurn(TacticsMove playedUnit, bool isNext) {
+        if (turnTeam.Count > 1) {
+            string team = turnKey.Peek();
+            int unitId = units[team].IndexOf(playedUnit);
+            int unitToPlayId = -1;
+
+            do {
+                if (isNext) {
+                    unitToPlayId = (unitId + 1) % units[team].Count;
+                }
+                else { //isPrevious
+                    if (unitId == 0) {
+                        unitToPlayId = units[team].Count - 1;
+                    }
+                    else {
+                        unitToPlayId = unitId - 1;
+                    }
+                }
+                unitId = unitToPlayId;
+
+            } while (!ExchangeTurn(playedUnit, units[team][unitToPlayId]));
+
+            UIManager.ShowPlayerActions();
+        }
     }
 
     public static void AddUnit(TacticsMove unit) {

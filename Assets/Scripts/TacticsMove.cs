@@ -545,19 +545,19 @@ public class TacticsMove : MonoBehaviour {
         Debug.Log("pass turn");
     }
 
-    public string getHP() {
+    public string GetHP() {
         return tacticsMoveUnit.currentHP + "/" + tacticsMoveUnit.maxHP;
     }
 
-    public string getLvl() {
+    public string GetLvl() {
         return ""+tacticsMoveUnit.lvl;
     }
 
-    public string getMovingRange() {
+    public string GetMovingRange() {
         return ""+movingRange;
     }
 
-    public string getAttackRange() {
+    public string GetAttackRange() {
         return ""+attackRange;
     }
 }

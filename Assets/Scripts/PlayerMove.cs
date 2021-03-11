@@ -77,7 +77,7 @@ public class PlayerMove : TacticsMove {
                 Tile nearTargetTile = targetTile;
 
                 while (range < attackRange) {
-                    //get an optimal tile
+                    //get an optimal tile (attackRange dist from enemy)
                     foreach (Tile adjTile in nearTargetTile.adjacencyList) {
 
                         if (dist > adjTile.distance && adjTile.distance > 0) {
@@ -117,7 +117,7 @@ public class PlayerMove : TacticsMove {
                     //if other unit player can play : change turn
                     if (!(gameObject == hit.collider.gameObject)) {
                         TacticsMove unitToPlay = hit.collider.GetComponent<TacticsMove>();
-                        turn = !(TurnManager.ExchangeTurn(gameObject.GetComponent<TacticsMove>(), unitToPlay));
+                        TurnManager.ExchangeTurn(gameObject.GetComponent<TacticsMove>(), unitToPlay);
                         
                         if (turn) { // <=> unitToPlay already played
                             Debug.Log("turn alreay ended");

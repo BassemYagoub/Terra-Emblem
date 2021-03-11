@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour {
     static TacticsMove selectedUnit;
     static GameObject actionPanel;
     static GameObject unitInfoPanel;
+    static GameObject unitTurnPanel;
     static GameObject enemiesRangeButton;
     static GameObject[] map;
 
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour {
             manager = this;
             actionPanel = GameObject.Find("ActionPanel");
             unitInfoPanel = GameObject.Find("UnitInfoPanel");
+            unitTurnPanel = GameObject.Find("UnitTurnPanel");
             enemiesRangeButton = GameObject.Find("EnemiesRangeButton");
             map = GameObject.FindGameObjectsWithTag("Tile");
             enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
@@ -67,6 +69,8 @@ public class UIManager : MonoBehaviour {
         //if (selectedUnit == null) {
             selectedUnit = currentUnit;
         //}
+
+        unitTurnPanel.transform.Find("CurrentUnit").GetComponent<Text>().text = currentUnit.name;
         currentUnit.ResetFoundTiles();
     }
 
@@ -85,10 +89,10 @@ public class UIManager : MonoBehaviour {
         }
 
         unitInfoPanel.transform.Find("UnitNamePanel").transform.Find("UnitName").GetComponent<Text>().text = selectedUnit.name;
-        unitInfoPanel.transform.Find("UnitHPInfo").GetComponent<Text>().text = selectedUnit.getHP();
-        unitInfoPanel.transform.Find("UnitLvlInfo").GetComponent<Text>().text = selectedUnit.getLvl();
-        unitInfoPanel.transform.Find("UnitMoveRangeInfo").GetComponent<Text>().text = selectedUnit.getMovingRange();
-        unitInfoPanel.transform.Find("UnitAttackRangeInfo").GetComponent<Text>().text = selectedUnit.getAttackRange();
+        unitInfoPanel.transform.Find("UnitHPInfo").GetComponent<Text>().text = selectedUnit.GetHP();
+        unitInfoPanel.transform.Find("UnitLvlInfo").GetComponent<Text>().text = selectedUnit.GetLvl();
+        unitInfoPanel.transform.Find("UnitMoveRangeInfo").GetComponent<Text>().text = selectedUnit.GetMovingRange();
+        unitInfoPanel.transform.Find("UnitAttackRangeInfo").GetComponent<Text>().text = selectedUnit.GetAttackRange();
 
         GameObject unitTurnInfo = unitInfoPanel.transform.Find("UnitNamePanel").transform.Find("UnitTurnInfo").gameObject;
         if (!canPlay) {
@@ -216,6 +220,15 @@ public class UIManager : MonoBehaviour {
         }
         HidePanels();
     }
+
+    public void PreviousUnit() {
+        TurnManager.ExchangeTurn(currentUnit, false);
+    }
+
+    public void NextUnit() {
+        TurnManager.ExchangeTurn(currentUnit, true);
+    }
+
 
     public void ShowPanels() {
         actionPanel.SetActive(true);
