@@ -153,7 +153,6 @@ public class Tile : MonoBehaviour {
                         adjacencyList.Add(tile);
                     }
                     else if(touchUnit) {
-                        Debug.Log("touch unit "+tile.name);
                         if (current) {
                             Debug.Log(tile.name);
                             tile.adjacencyList.Add(this);

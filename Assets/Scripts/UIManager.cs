@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour {
     static List<GameObject> enemies;
 
     void Start() {
-        if (SceneManager.GetActiveScene().name == "MainScene") {
+        if (SceneManager.GetActiveScene().name != "TitleScreen") {
             manager = this;
             actionPanel = GameObject.Find("ActionPanel");
             unitInfoPanel = GameObject.Find("UnitInfoPanel");
@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour {
     }
 
     void Update() {
-        if (SceneManager.GetActiveScene().name == "MainScene") {
+        if (SceneManager.GetActiveScene().name != "TitleScreen") {
             if (Input.GetKeyDown(KeyCode.P)) {//pause game when needed
                 Debug.Break();
             }
