@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour {
-    public float maxHeight = 8.0f;
-    public float movingSpeed = 20.0f;
+    public float maxHeight = 3.0f;
+    public float movingSpeed = 10.0f;
     
     private GameObject map;
     private BoxCollider mapColl; //dimensions of the map to not go too far
@@ -60,6 +60,11 @@ public class CameraMovement : MonoBehaviour {
 
     void MoveCamera() {
         if (Input.GetKey(KeyCode.Mouse2)) {
+            //security for out of bounds
+            if((transform.position.x+1f < (map.transform.position.x - mapColl.size.x)) || (transform.position.x - 1f >= (map.transform.position.x + mapColl.size.x)) || (transform.position.z + 1f < (map.transform.position.z - mapColl.size.z)) || (transform.position.z - 1f >= (map.transform.position.z + mapColl.size.z)) ) {
+                ResetCameraPos();
+                return;
+            }
 
             if (Input.GetAxis("Mouse X") > 0 && transform.position.x >= (map.transform.position.x - mapColl.size.x)) {
                 transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
