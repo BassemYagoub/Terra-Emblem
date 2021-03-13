@@ -38,22 +38,25 @@ public class CameraMovement : MonoBehaviour {
             MoveCamera();
         }
 
-        //camera reset to starting pos
-        if (Input.GetKeyDown(KeyCode.R)) {
-            ResetCameraPos();
-        }
+        if (!UIManager.MenuIsOn() && !TurnManager.GameEnded()) {
 
-        //90° rotation of the map
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            RotateLeft();
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            RotateRight();
-        }
+            //camera reset to starting pos
+            if (Input.GetKeyDown(KeyCode.R)) {
+                ResetCameraPos();
+            }
+
+            //90° rotation of the map
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                RotateLeft();
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                RotateRight();
+            }
 
 
-        if (Input.GetKeyDown(KeyCode.F)) {
-            UpdateFollowMode();
+            if (Input.GetKeyDown(KeyCode.F)) {
+                UpdateFollowMode();
+            }
         }
 
     }
@@ -159,8 +162,18 @@ public class CameraMovement : MonoBehaviour {
         return manager.doneMoving;
     }
 
-    //dumb way to not click on any object when game ends but it works
+    //dumb way to not click on any object when on a mennu but it works
     public static void MoveCameraAway() {
         manager.transform.position = new Vector3(5000, 5000, 5000);
     }
+
+    public static Vector3 GetCameraPos() {
+        return manager.transform.position;
+    }
+
+    public static void MoveCameraTo(Vector3 pos) {
+        manager.transform.position = pos;
+    }
+
+
 }

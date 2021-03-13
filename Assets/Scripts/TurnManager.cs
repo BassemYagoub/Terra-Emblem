@@ -14,7 +14,6 @@ public class TurnManager : MonoBehaviour {
     static TurnManager turnManager;
     public GameObject turnPanel; //panel
     private Text panelText; //text inside panel indicating the team
-    public GameObject backgroundPanel;
     float changingDuration = 1.5f;
     static bool gameEnded = false;
 
@@ -168,41 +167,12 @@ public class TurnManager : MonoBehaviour {
         units[deadUnit.tag].Remove(deadUnit);
         if (units[deadUnit.tag].Count == 0) {
             gameEnded = true;
-            turnManager.StartCoroutine(turnManager.EndGame(deadUnit.tag));
+            turnManager.StartCoroutine(UIManager.ShowEndLevelMenu(deadUnit.tag, 2.5f));
         }
     }
 
-    public IEnumerator EndGame(string losingTeam) {
-        yield return new WaitForSeconds(changingDuration);
-        Text endPanelText = turnManager.backgroundPanel.GetComponentInChildren<Text>();
-        Text endButtonText = turnManager.backgroundPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
-
-
-        if (losingTeam == "Player") {
-            endPanelText.text = "YOU LOST";
-            endPanelText.color = new Color32(0xF1, 0x00, 0x00, 0x55);
-        }
-        else if (losingTeam == "NPC") {
-            endPanelText.text = "LEVEL COMPLETE";
-            //endPanelText.color = new Color32(0x00, 0x30, 0xEA, 0x55);
-            endButtonText.text = "Reload level";
-        }
-
-        turnManager.backgroundPanel.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        CameraMovement.MoveCameraAway();
+    public static bool GameEnded() {
+        return gameEnded;
     }
 
-    //buttons
-    public void ReloadLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void RetryColorToGrey() {
-        turnManager.backgroundPanel.transform.Find("RetryButton").GetComponentInChildren<Text>().color = Color.grey;
-    }
-
-    public void RetryColorToWhite() {
-        turnManager.backgroundPanel.transform.Find("RetryButton").GetComponentInChildren<Text>().color = Color.white;
-    }
 }

@@ -7,6 +7,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour {
     public Texture2D[] cursorTextures;
+    bool menuOn = false;
+    Vector3 cameraStoredPos;
     static string currentCursor = "arrow";
     static UIManager manager; //singleton
 
@@ -15,6 +17,7 @@ public class UIManager : MonoBehaviour {
     static GameObject actionPanel;
     static GameObject unitInfoPanel;
     static GameObject unitTurnPanel;
+    public GameObject menuPanel;
     static GameObject enemiesRangeButton;
     static GameObject[] map;
 
@@ -38,14 +41,22 @@ public class UIManager : MonoBehaviour {
 
     void Update() {
         if (SceneManager.GetActiveScene().name != "TitleScreen") {
-            if (Input.GetKeyDown(KeyCode.P)) {//pause game when needed
+            if (Input.GetKeyDown(KeyCode.P)) {//for debug : pause game when needed
                 Debug.Break();
             }
 
-            if (Input.GetKeyDown(KeyCode.E)) {
+            else if (Input.GetKeyDown(KeyCode.E) && !menuOn) {
                 ShowEnemiesRange();
             }
+
+            else if (Input.GetKeyDown(KeyCode.Escape)) {
+                ShowMenu();
+            }
         }
+    }
+
+    public static bool MenuIsOn() {
+        return manager.menuOn;
     }
 
     //used by other classes
@@ -273,14 +284,85 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    public void ChangeScene() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    //show or unshow menu depending on wether its already active
+    //should be improved to pause every gameObject in the game
+    public void ShowMenu() {
+        if (!TurnManager.GameEnded()) {
+            if (!menuOn) {
+                menuOn = true;
+                unitTurnPanel.SetActive(false);
+                Text titleMenuText = manager.menuPanel.GetComponentInChildren<Text>();
+                Text retryButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
+
+                titleMenuText.text = "PAUSE";
+                //endPanelText.color = new Color32(0x00, 0x30, 0xEA, 0x55);
+                retryButtonText.text = "Restart level";
+
+                manager.menuPanel.SetActive(true);
+                cameraStoredPos = CameraMovement.GetCameraPos();
+                CameraMovement.MoveCameraAway();
+            }
+            else {
+                menuOn = false;
+                unitTurnPanel.SetActive(true);
+                CameraMovement.MoveCameraTo(cameraStoredPos);
+                manager.menuPanel.SetActive(false);
+            }
+        }
+
     }
 
+    //when every units of a team died
+    public static IEnumerator ShowEndLevelMenu(string losingTeam, float changingDuration) {
+
+        yield return new WaitForSeconds(changingDuration);
+        manager.menuPanel.transform.Find("ExitButton").gameObject.SetActive(false);
+        unitTurnPanel.SetActive(false);
+        Text endPanelText = manager.menuPanel.GetComponentInChildren<Text>();
+        Text endButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
+
+
+        if (losingTeam == "Player") {
+            endPanelText.text = "YOU LOST";
+            endPanelText.color = new Color32(0xF1, 0x00, 0x00, 0x55);
+        }
+        else if (losingTeam == "NPC") {
+            endPanelText.text = "MISSION COMPLETE";
+            //endPanelText.color = new Color32(0x00, 0x30, 0xEA, 0x55);
+            endButtonText.text = "Reload level";
+            manager.menuPanel.transform.Find("NextLvlButton").gameObject.SetActive(true);
+        }
+
+        manager.menuPanel.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        CameraMovement.MoveCameraAway();
+    }
+
+
+    //loading scenes
+    public void ReloadLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ChargeNextScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void ChargeTitleScreen() {
+        SceneManager.LoadScene(0);
+    }
+
+    //text changes on menus
     public void PlayButtonGreyHover() {
         GameObject.Find("PlayButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xAA, 0xAA, 0xAA, 0xFF);
     }
     public void PlayButtonWhiteHover() {
         GameObject.Find("PlayButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
     }
+
+    public void MenuButtonToGrey(string buttonName) {
+        manager.menuPanel.transform.Find(buttonName).GetComponentInChildren<Text>().color = Color.grey;
+    }
+    public void MenuButtonToWhite(string buttonName) {
+        manager.menuPanel.transform.Find(buttonName).GetComponentInChildren<Text>().color = Color.white;
+    }
+
 }
