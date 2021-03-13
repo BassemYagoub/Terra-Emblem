@@ -26,10 +26,18 @@ public class TurnManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (!gameEnded && turnTeam.Count == 0) {
+        if (!gameEnded && turnTeam.Count == 0 && units.Count > 0 && turnKey.Count > 0) {
             InitTeamTurnQueue();
         }
 
+    }
+
+    //necessary when changing scene
+    public static void Reset() {
+        units = new Dictionary<string, List<TacticsMove>>();
+        turnKey = new Queue<string>();
+        turnTeam = new Queue<TacticsMove>();
+        gameEnded = false;
     }
 
     static void InitTeamTurnQueue() {

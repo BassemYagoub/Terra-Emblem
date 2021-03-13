@@ -8213,8 +8213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb38ac819ab6f8b419f6cbf48d700249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHeight: 8
-  movingSpeed: 20
+  maxHeight: 3
+  movingSpeed: 10
 --- !u!1 &514320258
 GameObject:
   m_ObjectHideFlags: 0

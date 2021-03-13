@@ -341,9 +341,11 @@ public class UIManager : MonoBehaviour {
 
     //loading scenes
     public void ReloadLevel() {
+        TurnManager.Reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ChargeNextScene() {
+        TurnManager.Reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void ChargeTitleScreen() {
