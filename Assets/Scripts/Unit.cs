@@ -70,6 +70,10 @@ public class Unit : MonoBehaviour {
         }
 
         float dmg = 3 * strength * lvl + Random.Range(wisdom, luck * 5);
+        if(tag == "NPC") {
+            dmg /= 2; //we don't want the game to be Dark Souls (even if I love it :glad:)
+        }
+
         int opponentDied = opponent.TakeDamage(dmg);
         float xpReceived = opponent.lvl * 10 + (opponentDied * opponent.lvl * 5);
         GainXP(xpReceived);
@@ -160,6 +164,7 @@ public class Unit : MonoBehaviour {
             UIManager.ResetReachableByEnemyTiles(true);
         }
         Debug.Log("Unit died");
+        Destroy(gameObject.GetComponent<CapsuleCollider>());
     }
 
     void DieAnimation() {

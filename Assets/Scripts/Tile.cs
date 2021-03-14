@@ -160,7 +160,6 @@ public class Tile : MonoBehaviour {
 
                         //check if enemy can attack player
                         if (hit.transform.gameObject.tag == "Player" && checkEnemyReachable) {
-                            Debug.Log(hit.transform.gameObject.tag);
                             this.adjacencyList.Add(tile);
                         }
                     }

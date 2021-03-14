@@ -12,16 +12,26 @@ public class TurnManager : MonoBehaviour {
     static Queue<string> turnKey = new Queue<string>(); //whose turn
     static Queue<TacticsMove> turnTeam = new Queue<TacticsMove>(); //turn for each unit of playing team
     static TurnManager turnManager;
+    
+    static bool gameEnded = false;
+    static int turnNumber = 0;
+
     public GameObject turnPanel; //panel
     private Text panelText; //text inside panel indicating the team
     float changingDuration = 1.5f;
-    static bool gameEnded = false;
+
+    //force Player to be first to play
+    private void Awake() {
+        units["Player"] = new List<TacticsMove>();
+        turnKey.Enqueue("Player");
+    }
 
     // Start is called before the first frame update
     void Start() {
         turnManager = this;
         panelText = turnPanel.GetComponentInChildren<Text>();
         turnPanel.SetActive(false); //should already be false;
+
     }
 
     // Update is called once per frame
@@ -95,6 +105,9 @@ public class TurnManager : MonoBehaviour {
                 turnManager.Invoke("StartTurn", 0.5f);
             }
             else { // changing team turn
+                ++turnNumber;
+                Debug.Log("turn n°" + turnNumber);
+
                 string team = turnKey.Dequeue();
                 turnKey.Enqueue(team);
                 InitTeamTurnQueue();

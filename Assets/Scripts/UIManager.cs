@@ -293,13 +293,12 @@ public class UIManager : MonoBehaviour {
         if (!TurnManager.GameEnded()) {
             if (!menuOn) {
                 menuOn = true;
-                unitTurnPanel.SetActive(false);
                 Text titleMenuText = manager.menuPanel.GetComponentInChildren<Text>();
                 Text retryButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
 
                 titleMenuText.text = "PAUSE";
                 //endPanelText.color = new Color32(0x00, 0x30, 0xEA, 0x55);
-                retryButtonText.text = "Restart level";
+                //retryButtonText.text = "Restart level";
 
                 manager.menuPanel.SetActive(true);
                 cameraStoredPos = CameraMovement.GetCameraPos();
@@ -307,7 +306,6 @@ public class UIManager : MonoBehaviour {
             }
             else {
                 menuOn = false;
-                unitTurnPanel.SetActive(true);
                 CameraMovement.MoveCameraTo(cameraStoredPos);
                 manager.menuPanel.SetActive(false);
             }
@@ -320,7 +318,6 @@ public class UIManager : MonoBehaviour {
 
         yield return new WaitForSeconds(changingDuration);
         manager.menuPanel.transform.Find("ExitButton").gameObject.SetActive(false);
-        unitTurnPanel.SetActive(false);
         Text endPanelText = manager.menuPanel.GetComponentInChildren<Text>();
         Text endButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
 
@@ -361,8 +358,15 @@ public class UIManager : MonoBehaviour {
             yield return new WaitForSeconds(5f);
         }
         else {
-            menuPanel.GetComponent<Animator>().SetTrigger("LevelTransition");
-            yield return new WaitForSeconds(2f);
+            if (menuPanel.activeSelf) {
+                menuPanel.GetComponent<Animator>().SetTrigger("LevelTransition");
+                yield return new WaitForSeconds(2f);
+            }
+            else { //possible in level 0 when exiting room without menu
+                menuPanel.SetActive(true);
+                menuPanel.GetComponent<Animator>().SetTrigger("LevelTransition0");
+                yield return new WaitForSeconds(.45f);
+            }
             TurnManager.Reset();
         }
 

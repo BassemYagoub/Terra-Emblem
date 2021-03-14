@@ -231,7 +231,6 @@ public class TacticsMove : MonoBehaviour {
 
     //tiles attackable by an enemy
     public void FindReachableByEnemyTiles() {
-        Debug.Log(gameObject.tag);
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag, false, true);
         GetCurrentTile();
 
