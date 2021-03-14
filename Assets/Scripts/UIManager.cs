@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour {
     static List<GameObject> enemies;
 
     void Start() {
-        if (SceneManager.GetActiveScene().name != "TitleScreen") {
+        if (SceneManager.GetActiveScene().name.Contains("Level")) {
             manager = this;
             actionPanel = GameObject.Find("ActionPanel");
             unitInfoPanel = GameObject.Find("UnitInfoPanel");
@@ -37,10 +37,13 @@ public class UIManager : MonoBehaviour {
             actionPanel.SetActive(false);
             unitInfoPanel.SetActive(false);
         }
+        else if (SceneManager.GetActiveScene().name == "Credits") {
+            Invoke("ChargeTitleScreen", 10f); // wait for end of credits
+        }
     }
 
     void Update() {
-        if (SceneManager.GetActiveScene().name != "TitleScreen") {
+        if (SceneManager.GetActiveScene().name.Contains("Level")) {
             if (Input.GetKeyDown(KeyCode.P)) {//for debug : pause game when needed
                 Debug.Break();
             }
@@ -345,11 +348,26 @@ public class UIManager : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ChargeNextScene() {
-        TurnManager.Reset();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        string sceneName = SceneManager.GetActiveScene().name;
+        StartCoroutine(SceneTransition(sceneName));
     }
     public void ChargeTitleScreen() {
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator SceneTransition(string sceneName) {
+        if (sceneName == "TitleScreen") {
+            GameObject.Find("TitleScreenPanel").GetComponent<Animator>().SetTrigger("PlayGame");
+            yield return new WaitForSeconds(5f);
+        }
+        else {
+            menuPanel.GetComponent<Animator>().SetTrigger("LevelTransition");
+            yield return new WaitForSeconds(2f);
+            TurnManager.Reset();
+        }
+
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     //text changes on menus
