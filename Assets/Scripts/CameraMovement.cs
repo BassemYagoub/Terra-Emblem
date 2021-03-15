@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour {
             MoveCamera();
         }
 
-        if (!UIManager.MenuIsOn() && !TurnManager.GameEnded()) {
+        if (!UIManager.MenuIsOn() && !TurnManager.GameEnded() && !DialogueManager.InDialogueMode()) {
 
             //camera reset to starting pos
             if (Input.GetKeyDown(KeyCode.R)) {
@@ -131,13 +131,13 @@ public class CameraMovement : MonoBehaviour {
         units.Remove(u);
     }
 
-    public static IEnumerator FollowUnit(GameObject unit, float waitingTime = 0f) {
+    public static IEnumerator FollowUnit(GameObject unit, float waitingTime = 0f, bool dialogueMode = false) {
         yield return new WaitForSeconds(waitingTime);
 
         if (unit != null && manager.followingUnits) {
 
             //check condition to not change postion every frame when not needed
-            if (unit.GetComponent<TacticsMove>().turn) {
+            if (unit.GetComponent<TacticsMove>().turn || dialogueMode) {
                 manager.doneMoving = false;
                 float distFromUnit = 5f;
                 manager.followedUnit = unit;
@@ -156,6 +156,17 @@ public class CameraMovement : MonoBehaviour {
             }
         }
 
+    }
+
+    //for dialogues
+    public static void FollowUnit(string unitName) {
+        GameObject unit = GameObject.Find(unitName);
+        if(unit != null) {
+            manager.StartCoroutine(FollowUnit(unit, 0f, true));
+        }
+        else {
+            Debug.LogError("Unit Not Found");
+        }
     }
 
     public static bool IsDoneMoving() {

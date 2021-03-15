@@ -71,9 +71,11 @@ public class Tile : MonoBehaviour {
     }
 
     void OnMouseOver() {
-        mouseOver = true;
-        if (selectable) {
-            UIManager.ChangeCursor("feet");
+        if (!UIManager.MenuIsOn() && !DialogueManager.InDialogueMode()) {
+            mouseOver = true;
+            if (selectable) {
+                UIManager.ChangeCursor("feet");
+            }
         }
     }
 

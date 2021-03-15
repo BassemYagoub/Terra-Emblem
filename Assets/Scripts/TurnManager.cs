@@ -36,7 +36,7 @@ public class TurnManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (!gameEnded && turnTeam.Count == 0 && units.Count > 0 && turnKey.Count > 0) {
+        if (!gameEnded && turnTeam.Count == 0 && !DialogueManager.InDialogueMode()) {
             InitTeamTurnQueue();
         }
 
