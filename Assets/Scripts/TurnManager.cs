@@ -14,16 +14,22 @@ public class TurnManager : MonoBehaviour {
     static TurnManager turnManager;
     
     static bool gameEnded = false;
-    static int turnNumber = 0;
+    static int turnNumber = 1;
 
     public GameObject turnPanel; //panel
+    public GameObject[] hiddenObjects; //objects to be shown at a certain turn
     private Text panelText; //text inside panel indicating the team
     float changingDuration = 1.5f;
+    bool eventTriggered = false;
+    bool newTurn = true; //bool to know if change of team turn
+
+    List<bool> triggers = new List<bool>(); //list of triggers to enter only once in event
 
     //force Player to be first to play
     private void Awake() {
         units["Player"] = new List<TacticsMove>();
         turnKey.Enqueue("Player");
+        triggers.Add(false); //only one event to be triggered in the current state of game
     }
 
     // Start is called before the first frame update
@@ -31,12 +37,12 @@ public class TurnManager : MonoBehaviour {
         turnManager = this;
         panelText = turnPanel.GetComponentInChildren<Text>();
         turnPanel.SetActive(false); //should already be false;
-
     }
 
     // Update is called once per frame
     void Update() {
-        if (!gameEnded && turnTeam.Count == 0 && !DialogueManager.InDialogueMode()) {
+        TriggerEvents();
+        if (newTurn && !gameEnded && !eventTriggered && turnTeam.Count == 0 && !DialogueManager.InDialogueMode()) {
             InitTeamTurnQueue();
         }
 
@@ -51,6 +57,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     static void InitTeamTurnQueue() {
+        turnManager.newTurn = false;
         List<TacticsMove> teamList = units[turnKey.Peek()];
 
         foreach (TacticsMove unit in teamList) {
@@ -81,7 +88,7 @@ public class TurnManager : MonoBehaviour {
         TacticsMove.changingTurn = false;
     }
 
-    //new turn for a unit
+    //new turn for a unit (called in "Invoke" function)
     public void StartTurn() {
         if (turnTeam.Count > 0) {
             TacticsMove.changingTurn = false;
@@ -110,9 +117,13 @@ public class TurnManager : MonoBehaviour {
 
                 string team = turnKey.Dequeue();
                 turnKey.Enqueue(team);
-                InitTeamTurnQueue();
                 if (turnKey.Peek() == "Player") {
                     UIManager.ResetReachableByEnemyTiles(true);
+                }
+
+                if (!gameEnded && !turnManager.eventTriggered && turnTeam.Count == 0 && !DialogueManager.InDialogueMode()) {
+                    //InitTeamTurnQueue();
+                    turnManager.newTurn = true;
                 }
             }
         }
@@ -194,6 +205,37 @@ public class TurnManager : MonoBehaviour {
 
     public static bool GameEnded() {
         return gameEnded;
+    }
+
+    public static void SetTriggerToFalse() {
+        turnManager.eventTriggered = false;
+    }
+
+    //basic function to trigger events while stopping the game : to change if more events are to happen
+    void TriggerEvents() {
+        if (!eventTriggered) { //otherwise : infinite calls during turn
+
+            //trigger in level3 turn 3
+            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 5) {
+                eventTriggered = true;
+                triggers[0] = true; //==> this event won't ever be triggered
+                GameObject hiddenNPCs = hiddenObjects[0];
+
+                if (hiddenNPCs != null) {
+                    hiddenNPCs.gameObject.SetActive(true);
+                    StartCoroutine(CameraMovement.FollowObjectFor(hiddenNPCs, 2f));
+                    StartCoroutine(TriggerDialogue(1.5f));
+                }
+                else {
+                    Debug.LogError("No hidden Objects found");
+                }
+            }
+        }
+    }
+
+    IEnumerator TriggerDialogue(float delay) {
+        yield return new WaitForSeconds(delay);
+        DialogueManager.TriggerDialogue();
     }
 
 }

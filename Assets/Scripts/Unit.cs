@@ -114,7 +114,7 @@ public class Unit : MonoBehaviour {
                 //get tile underneath opponent
                 if (Physics.Raycast(opponent.transform.position, Vector3.down, out hit, 1)) {
                     Tile tileOpponent = hit.transform.GetComponent<Tile>();
-                    Debug.Log("isAttackable : " + tileOpponent.attackable);
+                    //Debug.Log("isAttackable : " + tileOpponent.attackable);
 
                     if (tileOpponent.attackable) {
                         InflictDamage(opponent);

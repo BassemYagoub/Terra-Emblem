@@ -169,6 +169,21 @@ public class CameraMovement : MonoBehaviour {
         }
     }
 
+    //follow an object for a certain amount of time (used to do some "cinematics")
+    public static IEnumerator FollowObjectFor(GameObject obj, float seconds) {
+        bool tmpFollow = manager.followingUnits;
+        manager.followingUnits = false;
+
+        manager.doneMoving = false;
+        manager.transform.position = new Vector3(obj.transform.position.x, manager.transform.position.y, obj.transform.position.z + 5f);
+
+        manager.doneMoving = true;
+        yield return new WaitForSeconds(seconds);
+        manager.followingUnits = tmpFollow;
+        TurnManager.SetTriggerToFalse();
+        Debug.Log("trigger set to false");
+    }
+
     public static bool IsDoneMoving() {
         return manager.doneMoving;
     }
