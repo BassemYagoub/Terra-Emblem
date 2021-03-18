@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour {
             unitInfoPanel.SetActive(false);
         }
         else if (SceneManager.GetActiveScene().name == "Credits") {
-            StartCoroutine(ChargeTitleScreen()); // wait for end of credits
+            StartCoroutine(ChargeTitleScreenFromCredits()); // wait for end of credits
         }
     }
 
@@ -196,6 +196,10 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel.SetActive(false);
     }
 
+    public static void UpdateEnemies() {
+        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
+    }
+
 
     /*----------- NON STATIC METHODS -----------*/
 
@@ -321,6 +325,8 @@ public class UIManager : MonoBehaviour {
 
         yield return new WaitForSeconds(changingDuration);
         manager.menuPanel.transform.Find("ExitButton").gameObject.SetActive(false);
+        manager.menuPanel.transform.Find("AudioSettings").gameObject.SetActive(false);
+        
         Text endPanelText = manager.menuPanel.GetComponentInChildren<Text>();
         Text endButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
 
@@ -351,7 +357,12 @@ public class UIManager : MonoBehaviour {
         string sceneName = SceneManager.GetActiveScene().name;
         StartCoroutine(SceneTransition(sceneName));
     }
-    public IEnumerator ChargeTitleScreen() {
+
+    public void ChargeTitleScreen() {
+        SceneManager.LoadScene(0);
+    }
+
+    public IEnumerator ChargeTitleScreenFromCredits() {
         yield return new WaitForSeconds(8f);
         StartCoroutine(AudioManager.VolumeTransition(0f));
         yield return new WaitForSeconds(2f);
@@ -360,7 +371,6 @@ public class UIManager : MonoBehaviour {
     }
 
     IEnumerator SceneTransition(string sceneName) {
-        Debug.Log("aaaaaaaa");
         StartCoroutine(AudioManager.VolumeTransition(0f));
         if (sceneName == "TitleScreen") {
             GameObject.Find("TitleScreenPanel").GetComponent<Animator>().SetTrigger("PlayGame");

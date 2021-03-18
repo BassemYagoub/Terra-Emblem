@@ -216,7 +216,7 @@ public class TurnManager : MonoBehaviour {
         if (!eventTriggered) { //otherwise : infinite calls during turn
 
             //trigger in level3 turn 3
-            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 3) {
+            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 6) {
                 eventTriggered = true;
                 triggers[0] = true; //==> this event won't ever be triggered
                 GameObject hiddenNPCs = hiddenObjects[0];
@@ -224,6 +224,7 @@ public class TurnManager : MonoBehaviour {
                 if (hiddenNPCs != null) {
                     StartCoroutine(AudioManager.TriggerClipChange(0));
                     hiddenNPCs.gameObject.SetActive(true);
+                    UIManager.UpdateEnemies();
                     StartCoroutine(CameraMovement.FollowObjectFor(hiddenNPCs, 2f));
                     StartCoroutine(TriggerDialogue(1.5f));
                 }

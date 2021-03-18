@@ -23,6 +23,10 @@ public class DialogueManager : MonoBehaviour {
     void Start() {
         manager = this;
         dialogues = new Queue<Dialogue>();
+        dialogueOn = true;
+        textAnimationDone = true;
+        closePanel = false;
+
         ChargeDialogues();
         GoToNextDialogue();
         if (dialogueOn) {
