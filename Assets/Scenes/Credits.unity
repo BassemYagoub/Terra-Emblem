@@ -321,7 +321,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4292730333
+    rgba: 4293256677
   m_fontColor: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 2
@@ -595,6 +595,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7862639840677289569, guid: 3c0943701fcfccb4691e886f71b26912,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862639840677289569, guid: 3c0943701fcfccb4691e886f71b26912,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7996871ef42caac47a993a722f18f5b5, type: 3}
     m_RemovedComponents:
     - {fileID: 7557967693393553621, guid: 3c0943701fcfccb4691e886f71b26912, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3c0943701fcfccb4691e886f71b26912, type: 3}

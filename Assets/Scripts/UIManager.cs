@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour {
             unitInfoPanel.SetActive(false);
         }
         else if (SceneManager.GetActiveScene().name == "Credits") {
-            Invoke("ChargeTitleScreen", 10f); // wait for end of credits
+            StartCoroutine(ChargeTitleScreen()); // wait for end of credits
         }
     }
 
@@ -292,6 +292,7 @@ public class UIManager : MonoBehaviour {
     public void ShowMenu() {
         if (!TurnManager.GameEnded()) {
             if (!menuOn) {
+                AudioManager.ReduceVolumeByHalf();
                 menuOn = true;
                 Text titleMenuText = manager.menuPanel.GetComponentInChildren<Text>();
                 Text retryButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
@@ -305,6 +306,7 @@ public class UIManager : MonoBehaviour {
                 CameraMovement.MoveCameraAway();
             }
             else {
+                AudioManager.RiseVolumeByHalf();
                 menuOn = false;
                 CameraMovement.MoveCameraTo(cameraStoredPos);
                 manager.menuPanel.SetActive(false);
@@ -315,6 +317,7 @@ public class UIManager : MonoBehaviour {
 
     //when every units of a team died
     public static IEnumerator ShowEndLevelMenu(string losingTeam, float changingDuration) {
+        AudioManager.ReduceVolumeByHalf();
 
         yield return new WaitForSeconds(changingDuration);
         manager.menuPanel.transform.Find("ExitButton").gameObject.SetActive(false);
@@ -348,11 +351,17 @@ public class UIManager : MonoBehaviour {
         string sceneName = SceneManager.GetActiveScene().name;
         StartCoroutine(SceneTransition(sceneName));
     }
-    public void ChargeTitleScreen() {
+    public IEnumerator ChargeTitleScreen() {
+        yield return new WaitForSeconds(8f);
+        StartCoroutine(AudioManager.VolumeTransition(0f));
+        yield return new WaitForSeconds(2f);
+
         SceneManager.LoadScene(0);
     }
 
     IEnumerator SceneTransition(string sceneName) {
+        Debug.Log("aaaaaaaa");
+        StartCoroutine(AudioManager.VolumeTransition(0f));
         if (sceneName == "TitleScreen") {
             GameObject.Find("TitleScreenPanel").GetComponent<Animator>().SetTrigger("PlayGame");
             yield return new WaitForSeconds(5f);
