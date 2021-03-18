@@ -17,39 +17,41 @@ public class PlayerMove : TacticsMove {
 
         Debug.DrawRay(transform.position, transform.forward);
 
-        if (!turn || changingTurn) {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isWalking", false);
-            //Debug.Log(name);
-            return;
-        }
+        if (!UIManager.MenuIsOn()) {
+            if (!turn || changingTurn) {
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isWalking", false);
+                //Debug.Log(name);
+                return;
+            }
 
-        else if (movingAttacking) {
-            Move();
-            if (!moving) { //attack only if done moving
-                tacticsMoveUnit.InflictDamage(opponentUnit);
-                opponentUnit = null;
-                movingAttacking = false; 
-                targetTile = null;
-                foundTiles = false;
+            else if (movingAttacking) {
+                Move();
+                if (!moving) { //attack only if done moving
+                    tacticsMoveUnit.InflictDamage(opponentUnit);
+                    opponentUnit = null;
+                    movingAttacking = false;
+                    targetTile = null;
+                    foundTiles = false;
+                }
             }
-        }
-        else if (!moving && !actionPhase) {
-            if (!foundTiles) {
-                FindSelectableTiles();
-                foundTiles = true;
+            else if (!moving && !actionPhase) {
+                if (!foundTiles) {
+                    FindSelectableTiles();
+                    foundTiles = true;
+                }
+                CheckMouse();
             }
-            CheckMouse();
-        }
-        else if (!moving && actionPhase) {
-            if (!foundTiles) {
-                FindAttackableTiles();
-                foundTiles = true;
+            else if (!moving && actionPhase) {
+                if (!foundTiles) {
+                    FindAttackableTiles();
+                    foundTiles = true;
+                }
+                CheckMouse();
             }
-            CheckMouse();
-        }
-        else {
-            Move();
+            else {
+                Move();
+            }
         }
     }
 
@@ -106,7 +108,7 @@ public class PlayerMove : TacticsMove {
     }
 
     void CheckMouse() {
-        if (Input.GetMouseButtonUp(0) && CameraMovement.IsDoneMoving()) {
+        if (Input.GetMouseButtonUp(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

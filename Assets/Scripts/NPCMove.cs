@@ -15,25 +15,27 @@ public class NPCMove : TacticsMove {
 
         Debug.DrawRay(transform.position, transform.forward);
 
-        if (!turn || changingTurn) {
-            return;
-        }
+        if (!UIManager.MenuIsOn()) {
+            if (!turn || changingTurn) {
+                return;
+            }
 
-        if (!moving && !actionPhase) {
-            FindNearestTarget();
-            CalculatePath();
-            //FindSelectableTiles();
-            actualTargetTile.target = true;
-        }
-        else if (!moving && actionPhase) {
-            FindAttackableTiles();
-            tacticsMoveUnit.AttackOpponent(target.gameObject.GetComponent<Unit>());
-            foundTiles = false;
-        }
-        else {
-            Move();
-            if (!moving) {
+            if (!moving && !actionPhase) {
+                FindNearestTarget();
+                CalculatePath();
+                //FindSelectableTiles();
+                actualTargetTile.target = true;
+            }
+            else if (!moving && actionPhase) {
+                FindAttackableTiles();
+                tacticsMoveUnit.AttackOpponent(target.gameObject.GetComponent<Unit>());
                 foundTiles = false;
+            }
+            else {
+                Move();
+                if (!moving) {
+                    foundTiles = false;
+                }
             }
         }
     }

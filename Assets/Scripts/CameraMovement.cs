@@ -16,7 +16,6 @@ public class CameraMovement : MonoBehaviour {
     private GameObject followedUnit;
     private bool followingUnits = true;
     private Text followUnitsText;
-    private bool doneMoving = true;
 
     // Start is called before the first frame update
     void Start() {
@@ -138,7 +137,6 @@ public class CameraMovement : MonoBehaviour {
 
             //check condition to not change postion every frame when not needed
             if (unit.GetComponent<TacticsMove>().turn || dialogueMode) {
-                manager.doneMoving = false;
                 float distFromUnit = 5f;
                 manager.followedUnit = unit;
 
@@ -152,7 +150,6 @@ public class CameraMovement : MonoBehaviour {
                 else if (yPos == 270)
                     manager.transform.position = new Vector3(unit.transform.position.x - distFromUnit, manager.transform.position.y, unit.transform.position.z);
 
-                manager.doneMoving = true;
             }
         }
 
@@ -174,18 +171,12 @@ public class CameraMovement : MonoBehaviour {
         bool tmpFollow = manager.followingUnits;
         manager.followingUnits = false;
 
-        manager.doneMoving = false;
         manager.transform.position = new Vector3(obj.transform.position.x, manager.transform.position.y, obj.transform.position.z + 5f);
 
-        manager.doneMoving = true;
         yield return new WaitForSeconds(seconds);
         manager.followingUnits = tmpFollow;
         TurnManager.SetTriggerToFalse();
         Debug.Log("trigger set to false");
-    }
-
-    public static bool IsDoneMoving() {
-        return manager.doneMoving;
     }
 
     //dumb way to not click on any object when on a mennu but it works
