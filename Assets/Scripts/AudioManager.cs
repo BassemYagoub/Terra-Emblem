@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour {
         }
 
         if(audioSlider != null) {
+            audioSlider.gameObject.SetActive(true);
             audioSlider.value = source.volume;
         }
         StartCoroutine(LaunchMusicAfterDelay());
@@ -79,7 +80,7 @@ public class AudioManager : MonoBehaviour {
             AudioClip newClip = manager.clips[indexClip];
             manager.source.clip = newClip;
             manager.source.Play();
-            manager.StartCoroutine(VolumeTransition(0.25f));
+            manager.StartCoroutine(VolumeTransition(0.2f));
         }
     }
 

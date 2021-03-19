@@ -393,12 +393,23 @@ public class UIManager : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void QuitGame() {
+        Application.Quit();
+    }
+
     //text changes on menus
     public void PlayButtonGreyHover() {
         GameObject.Find("PlayButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xAA, 0xAA, 0xAA, 0xFF);
     }
     public void PlayButtonWhiteHover() {
         GameObject.Find("PlayButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
+    }
+    
+    public void QuitButtonGreyHover() {
+        GameObject.Find("QuitButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xAA, 0xAA, 0xAA, 0xFF);
+    }
+    public void QuitButtonWhiteHover() {
+        GameObject.Find("QuitButton").GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
     }
 
     public void MenuButtonToGrey(string buttonName) {

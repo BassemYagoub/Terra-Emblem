@@ -225,6 +225,7 @@ public class TurnManager : MonoBehaviour {
                     StartCoroutine(AudioManager.TriggerClipChange(0));
                     hiddenNPCs.gameObject.SetActive(true);
                     UIManager.UpdateEnemies();
+                    CameraMovement.UpdateUnits();
                     StartCoroutine(CameraMovement.FollowObjectFor(hiddenNPCs, 2f));
                     StartCoroutine(TriggerDialogue(1.5f));
                 }

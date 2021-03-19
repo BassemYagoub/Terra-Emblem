@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour {
             dialogues.Enqueue(new Dialogue("Laydee Ron", "Yeah, well, you'll learn that, as always, our last member is late.\nNow, let's get rid of this.", true));
         }
         else if (sceneName == "Level2") {
-            dialogues.Enqueue(new Dialogue("Zack", "Four of them now ?!"));
+            dialogues.Enqueue(new Dialogue("Zack", "Five of them now ?!"));
             dialogues.Enqueue(new Dialogue("Zack", "Ok guys, they might be more than us but we can take advantage of the field.\nAnd be careful, they have a ranged soldier too."));
             dialogues.Enqueue(new Dialogue("Laydee Ron", "Heard that, new guy ?\nWe count on you.\nCome on now.", true));
         }

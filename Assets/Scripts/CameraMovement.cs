@@ -29,6 +29,7 @@ public class CameraMovement : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         RotateUnitsHPBar();
+
         if (followingUnits) {
             StartCoroutine(FollowUnit(followedUnit));
         }
@@ -112,7 +113,9 @@ public class CameraMovement : MonoBehaviour {
 
     private void RotateUnitsHPBar() {
         foreach (Unit u in units) {
-            u.hpCanvas.transform.rotation = Quaternion.Euler(45, transform.rotation.eulerAngles.y, 0);
+            if(u.hpCanvas != null) {
+                u.hpCanvas.transform.rotation = Quaternion.Euler(45, transform.rotation.eulerAngles.y, 0);
+            }
         }
     }
 
@@ -192,5 +195,8 @@ public class CameraMovement : MonoBehaviour {
         manager.transform.position = pos;
     }
 
+    public static void UpdateUnits() {
+        units = new List<Unit>(GameObject.FindObjectsOfType<Unit>());
+    }
 
 }
