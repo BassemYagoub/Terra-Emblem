@@ -71,7 +71,7 @@ public class Unit : MonoBehaviour {
 
         float dmg = 3 * strength * lvl + Random.Range(wisdom, luck * 5);
         if(tag == "NPC") {
-            dmg /= 2.5f; //we don't want the game to be Dark Souls (even if I love it :glad:)
+            dmg /= 2f; //we don't want the game to be Dark Souls (even if I love it :glad:)
         }
 
         int opponentDied = opponent.TakeDamage(dmg);

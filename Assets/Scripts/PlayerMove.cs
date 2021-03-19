@@ -82,7 +82,7 @@ public class PlayerMove : TacticsMove {
                     //get an optimal tile (attackRange dist from enemy)
                     foreach (Tile adjTile in nearTargetTile.adjacencyList) {
 
-                        if (dist > adjTile.distance && adjTile.distance > 0) {
+                        if (dist > adjTile.distance && adjTile.distance > 0 && adjTile.distance <= movingRange) {
                             nearTargetTile = adjTile;
                             dist = adjTile.distance;
                         }

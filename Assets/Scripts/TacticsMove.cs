@@ -530,6 +530,7 @@ public class TacticsMove : MonoBehaviour {
         turn = true;
         if(gameObject.tag == "Player") {
             UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());
+            UIManager.ShowPlayerActions();
         }
         StartCoroutine(CameraMovement.FollowUnit(gameObject, 0.1f));
     }
