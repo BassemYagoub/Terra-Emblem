@@ -325,6 +325,7 @@ public class UIManager : MonoBehaviour {
                 CameraMovement.MoveCameraAway();
             }
             else {
+                ChangeCursorToArrow();
                 AudioManager.RiseVolumeByHalf();
                 menuOn = false;
                 CameraMovement.MoveCameraTo(cameraStoredPos);
@@ -341,6 +342,8 @@ public class UIManager : MonoBehaviour {
         yield return new WaitForSeconds(changingDuration);
         manager.menuPanel.transform.Find("ExitButton").gameObject.SetActive(false);
         manager.menuPanel.transform.Find("AudioSettings").gameObject.SetActive(false);
+        manager.menuPanel.transform.Find("PotatoText").gameObject.SetActive(false);
+        actionPanel.SetActive(false);
         
         Text endPanelText = manager.menuPanel.GetComponentInChildren<Text>();
         Text endButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();

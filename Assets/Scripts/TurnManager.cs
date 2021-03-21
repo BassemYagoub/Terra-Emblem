@@ -216,7 +216,7 @@ public class TurnManager : MonoBehaviour {
         if (!eventTriggered) { //otherwise : infinite calls during turn
 
             //trigger in level3 turn 5
-            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 2) {
+            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 5) {
                 eventTriggered = true;
                 triggers[0] = true; //==> this event won't ever be triggered
                 GameObject hiddenNPCs = hiddenObjects[0];
