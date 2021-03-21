@@ -100,8 +100,6 @@ public class PlayerMove : TacticsMove {
     }
 
     public override void PassTurn() {
-        RemoveSelectedTiles();
-        RemoveAttackableTiles();
         actionPhase = false;
         foundTiles = false;
         TurnManager.EndTurn();
@@ -149,8 +147,8 @@ public class PlayerMove : TacticsMove {
             }
         }
 
-        //pass acionPhase with right click
-        else if (actionPhase && Input.GetKeyUp(KeyCode.Mouse1)) {
+        //pass turn with right click
+        else if (Input.GetKeyUp(KeyCode.Mouse1)) {
             PassTurn();
         }
     }

@@ -48,10 +48,12 @@ public class Unit : MonoBehaviour {
     }
 
     void OnMouseOver() {
-        if(gameObject.tag == "NPC")
-            UIManager.ChangeCursor("sword");
-        else
-            UIManager.ChangeCursor("hand");
+        if (!UIManager.MenuIsOn() && !DialogueManager.InDialogueMode()) {
+            if (gameObject.tag == "NPC")
+                UIManager.ChangeCursor("sword");
+            else
+                UIManager.ChangeCursor("hand");
+        }
     }
     void OnMouseExit() {
         UIManager.ChangeCursor("arrow");
@@ -80,7 +82,6 @@ public class Unit : MonoBehaviour {
         ShowBattleResults(opponent, dmg, xpReceived);
 
         unitTM.actionPhase = false;
-        unitTM.RemoveAttackableTiles();
         TurnManager.EndTurn();
     }
 
@@ -121,7 +122,6 @@ public class Unit : MonoBehaviour {
                     }
                     else if(gameObject.tag == "NPC") {
                         unitTM.actionPhase = false;
-                        unitTM.RemoveAttackableTiles();
                         TurnManager.EndTurn();
                     }
                 }

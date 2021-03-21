@@ -26,7 +26,7 @@ public class TacticsMove : MonoBehaviour {
     List<Tile> tilesWithEnemies = new List<Tile>();
     GameObject[] tiles;
     protected Stack<Tile> path = new Stack<Tile>();
-    Tile currentTile;
+    protected Tile currentTile;
 
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
@@ -75,7 +75,8 @@ public class TacticsMove : MonoBehaviour {
     }
 
     //BFS
-    public void FindSelectableTiles() {
+    //enemyReachableMode : use of the function on NPCs to see which tiles they can attack while in Player's turn
+    public void FindSelectableTiles(bool enemyReachableMode = false) {
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
         GetCurrentTile();
 
@@ -90,8 +91,12 @@ public class TacticsMove : MonoBehaviour {
             selectableTiles.Add(t);
 
             //if not an enemy on top of tile => selectable
-            if (!t.attackable) {
+            if (!t.attackable && !enemyReachableMode) {
                 t.selectable = true;
+            }
+
+            if (enemyReachableMode) {
+                t.reachableByEnemy = true;
             }
 
             if (t.distance < movingRange) {
@@ -99,6 +104,9 @@ public class TacticsMove : MonoBehaviour {
                     if (!tile.visited) {
                         tile.parent = t;
                         tile.visited = true;
+                        if (enemyReachableMode) {
+                            tile.reachableByEnemy = true;
+                        }
                         tile.distance = t.distance + 1;
                         process.Enqueue(tile);
                     }
@@ -110,13 +118,13 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
-        FindAttackableBorder(processAttackable);
-        FindReachableEnemies(tilesWithEnemies);
+        FindAttackableBorder(processAttackable, enemyReachableMode);
+        FindReachableEnemies(tilesWithEnemies, enemyReachableMode);
 
     }
 
     //border of selectable tiles <=> attackable
-    public void FindAttackableBorder(Queue<Tile> processAttackable) {
+    public void FindAttackableBorder(Queue<Tile> processAttackable, bool enemyReachableMode = false) {
         while (processAttackable.Count > 0) {
             Tile t = processAttackable.Dequeue();
             attackableTiles.Add(t);
@@ -127,7 +135,13 @@ public class TacticsMove : MonoBehaviour {
                         tile.parent = t;
                         tile.visited = true;
                         tile.distance = t.distance + 1;
-                        tile.attackable = true;
+
+                        if (!enemyReachableMode) {
+                            tile.attackable = true;
+                        }
+                        else {
+                            tile.reachableByEnemy = true;
+                        }
                         processAttackable.Enqueue(tile);
                     }
                 }
@@ -136,7 +150,7 @@ public class TacticsMove : MonoBehaviour {
     }
 
     //checking if enemies on top of tiles are reachable
-    public void FindReachableEnemies(List<Tile> tilesWithEnemies) {
+    public void FindReachableEnemies(List<Tile> tilesWithEnemies, bool enemyReachableMode) {
         Queue<Tile> reprocess = new Queue<Tile>();
 
         foreach (Tile t in tilesWithEnemies) {
@@ -179,12 +193,22 @@ public class TacticsMove : MonoBehaviour {
                 }
             }
 
-            if (isAttackable) {
-                t.attackable = true;
+            if (isAttackable){
+                if (!enemyReachableMode) {
+                    t.attackable = true;
+                }
+                else {
+                    t.reachableByEnemy = true;
+                }
             }
             else {
                 if (t.IsNeighborCurrent(jumpHeight, tag)) {
-                    t.attackable = true;
+                    if (!enemyReachableMode) {
+                        t.attackable = true;
+                    }
+                    else {
+                        t.reachableByEnemy = true;
+                    }
                 }
                 else {
                     t.attackable = false;
@@ -229,31 +253,6 @@ public class TacticsMove : MonoBehaviour {
         tilesWithEnemies.Clear();
     }
 
-    //tiles attackable by an enemy
-    public void FindReachableByEnemyTiles() {
-        ComputeAdjacencyLists(jumpHeight, null, gameObject.tag, false, true);
-        GetCurrentTile();
-
-        Queue<Tile> process = new Queue<Tile>();
-
-        process.Enqueue(currentTile);
-        currentTile.visited = true;
-
-        while (process.Count > 0) {
-            Tile t = process.Dequeue();
-
-            if (t.distance < movingRange+attackRange) {
-                foreach (Tile tile in t.adjacencyList) {
-                    if (!tile.visited) {
-                        tile.parent = t;
-                        tile.reachableByEnemy = true;
-                        tile.distance = t.distance + 1;
-                        process.Enqueue(tile);
-                    }
-                }
-            }
-        }
-    }
 
     public void MoveToTile(Tile tile) {
         path.Clear();
@@ -279,7 +278,16 @@ public class TacticsMove : MonoBehaviour {
         }
     }
 
-    protected void RemoveSelectedTiles() {
+    public void ResetAllTiles() {
+        foreach(GameObject t in tiles) {
+            t.GetComponent<Tile>().Reset();
+        }
+        selectableTiles.Clear();
+        attackableTiles.Clear();
+        tilesWithEnemies.Clear();
+    }
+
+    public void RemoveSelectedTiles() {
         if(currentTile != null) {
             currentTile.current = false;
             currentTile = null;
@@ -490,7 +498,6 @@ public class TacticsMove : MonoBehaviour {
             if (t == target) {
                 actualTargetTile = FindEndTile(t);
                 MoveToTile(actualTargetTile);
-                tilesWithEnemies.Clear();
                 return;
             }
 
@@ -520,8 +527,12 @@ public class TacticsMove : MonoBehaviour {
             }
         }
 
-        //todo - what do you do if there is no path to the target tile?
-        Debug.Log("Path not found");
+        //no path to target tile => change target (check npcMove)
+        Debug.Log("Path not found to :"+target.name);
+        Debug.Log(target.transform.position);
+
+        actualTargetTile = null;
+
     }
 
     //turn to play for this unit
@@ -531,6 +542,7 @@ public class TacticsMove : MonoBehaviour {
         if(gameObject.tag == "Player") {
             UIManager.ChangeCurrentUnit(gameObject.GetComponent<PlayerMove>());
             UIManager.ShowPlayerActions();
+            CameraMovement.UpdateFollowedUnit(gameObject);
         }
         StartCoroutine(CameraMovement.FollowUnit(gameObject, 0.1f));
     }

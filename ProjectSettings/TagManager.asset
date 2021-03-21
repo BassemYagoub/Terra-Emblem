@@ -12,6 +12,7 @@ TagManager:
   - ActionPanel
   - UnitInfoPanel
   - Decor
+  - DecorEffect
   layers:
   - Default
   - TransparentFX

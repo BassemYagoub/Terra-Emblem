@@ -133,10 +133,14 @@ public class CameraMovement : MonoBehaviour {
         units.Remove(u);
     }
 
+    public static void UpdateFollowedUnit(GameObject unit) {
+        manager.followedUnit = unit;
+    }
+
     public static IEnumerator FollowUnit(GameObject unit, float waitingTime = 0f, bool dialogueMode = false) {
         yield return new WaitForSeconds(waitingTime);
 
-        if (unit != null && manager.followingUnits) {
+        if (unit != null && manager.followingUnits && !UIManager.MenuIsOn()) {
 
             //check condition to not change postion every frame when not needed
             if (unit.GetComponent<TacticsMove>().turn || dialogueMode) {
@@ -145,13 +149,13 @@ public class CameraMovement : MonoBehaviour {
 
                 float yPos = manager.transform.rotation.eulerAngles.y;
                 if (yPos == 0)
-                    manager.transform.position = new Vector3(unit.transform.position.x, manager.transform.position.y, unit.transform.position.z + distFromUnit);
+                    manager.transform.position = new Vector3(unit.transform.position.x, 0, unit.transform.position.z + distFromUnit);
                 else if (yPos == 90)
-                    manager.transform.position = new Vector3(unit.transform.position.x + distFromUnit, manager.transform.position.y, unit.transform.position.z);
+                    manager.transform.position = new Vector3(unit.transform.position.x + distFromUnit, 0, unit.transform.position.z);
                 else if (yPos == 180)
-                    manager.transform.position = new Vector3(unit.transform.position.x, manager.transform.position.y, unit.transform.position.z - distFromUnit);
+                    manager.transform.position = new Vector3(unit.transform.position.x, 0, unit.transform.position.z - distFromUnit);
                 else if (yPos == 270)
-                    manager.transform.position = new Vector3(unit.transform.position.x - distFromUnit, manager.transform.position.y, unit.transform.position.z);
+                    manager.transform.position = new Vector3(unit.transform.position.x - distFromUnit, 0, unit.transform.position.z);
 
             }
         }
@@ -177,7 +181,7 @@ public class CameraMovement : MonoBehaviour {
         manager.transform.position = new Vector3(obj.transform.position.x, manager.transform.position.y, obj.transform.position.z + 5f);
 
         yield return new WaitForSeconds(seconds);
-        manager.followingUnits = tmpFollow;
+        manager.UpdateFollowMode();
         TurnManager.SetTriggerToFalse();
         Debug.Log("trigger set to false");
     }

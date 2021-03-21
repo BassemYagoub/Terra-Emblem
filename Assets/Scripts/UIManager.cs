@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour {
     public GameObject menuPanel;
     static GameObject enemiesRangeButton;
     static GameObject[] map;
+    static GameObject[] effects;
 
     static bool canSeeEnemiesRange = false;
     static List<GameObject> enemies;
@@ -32,6 +33,7 @@ public class UIManager : MonoBehaviour {
             unitTurnPanel = GameObject.Find("UnitTurnPanel");
             enemiesRangeButton = GameObject.Find("EnemiesRangeButton");
             map = GameObject.FindGameObjectsWithTag("Tile");
+            effects = GameObject.FindGameObjectsWithTag("DecorEffect");
             enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
 
             actionPanel.SetActive(false);
@@ -126,7 +128,7 @@ public class UIManager : MonoBehaviour {
             ResetReachableByEnemyTiles();
         }
         //manager.HidePanels();
-        manager.ShowPanels();
+        manager.StartCoroutine(manager.ShowPanels(.45f));
         actionPanel.transform.Find("AttackButton").gameObject.SetActive(false);
         actionPanel.transform.Find("WaitButton").gameObject.SetActive(true);
     }
@@ -137,8 +139,9 @@ public class UIManager : MonoBehaviour {
             if (!canSeeEnemiesRange) {
                 ResetReachableByEnemyTiles();
             }
-            enemy.FindReachableByEnemyTiles(); 
-        
+            //enemy.FindReachableByEnemyTiles(); 
+            enemy.FindSelectableTiles(true);
+
             if (!currentUnit.actionPhase) {
                 currentUnit.FindSelectableTiles();
             }
@@ -148,7 +151,7 @@ public class UIManager : MonoBehaviour {
 
             //reboot to show panelanimation
             //manager.HidePanels();
-            manager.ShowPanels();
+            manager.StartCoroutine(manager.ShowPanels());
 
             RaycastHit hit;
             if (Physics.Raycast(enemy.transform.position, Vector3.down, out hit, 1)) {
@@ -169,7 +172,7 @@ public class UIManager : MonoBehaviour {
 
 
     public static void ResetPanel() {
-        actionPanel.SetActive(false);
+        unitInfoPanel.SetActive(false);
     }
 
     //resets the tile reachableByEnemy property when changing selection
@@ -198,6 +201,7 @@ public class UIManager : MonoBehaviour {
 
     public static void UpdateEnemies() {
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("NPC"));
+        Debug.Log("enemies nb:"+enemies.Count);
     }
 
 
@@ -214,7 +218,6 @@ public class UIManager : MonoBehaviour {
     }
 
     public void WaitNextTurn() {
-        Debug.Log(currentUnit.name+" wait");
         HidePanels();
         currentUnit.PassTurn();
     }
@@ -248,16 +251,18 @@ public class UIManager : MonoBehaviour {
     }
 
 
-    public void ShowPanels() {
-        actionPanel.SetActive(true);
+    public IEnumerator ShowPanels(float delay = 0f) {
         unitInfoPanel.SetActive(true);
         ShowUnitInfoPanel();
+        yield return new WaitForSeconds(delay);
+        actionPanel.SetActive(true);
     }
 
+    //hide panels with animation then set them to false
     public void HidePanels() {
         ChangeCursorToArrow();
         actionPanel.GetComponent<Animator>().SetTrigger("CancelPanel");
-        StartCoroutine(DelayHiding(0.5f));
+        StartCoroutine(DelayHiding(.45f));
     }
 
     public IEnumerator DelayHiding(float duration) {
@@ -268,11 +273,14 @@ public class UIManager : MonoBehaviour {
 
     //Enemy range button : shows/unshows the sum of enemies' range
     public void ShowEnemiesRange() {
+        Debug.Log("ShowEnemiesRange");
         if (currentUnit != null) {
             Text buttonText = enemiesRangeButton.transform.Find("Text").GetComponent<Text>();
             if (!canSeeEnemiesRange) {
                 foreach (GameObject enemy in enemies) {
-                    enemy.GetComponent<TacticsMove>().FindReachableByEnemyTiles();
+                    if (enemy != null) {
+                        enemy.GetComponent<TacticsMove>().FindSelectableTiles(true);//FindReachableByEnemyTiles();
+                    }
                 }
                 canSeeEnemiesRange = true;
                 buttonText.text = "Enemy Range : ON (E)";
@@ -288,6 +296,13 @@ public class UIManager : MonoBehaviour {
             else {
                 currentUnit.FindAttackableTiles();
             }
+        }
+    }
+
+    //no effects on map to gain stability
+    public void PotatoMode() {
+        foreach(GameObject effect in effects) {
+            effect.SetActive(!effect.activeSelf);
         }
     }
 
