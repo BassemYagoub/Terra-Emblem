@@ -50,6 +50,11 @@ public class UIManager : MonoBehaviour {
                 Debug.Break();
             }
 
+            //little "cheatchode" to debug lvl3
+            if (Input.GetKeyDown(KeyCode.F10) && SceneManager.GetActiveScene().name == "Level0") {
+                SceneManager.LoadScene("Level3");
+            }
+
             else if (Input.GetKeyDown(KeyCode.E) && !menuOn) {
                 ShowEnemiesRange();
             }
@@ -121,6 +126,7 @@ public class UIManager : MonoBehaviour {
         unitInfoPanel.SetActive(true); //if wanting to show unitInfoPanel but not actionPanel
     }
 
+    //what happens when clicking on a player unit
     public static void ShowPlayerActions() {
         selectedUnit = currentUnit;
 
@@ -133,6 +139,7 @@ public class UIManager : MonoBehaviour {
         actionPanel.transform.Find("WaitButton").gameObject.SetActive(true);
     }
 
+    //what happens when clicking on an enemy
     public static void ShowOnEnemyActions(TacticsMove enemy) {
         if(selectedUnit != enemy) { 
             selectedUnit = enemy;
@@ -168,11 +175,6 @@ public class UIManager : MonoBehaviour {
             manager.CancelAction();
             selectedUnit = currentUnit;
         }
-    }
-
-
-    public static void ResetPanel() {
-        unitInfoPanel.SetActive(false);
     }
 
     //resets the tile reachableByEnemy property when changing selection

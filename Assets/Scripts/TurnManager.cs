@@ -30,6 +30,8 @@ public class TurnManager : MonoBehaviour {
         units["Player"] = new List<TacticsMove>();
         turnKey.Enqueue("Player");
         triggers.Add(false); //only one event to be triggered in the current state of game
+        gameEnded = false;
+        turnNumber = 1;
     }
 
     // Start is called before the first frame update
@@ -45,7 +47,6 @@ public class TurnManager : MonoBehaviour {
         if (newTurn && !gameEnded && !eventTriggered && turnTeam.Count == 0 && !DialogueManager.InDialogueMode()) {
             InitTeamTurnQueue();
         }
-
     }
 
     //necessary when changing scene
@@ -93,9 +94,6 @@ public class TurnManager : MonoBehaviour {
         if (turnTeam.Count > 0) {
             TacticsMove.changingTurn = false;
             turnTeam.Peek().BeginTurn();
-            if(turnTeam.Peek().tag == "Player") {
-                UIManager.ShowPlayerActions();
-            }
         }
     }
 
@@ -216,7 +214,7 @@ public class TurnManager : MonoBehaviour {
         if (!eventTriggered) { //otherwise : infinite calls during turn
 
             //trigger in level3 turn 5
-            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 5) {
+            if (!triggers[0] && SceneManager.GetActiveScene().name == "Level3" && turnNumber == 4) {
                 eventTriggered = true;
                 triggers[0] = true; //==> this event won't ever be triggered
                 GameObject hiddenNPCs = hiddenObjects[0];
