@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour {
 
         if(audioSlider != null) {
             audioSlider.gameObject.SetActive(true);
+            source.volume = PlayerPrefs.GetFloat("SliderVolumeLevel", source.volume);
             audioSlider.value = source.volume;
         }
         StartCoroutine(LaunchMusicAfterDelay());
@@ -32,6 +33,7 @@ public class AudioManager : MonoBehaviour {
 
     public void UpdateVolume() {
         source.volume = audioSlider.value;
+        PlayerPrefs.SetFloat("SliderVolumeLevel", source.volume);
     }
 
     IEnumerator LaunchMusicAfterDelay() {
@@ -44,10 +46,6 @@ public class AudioManager : MonoBehaviour {
 
     public static void ReduceVolumeByHalf() {
         manager.source.volume /= 2;
-    }
-
-    public static void RiseVolumeByHalf() {
-        manager.source.volume *= 2;
     }
 
     //to have a smooth unmute

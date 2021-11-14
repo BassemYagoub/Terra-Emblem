@@ -5,7 +5,7 @@
 Playthrough of the game (V1.0) : https://www.youtube.com/watch?v=6q8Axcv5BWw
 
 ## Play the game 
-Launch the *exe* file in the "*Executable*" folder
+In the "*Executable*" folder, choose a platform and extract the zip file, then launch the *exe* file.
 
 ## Details
 - Team turn-based combat

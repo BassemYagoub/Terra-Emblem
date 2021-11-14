@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour {
             unitInfoPanel.transform.Find("UnitNamePanel").GetComponent<Image>().color = new Color32(0x9A, 0x00, 0x0A, 0xFF);
         }
         else {
-            unitInfoPanel.transform.Find("UnitNamePanel").GetComponent<Image>().color = new Color32(0x00, 0x2E, 0x9A, 0xFF);
+            unitInfoPanel.transform.Find("UnitNamePanel").GetComponent<Image>().color = new Color32(0x34, 0x5E, 0xC0, 0xFF);
         }
 
         unitInfoPanel.transform.Find("UnitNamePanel").transform.Find("UnitName").GetComponent<Text>().text = selectedUnit.name;
@@ -275,9 +275,8 @@ public class UIManager : MonoBehaviour {
 
     //Enemy range button : shows/unshows the sum of enemies' range
     public void ShowEnemiesRange() {
-        Debug.Log("ShowEnemiesRange");
         if (currentUnit != null) {
-            Text buttonText = enemiesRangeButton.transform.Find("Text").GetComponent<Text>();
+            TextMeshProUGUI buttonText = enemiesRangeButton.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>();
             if (!canSeeEnemiesRange) {
                 foreach (GameObject enemy in enemies) {
                     if (enemy != null) {
@@ -313,7 +312,6 @@ public class UIManager : MonoBehaviour {
     public void ShowMenu() {
         if (!TurnManager.GameEnded()) {
             if (!menuOn) {
-                AudioManager.ReduceVolumeByHalf();
                 menuOn = true;
                 Text titleMenuText = manager.menuPanel.GetComponentInChildren<Text>();
                 Text retryButtonText = manager.menuPanel.transform.Find("RetryButton").GetComponentInChildren<Text>();
@@ -328,7 +326,6 @@ public class UIManager : MonoBehaviour {
             }
             else {
                 ChangeCursorToArrow();
-                AudioManager.RiseVolumeByHalf();
                 menuOn = false;
                 CameraMovement.MoveCameraTo(cameraStoredPos);
                 manager.menuPanel.SetActive(false);
@@ -339,6 +336,7 @@ public class UIManager : MonoBehaviour {
 
     //when every units of a team died
     public static IEnumerator ShowEndLevelMenu(string losingTeam, float changingDuration) {
+        Debug.Log("aaaaaaaa");
         AudioManager.ReduceVolumeByHalf();
 
         yield return new WaitForSeconds(changingDuration);

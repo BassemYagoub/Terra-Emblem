@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CameraMovement : MonoBehaviour {
     public float maxHeight = 3.0f;
@@ -15,7 +16,7 @@ public class CameraMovement : MonoBehaviour {
     static CameraMovement manager;
     private GameObject followedUnit;
     private bool followingUnits = true;
-    private Text followUnitsText;
+    private TextMeshProUGUI followUnitsText;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,7 +24,7 @@ public class CameraMovement : MonoBehaviour {
         units = new List<Unit>(GameObject.FindObjectsOfType<Unit>());
         map = GameObject.FindGameObjectWithTag("Map");
         mapColl = map.GetComponent<BoxCollider>();
-        followUnitsText = GameObject.Find("FollowUnitButton").transform.Find("Text").GetComponent<Text>();
+        followUnitsText = GameObject.Find("FollowUnitButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
