@@ -3,40 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TacticsMove : MonoBehaviour {
+
+    /// <summary>
+    /// singleton that can be updated by PlayerMove and NPCMove
+    /// </summary>
     protected Unit tacticsMoveUnit;
 
     //stats
-    public int movingRange = 5;
-    public int attackRange = 1;
-    public float jumpHeight = 1;
-    public float moveSpeed = 6;
-    public float jumpVelocity = 4.5f;
+    public int movingRange = 5; //max tile distance attainable in a turn
+    public int attackRange = 1; //max tile distance attackable in a turn
+    public float moveSpeed = 6; //moving speed for units
+    public float jumpVelocity = 4.5f; //not used for the moment
+    public float jumpHeight = 1; //same
 
     //states
-    public bool moving = false;
-    public bool jumping = false;
-    public bool falling = false;
-    public bool movingEdge = false;
-    public bool turn = false;
-    public bool actionPhase = false;
+    public bool jumping = false; //not used for the moment
+    public bool movingEdge = false; //same
+    public bool turn = false; //is it this unit's turn to play
+    public bool actionPhase = false; //if the unit moved but can still attack
+    public bool moving = false; //is the unit moving
+    public bool falling = false; //same
     public static bool changingTurn = true; //cannot move if changing turn
 
-    List<Tile> selectableTiles = new List<Tile>();
-    List<Tile> attackableTiles = new List<Tile>();
-    List<Tile> tilesWithEnemies = new List<Tile>();
-    GameObject[] tiles;
-    protected Stack<Tile> path = new Stack<Tile>();
-    protected Tile currentTile;
+    GameObject[] tiles; //every tile in the map
+    List<Tile> selectableTiles = new List<Tile>(); //list of tiles where the unit can go to
+    List<Tile> attackableTiles = new List<Tile>(); //list of tiles where the unit can attack
+    List<Tile> tilesWithEnemies = new List<Tile>(); //list of tiles where a unit from the opposite team are
+    protected Stack<Tile> path = new Stack<Tile>(); //the tiles that have been chosen to go to a destination
+    protected Tile currentTile; //tile beneath the unit
 
+
+    //variables used for the jump
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
     Vector3 jumpTarget;
     float halfHeight = 0; //height of character (often used)
 
     protected Tile actualTargetTile;
-    protected Animator animator;
+    protected Animator animator; //animator is here to know whether the unit should walk or run
     protected bool foundTiles = false; //to not call FindTiles functions every frame
 
+    /// <summary>
+    /// Initializes elements in Start Method
+    /// </summary>
     protected void Init() {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
         halfHeight = GetComponent<Collider>().bounds.extents.y;
@@ -46,6 +55,11 @@ public class TacticsMove : MonoBehaviour {
         animator = gameObject.GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Returns the target tile to go to
+    /// </summary>
+    /// <param name="target">the targel tile GameObject</param>
+    /// <returns></returns>
     public Tile GetTargetTile(GameObject target) {
         RaycastHit hit;
         Tile tile = null;
@@ -56,6 +70,14 @@ public class TacticsMove : MonoBehaviour {
         return tile;
     }
 
+    /// <summary>
+    /// Computes the adjacency lists for each tile in the map
+    /// </summary>
+    /// <param name="jumpHeight">unit's jumping height</param>
+    /// <param name="target">target tile</param>
+    /// <param name="team">team tag</param>
+    /// <param name="attackPhase">can the player still move</param>
+    /// <param name="checkEnemyReachable">if true : checks if tiles are reachable by enemies</param>
     public void ComputeAdjacencyLists(float jumpHeight, Tile target, string team, bool attackPhase=false, bool checkEnemyReachable = false) {
         //tiles = GameObject.FindGameObjectsWithTag("Tile"); //if changing map during game
 
@@ -69,13 +91,18 @@ public class TacticsMove : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns the tile beneath playing unit
+    /// </summary>
     public void GetCurrentTile() {
         currentTile = GetTargetTile(gameObject);
         currentTile.current = true;
     }
 
-    //BFS
-    //enemyReachableMode : use of the function on NPCs to see which tiles they can attack while in Player's turn
+    /// <summary>
+    /// Does a BFS to find selectable, attackable and enemyReachable tiles
+    /// </summary>
+    /// <param name="enemyReachableMode">if true : checks if tiles are reachable by enemies</param>
     public void FindSelectableTiles(bool enemyReachableMode = false) {
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag);
         GetCurrentTile();
@@ -123,7 +150,11 @@ public class TacticsMove : MonoBehaviour {
 
     }
 
-    //border of selectable tiles <=> attackable
+    /// <summary>
+    /// Finds which tiles are attackable in the border of the selectable tiles
+    /// </summary>
+    /// <param name="processAttackable">Queue containg selectable tiles in the border</param>
+    /// <param name="enemyReachableMode">if true : checks if tiles are reachable by enemies</param>
     public void FindAttackableBorder(Queue<Tile> processAttackable, bool enemyReachableMode = false) {
         while (processAttackable.Count > 0) {
             Tile t = processAttackable.Dequeue();
@@ -149,7 +180,11 @@ public class TacticsMove : MonoBehaviour {
         }
     }
 
-    //checking if enemies on top of tiles are reachable
+    /// <summary>
+    /// Finds which enemies are within reach for the current unit
+    /// </summary>
+    /// <param name="tilesWithEnemies">List containg the tiles beneath every enemy</param>
+    /// <param name="enemyReachableMode">if true : checks if tiles are reachable by enemies</param>
     public void FindReachableEnemies(List<Tile> tilesWithEnemies, bool enemyReachableMode) {
         Queue<Tile> reprocess = new Queue<Tile>();
 
@@ -222,7 +257,9 @@ public class TacticsMove : MonoBehaviour {
 
     }
 
-    //attackable tiles in actionPhase
+    /// <summary>
+    /// Finds which tiles can be attacked after the unit made a move
+    /// </summary>
     public void FindAttackableTiles() {
         ComputeAdjacencyLists(jumpHeight, null, gameObject.tag, true);
         GetCurrentTile();
@@ -253,7 +290,10 @@ public class TacticsMove : MonoBehaviour {
         tilesWithEnemies.Clear();
     }
 
-
+    /// <summary>
+    /// Moves unit to a certain tile
+    /// </summary>
+    /// <param name="tile">the tile to move to</param>
     public void MoveToTile(Tile tile) {
         path.Clear();
         tile.target = true;
@@ -267,7 +307,7 @@ public class TacticsMove : MonoBehaviour {
             next = next.parent;
         }
 
-        //animation
+        //animation is different if the tile is close
         if(tile != currentTile) {
             if(path.Count > 3) {
                 animator.SetBool("isRunning", true);
@@ -311,6 +351,8 @@ public class TacticsMove : MonoBehaviour {
         attackableTiles.Clear();
     }
 
+
+    //Jumping functions
     void CalculateHeading(Vector3 target) {
         heading = target - transform.position;
         heading.Normalize();
@@ -320,7 +362,6 @@ public class TacticsMove : MonoBehaviour {
         velocity = heading * moveSpeed;
     }
 
-    //Jumping functions
     void PrepareJump(Vector3 target) {
         float targetY = target.y;
         target.y = transform.position.y;
@@ -399,7 +440,9 @@ public class TacticsMove : MonoBehaviour {
         }
     }
 
-
+    /// <summary>
+    /// Move unit to next tile in path
+    /// </summary>
     public void Move() {
         if(path.Count > 0) {
             Tile t = path.Peek();
@@ -473,8 +516,11 @@ public class TacticsMove : MonoBehaviour {
 
         return endTile;
     }
-    
-    //A*
+
+    /// <summary>
+    /// Finds path from current tile to target tile with the A* algorithm
+    /// </summary>
+    /// <param name="target">target tile</param>
     protected void FindPath(Tile target) {
         ComputeAdjacencyLists(jumpHeight, target, gameObject.tag);
         GetCurrentTile();
@@ -532,7 +578,9 @@ public class TacticsMove : MonoBehaviour {
 
     }
 
-    //turn to play for this unit
+    /// <summary>
+    /// Changes current unit
+    /// </summary>
     public void BeginTurn() {
         Debug.Log(name + " begin");
         turn = true;

@@ -18,6 +18,8 @@ public class PlayerMove : TacticsMove {
         Debug.DrawRay(transform.position, transform.forward);
 
         if (!UIManager.MenuIsOn()) {
+
+            //not unit's turn to play
             if (!turn || changingTurn) {
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isWalking", false);
@@ -25,6 +27,7 @@ public class PlayerMove : TacticsMove {
                 return;
             }
 
+            //unit moves then attacks
             else if (movingAttacking) {
                 Move();
                 if (!moving) { //attack only if done moving
@@ -35,6 +38,8 @@ public class PlayerMove : TacticsMove {
                     foundTiles = false;
                 }
             }
+
+            //unit's turn but didn't make a move yet
             else if (!moving && !actionPhase) {
                 if (!foundTiles) {
                     FindSelectableTiles();
@@ -42,6 +47,8 @@ public class PlayerMove : TacticsMove {
                 }
                 CheckMouse();
             }
+
+            //unit already moved but can still attack
             else if (!moving && actionPhase) {
                 if (!foundTiles) {
                     FindAttackableTiles();
@@ -49,6 +56,8 @@ public class PlayerMove : TacticsMove {
                 }
                 CheckMouse();
             }
+
+            //Player clicked on a tile
             else {
                 Move();
             }
@@ -64,8 +73,11 @@ public class PlayerMove : TacticsMove {
         foundTiles = false;
     }
 
-    //moving and attacking in one click (if attack = true)
-    public void FindPathThenAttack(Unit opponent, bool attack=true) {
+    /// <summary>
+    /// Makes unit move and attack in one click (if attack = true)
+    /// </summary>
+    /// <param name="opponent">target to attack</param>
+    public void FindPathThenAttack(Unit opponent) {
         targetTile = GetTargetTile(opponent.gameObject);
         opponentUnit = opponent;
 
@@ -78,6 +90,7 @@ public class PlayerMove : TacticsMove {
                 int dist = 1000;
                 Tile nearTargetTile = targetTile;
 
+                //find a path from target tile to current tile
                 while (range < attackRange) {
                     //get an optimal tile (attackRange dist from enemy)
                     foreach (Tile adjTile in nearTargetTile.adjacencyList) {
@@ -92,9 +105,7 @@ public class PlayerMove : TacticsMove {
                 FindPath(nearTargetTile);
             }
 
-            if (attack) {
-                movingAttacking = true;
-            }
+            movingAttacking = true;
             actualTargetTile.target = true;
         }
     }

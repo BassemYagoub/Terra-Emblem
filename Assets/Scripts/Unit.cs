@@ -59,7 +59,10 @@ public class Unit : MonoBehaviour {
         UIManager.ChangeCursor("arrow");
     }
 
-    //rename function
+    /// <summary>
+    /// Inflicts damage to opponent, plays attack animation and gives xp to attacking unit
+    /// </summary>
+    /// <param name="opponent"></param>
     public void InflictDamage(Unit opponent) {
         gameObject.transform.LookAt(opponent.transform);
         if (unitTM.attackRange == 1) {

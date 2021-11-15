@@ -13,10 +13,10 @@ public class TurnManager : MonoBehaviour {
     static Queue<TacticsMove> turnTeam = new Queue<TacticsMove>(); //turn for each unit of playing team
     static TurnManager turnManager;
     
-    static bool gameEnded = false;
-    static int turnNumber = 1;
+    static bool gameEnded = false; //wether the level is complete
+    static int turnNumber = 1; //number of current turn
 
-    public GameObject turnPanel; //panel
+    public GameObject turnPanel; //panel to show between each team change
     public GameObject[] hiddenObjects; //objects to be shown at a certain turn
     private Text panelText; //text inside panel indicating the team
     float changingDuration = 1.5f;
@@ -57,6 +57,9 @@ public class TurnManager : MonoBehaviour {
         gameEnded = false;
     }
 
+    /// <summary>
+    /// Initializes every unit in the team to play queue
+    /// </summary>
     static void InitTeamTurnQueue() {
         turnManager.newTurn = false;
         List<TacticsMove> teamList = units[turnKey.Peek()];
@@ -69,7 +72,10 @@ public class TurnManager : MonoBehaviour {
         turnManager.Invoke("StartTurn", turnManager.changingDuration);
     }
 
-    //coroutine for changing turn animation
+    /// <summary>
+    /// Coroutine for changing turn animation
+    /// </summary>
+    /// <param name="team">team tag</param>
     public IEnumerator ChangeTeamTurn(string team) {
         yield return new WaitForSeconds(0.5f);
         if (team == "Player") {
@@ -89,7 +95,9 @@ public class TurnManager : MonoBehaviour {
         TacticsMove.changingTurn = false;
     }
 
-    //new turn for a unit (called in "Invoke" function)
+    /// <summary>
+    /// Starts a new turn for a unit (called in "Invoke" function)
+    /// </summary>
     public void StartTurn() {
         if (turnTeam.Count > 0) {
             TacticsMove.changingTurn = false;
@@ -97,6 +105,9 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Ends the turn for current team and start turn for the other team
+    /// </summary>
     public static void EndTurn() {
         TacticsMove unit = turnTeam.Dequeue();
         unit.ResetAllTiles();
@@ -127,7 +138,11 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
-    //exchange turns between units of the same team if unitToPlay still playable
+    /// <summary>
+    /// Exchanges turns between units of the same team if unitToPlay still playable
+    /// </summary>
+    /// <param name="playedUnit">unit currently playing</param>
+    /// <param name="unitToPlay">unit to play now</param>
     public static bool ExchangeTurn(TacticsMove playedUnit, TacticsMove unitToPlay) {
         if (turnTeam.Contains(unitToPlay)) {
             
@@ -148,7 +163,11 @@ public class TurnManager : MonoBehaviour {
         return false;
     }
 
-    //exchange turns between a unit and its relative prev/next one
+    /// <summary>
+    /// Exchanges turns between a unit and its relative prev/next one
+    /// </summary>
+    /// <param name="playedUnit">unit currently playing</param>
+    /// <param name="isNext">if true : unit to play is the next one in queue, else the previous one</param>
     public static void ExchangeTurn(TacticsMove playedUnit, bool isNext) {
         if (turnTeam.Count > 1) {
             string team = turnKey.Peek();
@@ -173,6 +192,10 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Adds a unit to the queue
+    /// </summary>
+    /// <param name="unit">unit to add</param>
     public static void AddUnit(TacticsMove unit) {
         List<TacticsMove> list;
 
@@ -209,7 +232,9 @@ public class TurnManager : MonoBehaviour {
         turnManager.eventTriggered = false;
     }
 
-    //basic function to trigger events while stopping the game : to change if more events are to happen
+    /// <summary>
+    /// Triggers events while stopping the game : to change if more events are to happen
+    /// </summary>
     void TriggerEvents() {
         if (!eventTriggered) { //otherwise : infinite calls during turn
 

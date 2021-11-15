@@ -4,18 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+/// <summary>
+/// Takes in charge every camera movement / rotation
+/// </summary>
 public class CameraMovement : MonoBehaviour {
-    public float maxHeight = 3.0f;
+    public float maxHeight = 3.0f; //limit in y-axis
     public float movingSpeed = 10.0f;
     
-    private GameObject map;
+    private GameObject map; //reference to have boundaries for the camera
     private BoxCollider mapColl; //dimensions of the map to not go too far
     private static List<Unit> units; //every unit in the field
 
     //to follow units
-    static CameraMovement manager;
-    private GameObject followedUnit;
+    static CameraMovement manager; //singleton
+
+    //is the camera following units or free to move
     private bool followingUnits = true;
+
+    //the character that is followed by the camera if it is in follow mode
+    private GameObject followedUnit;
     private TextMeshProUGUI followUnitsText;
 
     // Start is called before the first frame update
@@ -62,6 +70,10 @@ public class CameraMovement : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Moves the camera if it's within the map's boundaries
+    /// </summary>
+    /// <remarks>The camera can be moved with the mouse middle click, by either clicking on it or by using the scroll wheel</remarks>
     void MoveCamera() {
         if (Input.GetKey(KeyCode.Mouse2)) {
             //security for out of bounds
@@ -97,21 +109,33 @@ public class CameraMovement : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// Resets the camera position (will not change the position if camera is following units
+    /// </summary>
     public void ResetCameraPos() {
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = new Quaternion(0, 0, 0, 0);
     }
 
+    /// <summary>
+    /// Rotates the camera by 90°
+    /// </summary>
     public void RotateLeft() {
         transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, 90, Space.Self);
     }
 
+    /// <summary>
+    /// Rotates the camera by -90°
+    /// </summary>
     public void RotateRight() {
         transform.position = new Vector3(0, 0, 0);
         transform.Rotate(Vector3.up, -90, Space.Self);
     }
 
+    /// <summary>
+    /// Rotates every unit HP Bar according to the camera current rotation
+    /// </summary>
     private void RotateUnitsHPBar() {
         foreach (Unit u in units) {
             if(u.hpCanvas != null) {
@@ -120,6 +144,10 @@ public class CameraMovement : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Changes the following mode to either true or false
+    /// </summary>
+    /// <remarks>Also updates UI text for the following mode</remarks>
     public void UpdateFollowMode() {
         followingUnits = !followingUnits;
         if (followingUnits) {
@@ -138,6 +166,13 @@ public class CameraMovement : MonoBehaviour {
         manager.followedUnit = unit;
     }
 
+    /// <summary>
+    /// Makes the camera follow units
+    /// </summary>
+    /// <param name="unit">The unit to follow</param>
+    /// <param name="waitingTime">Time to wait before starting to follow</param>
+    /// <param name="dialogueMode">Optionnal parameter for optimization</param>
+    /// <returns></returns>
     public static IEnumerator FollowUnit(GameObject unit, float waitingTime = 0f, bool dialogueMode = false) {
         yield return new WaitForSeconds(waitingTime);
 
@@ -163,7 +198,7 @@ public class CameraMovement : MonoBehaviour {
 
     }
 
-    //for dialogues
+    //special case for dialogues
     public static void FollowUnit(string unitName) {
         GameObject unit = GameObject.Find(unitName);
         if(unit != null) {
@@ -173,8 +208,12 @@ public class CameraMovement : MonoBehaviour {
             Debug.LogError("Unit Not Found");
         }
     }
-
-    //follow an object for a certain amount of time (used to do some "cinematics")
+    /// <summary>
+    /// Follows an object for a certain amount of time
+    /// </summary>
+    /// <remarks>Function used to do some "cutscenes"</remarks>
+    /// <param name="obj">The object to follow</param>
+    /// <param name="seconds">The amount of time to follow it</param>
     public static IEnumerator FollowObjectFor(GameObject obj, float seconds) {
         bool tmpFollow = manager.followingUnits;
         manager.followingUnits = false;
@@ -200,6 +239,7 @@ public class CameraMovement : MonoBehaviour {
         manager.transform.position = pos;
     }
 
+    //update units list to know which ones can be followed
     public static void UpdateUnits() {
         units = new List<Unit>(GameObject.FindObjectsOfType<Unit>());
     }

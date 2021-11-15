@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+/// <summary>
+/// Takes in charge the global volume of the game
+/// </summary>
+[DisallowMultipleComponent]
 public class AudioManager : MonoBehaviour {
-    static AudioManager manager;
+    static AudioManager manager; //singleton
 
-    AudioSource source;
-    public Slider audioSlider;
+    AudioSource source; //the music to play in the background (currently one per level, or almost)
+    public Slider audioSlider; //slider for audio volume in the options menu
     public AudioClip[] clips; //clips to be triggered
 
     public float delay = 0f; //delay before starting music
@@ -25,6 +29,8 @@ public class AudioManager : MonoBehaviour {
 
         if(audioSlider != null) {
             audioSlider.gameObject.SetActive(true);
+
+            //save audio level for the whole playthrough
             source.volume = PlayerPrefs.GetFloat("SliderVolumeLevel", source.volume);
             audioSlider.value = source.volume;
         }
@@ -36,6 +42,10 @@ public class AudioManager : MonoBehaviour {
         PlayerPrefs.SetFloat("SliderVolumeLevel", source.volume);
     }
 
+
+    /// <summary>
+    /// Coroutine to Wait a certain amount of time before starting the music in a level
+    /// </summary>
     IEnumerator LaunchMusicAfterDelay() {
         float tmpVol = source.volume;
         source.volume = 0;
@@ -48,7 +58,10 @@ public class AudioManager : MonoBehaviour {
         manager.source.volume /= 2;
     }
 
-    //to have a smooth unmute
+    /// <summary>
+    /// Coroutine to transition music volume from 0 to volumeToReach or the invert
+    /// </summary>
+    /// <param name="volumeToReach"></param>
     public static IEnumerator VolumeTransition(float volumeToReach) {
         float step = .05f;
 
@@ -68,7 +81,10 @@ public class AudioManager : MonoBehaviour {
 
     }
 
-
+    /// <summary>
+    /// Coroutine to make a smooth change between audio clips
+    /// </summary>
+    /// <param name="indexClip"></param>
     public static IEnumerator TriggerClipChange(int indexClip) {
         if(manager.clips.Length > 0) {
             manager.StartCoroutine(VolumeTransition(0f));

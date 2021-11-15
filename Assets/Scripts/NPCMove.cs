@@ -21,6 +21,7 @@ public class NPCMove : TacticsMove {
                 return;
             }
 
+            //unit's turn but didn't make a move yet
             if (!moving && !actionPhase) {
                 UpdateTargets();
                 FindNearestTarget();
@@ -28,6 +29,8 @@ public class NPCMove : TacticsMove {
                 //FindSelectableTiles();
                 actualTargetTile.target = true;
             }
+
+            //unit already moved but can still attack
             else if (!moving && actionPhase) {
                 FindAttackableTiles();
                 tacticsMoveUnit.AttackOpponent(target.gameObject.GetComponent<Unit>());
