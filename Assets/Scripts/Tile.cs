@@ -84,6 +84,9 @@ public class Tile : MonoBehaviour {
         UIManager.ChangeCursor("arrow");
     }
 
+    /// <summary>
+    /// Resets most of the tile properties
+    /// </summary>
     public void Reset() {
         adjacencyList.Clear();
         current = false;
@@ -94,23 +97,33 @@ public class Tile : MonoBehaviour {
         inTheWay = false;
         //reachableByEnemy = false;
 
-
         visited = false;
         parent = null;
         distance = 0;
     }
 
-    public void FindNeighbors(float jumpHeight, Tile target, string team, bool attackPhase = false, bool checkEnemyReachable = false) {
+    /// <summary>
+    /// Finds adjacent tiles from a certain tile
+    /// </summary>
+    /// <param name="jumpHeight">unit's jump height</param>
+    /// <param name="target">target tile for A*</param>
+    /// <param name="team">team tag</param>
+    /// <param name="actionPhase">true if unit moved but can still attack</param>
+    /// <param name="checkEnemyReachable">true if wanting to check if enemy can reach unit</param>
+    public void FindNeighbors(float jumpHeight, Tile target, string team, bool actionPhase = false, bool checkEnemyReachable = false) {
         Reset();
 
-        CheckTile(Vector3.forward, jumpHeight, target, team, attackPhase, checkEnemyReachable);
-        CheckTile(Vector3.back, jumpHeight, target, team, attackPhase, checkEnemyReachable);
-        CheckTile(Vector3.right, jumpHeight, target, team, attackPhase, checkEnemyReachable);
-        CheckTile(Vector3.left, jumpHeight, target, team, attackPhase, checkEnemyReachable);
+        CheckTile(Vector3.forward, jumpHeight, target, team, actionPhase, checkEnemyReachable);
+        CheckTile(Vector3.back, jumpHeight, target, team, actionPhase, checkEnemyReachable);
+        CheckTile(Vector3.right, jumpHeight, target, team, actionPhase, checkEnemyReachable);
+        CheckTile(Vector3.left, jumpHeight, target, team, actionPhase, checkEnemyReachable);
     }
 
 
-    
+    /// <summary>
+    /// Checks if an enemy is on top of tile
+    /// </summary>
+    /// <param name="team">the current team tag</param>
     public bool checkIfEnemyOnTop(string team) {
         if (!enemyOnTop) {
             RaycastHit hit;
@@ -136,6 +149,15 @@ public class Tile : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Checks if there is a walkable tile in a certain direction to add it in the adjacency list
+    /// </summary>
+    /// <param name="dir">the direction in which to check</param>
+    /// <param name="jumpHeight">number of tiles unit can jump</param>
+    /// <param name="target">target tile for A*</param>
+    /// <param name="team">team tag</param>
+    /// <param name="actionPhase">true if unit moved but can still attack</param>
+    /// <param name="checkEnemyReachable">true if wanting to check if enemy can reach unit</param>
     public void CheckTile(Vector3 dir, float jumpHeight, Tile target, string team, bool actionPhase, bool checkEnemyReachable) {
         Vector3 halfExtents = new Vector3(0.25f, (1+jumpHeight)/2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
@@ -147,7 +169,7 @@ public class Tile : MonoBehaviour {
                 if (tile != null && tile.walkable) {
                     RaycastHit hit;
 
-                    //if something on top of tile
+                    //if something is on top of tile
                     bool touchUnit = Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1);
 
                     //1st condition for A*
@@ -178,9 +200,14 @@ public class Tile : MonoBehaviour {
             }
         }
     }
-    
 
-    //check if tile with enemy is next to current tile
+
+    /// <summary>
+    /// Checks if a tile with enemy is next to current tile
+    /// </summary>
+    /// <param name="jumpHeight">number of tiles unit can jump</param>
+    /// <param name="team">team tag</param>
+    /// <returns></returns>
     public bool IsNeighborCurrent(float jumpHeight, string team) {
         Vector3 halfExtents = new Vector3(0.25f, (1 + jumpHeight) / 2.0f, 0.25f);
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right};
